@@ -1,4 +1,5 @@
-#Project 1 (A working title)
+Project 1 (A working title)
+
 	This is a prototype for a game made using Ruby and the Tk GUI Toolkit. The game is a turn-based management/strategy game; the player controls a Pacific island with a military base on it. Includes the following features:
 	-Hierarchy/responsibilities:
 		Who gets which jobs, which jobs have which responsibilities
