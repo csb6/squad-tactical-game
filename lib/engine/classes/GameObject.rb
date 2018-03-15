@@ -1,18 +1,17 @@
 class GameObject #General Object that appears on playing field
 	
-	attr_reader :isGameObject, :name, :id, :description, :weight, :size #can only read these
-	attr_accessor :xPos, :yPos, :isBroken #can edit/read these
+	attr_reader :isGameObject, :objectName, :id
 	
-	def initialize(name, id, description, xPos, yPos, weight, size, isBroken)
+	def initialize(objectName, id)
 		@isGameObject = true
-		@name = name
+		@objectName = objectName
 		@id = id
-		@description = description
-		@xPos = xPos
-		@yPos = yPos
-		@weight = weight
-		@size = size
-		@isBroken = isBroken
+#		@description = description
+#		@xPos = xPos
+#		@yPos = yPos
+#		@weight = weight
+#		@size = size
+#		@isBroken = isBroken
 	end
 	
 end
