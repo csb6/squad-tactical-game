@@ -6,12 +6,6 @@ class GameObject #General Object that appears on playing field
 		@isGameObject = true
 		@objectName = objectName
 		@id = id
-#		@description = description
-#		@xPos = xPos
-#		@yPos = yPos
-#		@weight = weight
-#		@size = size
-#		@isBroken = isBroken
 	end
 	
 end

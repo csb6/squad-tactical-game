@@ -1,9 +1,9 @@
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
-	attr_reader :description, :weight, :size, :isInteractive, :isMovable, :panelFile
+	attr_reader :description, :isInteractive, :isMovable, :panelFile
 	attr_accessor :xPos, :yPos, :weight, :size, :isBroken, :imageFile
 	
-	def initialize(objectName, id, xPos, yPos, isBroken)
+	def initialize(objectName, id, xPos, yPos)
 		super(objectName, id)
 		
 		@description = ""
@@ -11,7 +11,7 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@yPos = yPos
 		@weight = 0
 		@size = 0
-		@isBroken = isBroken
+		@isBroken = false
 		@isInteractive = true
 		@isMovable = true
 		@panelFile = ""
@@ -31,7 +31,7 @@ end
 
 	class Cannon < InteractiveObject #Can launch projectiles, can be pushed aside
 		
-		def initialize(objectName, id, xPos, yPos, isBroken)
+		def initialize(objectName, id, xPos, yPos)
 			super
 			
 			@description = "A well-fortified, land-based weapon with powerful range"
@@ -46,7 +46,7 @@ end
 	
 	class Terminal < InteractiveObject #Can control base, can be pushed aside
 		
-		def initialize(objectName, id, xPos, yPos, isBroken)
+		def initialize(objectName, id, xPos, yPos)
 			super
 			
 			@description = "A computer used for operation of devices or communication with outsiders"
@@ -60,14 +60,14 @@ end
 	
 	class Soldier < InteractiveObject
 		
-		def initialize(objectName, id, xPos, yPos, isBroken)
+		def initialize(objectName, id, xPos, yPos)
 			super
 			
 			@description = "A stalwart, sometimes trigger-happy, GI"
 			@weight = 50
 			@size = 1
-			@panelFile = "cannonControlPanel"
-			@imageFile = "image.png"
+			@panelFile = "soldierInfoPanel"
+			@imageFile = "soldier.png"
 		end
 		
 	end	
