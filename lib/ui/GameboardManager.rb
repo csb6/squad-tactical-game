@@ -9,8 +9,9 @@ require_relative '../Constants'
 Tk::Tile::Style.configure('Ocean.TLabel', {"font" => "helvetica 17", "background" => "blue", "foreground" => "blue", "width" => 4, "justify" => "right"} )
 Tk::Tile::Style.configure('Land.TButton', {"font" => "helvetica 12", "background" => "tan", "foreground" => "tan", "width" => 1} )
 Tk::Tile::Style.configure('Soldier.TButton', {"font" => "helvetica 12", "background" => "tan1", "width" => 1} )
-soldierImageFile = TkPhotoImage.new(:file => "/users/kevinblakley/downloads/soldier-smallest.png")
-
+#soldierImageFile = TkPhotoImage.new(:file => "/users/kevinblakley/downloads/soldier-smallest.png")
+soldierImageFile = TkPhotoImage.new(:file => "C:\\users\\moose\\git\\project-1\\lib\\ui\\soldier-smallest.png")
+  
 #jim = Soldier.new("Jim",0,50,40)
 
 root = TkRoot.new() do
