@@ -8,7 +8,8 @@ require_relative '../Constants'
 
 Tk::Tile::Style.configure('Ocean.TLabel', {"font" => "helvetica 17", "background" => "blue", "foreground" => "blue", "width" => 4, "justify" => "right"} )
 Tk::Tile::Style.configure('Land.TButton', {"font" => "helvetica 12", "background" => "tan", "foreground" => "tan", "width" => 1} )
-Tk::Tile::Style.configure('Soldier.TButton', {"font" => "helvetica 12", "background" => "light tan", "width" => 1} )
+Tk::Tile::Style.configure('Soldier.TButton', {"font" => "helvetica 12", "background" => "tan1", "width" => 1} )
+soldierImageFile = TkPhotoImage.new(:file => "/users/kevinblakley/downloads/soldier-smallest.png")
 
 #jim = Soldier.new("Jim",0,50,40)
 
@@ -45,9 +46,14 @@ end
 							grid('row' => 0, 'column' => 1)
 					 end
 
-			gameField = TkFrame.new(root){ grid('row' => 1, 'column' => 0) }
+			gameField = TkFrame.new(root) do
+				padx Constants::FIELD_PADX
+				pady Constants::FIELD_PADY
+				background Constants::BACKGROUND
+				grid('row' => 1, 'column' => 0) 
+			end
 
-def initField(gameField) #When game starts, lays out all tiles as stored in the save
+def initField(gameField, soldierImageFile) #When game starts, lays out all tiles as stored in the save
 	
 	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
 
@@ -57,12 +63,12 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 		row.each do |letter|
 			
 			case letter
-				when'o' #Ocean tile
-					Tk::Tile::Label.new(gameField) do
-						style "Ocean.TLabel"
-						text "~~"
-						grid('row' => r, 'column' => c )
-					end
+#				when'o' #Ocean tile
+#					Tk::Tile::Label.new(gameField) do
+#						style "Ocean.TLabel"
+#						text "~~"
+#						grid('row' => r, 'column' => c )
+#					end
 					
 				when 'l' #Land tile
 					Tk::Tile::Button.new(gameField) do
@@ -74,7 +80,8 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 				when 's' #Soldier tile
 					Tk::Tile::Button.new(gameField) do
 						style "Soldier.TButton"
-						text "S"
+						#text "S"
+						image soldierImageFile
 						grid('row' => r, 'column' => c )
 					end
 			end
@@ -95,5 +102,5 @@ def saveField
 	
 end
 
-initField(gameField)
+initField(gameField, soldierImageFile)
 Tk.mainloop
