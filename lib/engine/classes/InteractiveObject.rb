@@ -21,6 +21,12 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 			style "InteractObj.TButton"
 			grid("row" => yPos, "column" => xPos)
 		end
+		
+		def setStyle(style)
+			@button.style(style)
+		end
+		
+		@button.command{setStyle("Soldier.InteractObj.TButton") }
 	end
 	
 	def openPanel

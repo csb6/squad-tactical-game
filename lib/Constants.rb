@@ -44,15 +44,15 @@ module Constants
 					Tk::Tile::Style.configure('Cannon.InteractObj.TButton', {
 						"background" => "green",
 						"foreground" => "green",
-						"image" => Constants::CANNON_IMAGE})
+						"image" => CANNON_IMAGE})
 									
 					Tk::Tile::Style.configure('Terminal.InteractObj.TButton', {
 						"background" => "grey",
 						"foreground" => "grey",
-						"image" => Constants::TERM_IMAGE})
+						"image" => TERM_IMAGE})
 									
 					Tk::Tile::Style.configure('Soldier.InteractObj.TButton', {
-						"image" => Constants::SOLDIER_IMAGE,
+						"image" => SOLDIER_IMAGE,
 						"background" => "tan1", 
 						"foreground" => "tan1"})
 			
@@ -63,6 +63,6 @@ module Constants
 		"justify" => "right"})
 		
 					Tk::Tile::Style.configure('Wall.StatObj.TLabel', {
-						"image" => Constants::WALL_IMAGE})
+						"image" => WALL_IMAGE})
 			
 end
