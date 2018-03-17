@@ -59,20 +59,16 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 		fieldArray[r] = [ ]
 		row.each do |letter|
 			case letter
-				when 'l' #Land tile
+				when 's' #Sand tile
+					fieldArray[r][c] = Sand.new("sand", c, c, r, gameField)
+					
+				when 'w' #Wall tile
 					fieldArray[r][c] = Tk::Tile::Button.new(gameField) do
-						style "Land.TButton"
-						text "**"
+						style "Wall.StatObj.TButton"
 						grid('row' => r, 'column' => c)
 					end
-					
-				when 's' #Soldier tile
-					fieldArray[r][c] = Tk::Tile::Button.new(gameField) do
-						style "Soldier.TButton"
-						#text "S"
-						image Constants::SOLDIER_IMAGE
-						grid('row' => r, 'column' => c )
-					end
+				when 'h' #Soldier tile
+					fieldArray[r][c] = Soldier.new("Soldier", c, c, r, gameField)
 			end
 			
 			c += 1

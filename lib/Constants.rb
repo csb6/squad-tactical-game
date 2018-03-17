@@ -1,11 +1,5 @@
 module Constants
-	
-	Tk::Tile::Style.configure("")
-	Tk::Tile::Style.configure('Land.TButton', {
-		"font" => "helvetica 12", 
-		"background" => "tan", 
-		"foreground" => "tan", 
-		"width" => 1} )
+
 	#Root Window
 	TITLE = "Project 1"
 	BACKGROUND = "light blue"
