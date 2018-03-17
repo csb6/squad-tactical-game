@@ -17,15 +17,8 @@ class StaticObject < GameObject #Object on playing field that is not interactive
 		@isInteractive = false
 		@isMovable = false
 		
-		@style = Tk::Tile::Style.configure('StatObj.TLabel', {
-			"font" => "helvetica 17", 
-			"width" => 4, 
-			"justify" => "right"
-		} )
-		
-		@button = Tk::Tile::Labelnew(rootWin) do
-					style "StatObj.TLabel"
-					grid('row' => yPos, 'column' => xPos)
+		@button = Tk::Tile::Label.new(rootWin) do
+			grid('row' => yPos, 'column' => xPos)
 		end
 	end
 	
@@ -40,8 +33,7 @@ end
 			@weight = 100
 			@size = 1
 			@isBroken = false
-			Tk::Tile::Style.configure('Wall.StatObj', {
-				"image" => Constants::WALL_IMAGE})
+
 			@button.style("Wall.StatObj.TLabel")
 		end
 	

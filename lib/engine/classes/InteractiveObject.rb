@@ -1,4 +1,3 @@
-require_relative '../../Constants'
 
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
@@ -19,11 +18,12 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@panelFile = ""
 		@rootWin = rootWin
 		
-		@style = Tk::Tile::Style.configure('InteractObj.TButton', {
-			"font" => "helvetica 12",
-			"width" => 1} )
-		
 		@button = Tk::Tile::Button.new(rootWin) do
+			command do
+				TkToplevel.new(rootWin) do
+					geometry "50x50+50+50"
+				end
+			end
 			grid('row' => yPos, 'column' => xPos)
 		end
 	end
@@ -46,11 +46,7 @@ end
 				@weight = 100
 				@size = 1
 				@isBroken = false
-				Tk::Tile::Style.configure('Sand.InteractObj.TButton', {
-					#"image" => Constants::WALL_IMAGE
-					"text" => "**",
-					"background" => "tan", 
-					"foreground" => "tan"})
+
 				@button.style("Sand.InteractObj.TButton")
 			end
 	end
@@ -64,10 +60,7 @@ end
 			@weight = 300
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			Tk::Tile::Style.configure('Cannon.InteractObj', {
-				"background" => "green",
-				"foreground" => "green",
-				"image" => Constants::CANNON_IMAGE} )
+			
 			@button.style("Cannon.InteractObj.TButton")
 		end
 		
@@ -83,10 +76,7 @@ end
 			@weight = 100
 			@size = 1
 			@panelFile = "terminalControlPanel"
-			Tk::Tile::Style.configure('Terminal.InteractObj', {
-				"background" => "grey",
-				"foreground" => "grey",
-				"image" => Constants::TERM_IMAGE} )
+			
 			@button.style("Terminal.InteractObj.TButton")
 		end
 		
@@ -101,10 +91,7 @@ end
 			@weight = 50
 			@size = 1
 			@panelFile = "soldierInfoPanel"
-			Tk::Tile::Style.configure('Soldier.InteractObj.TButton', {
-				"background" => "tan1", 
-				"foreground" => "tan1",
-				"image" => Constants::SOLDIER_IMAGE})
+			
 			@button.style("Soldier.InteractObj.TButton")
 		end
 		

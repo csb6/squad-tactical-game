@@ -1,5 +1,5 @@
 module Constants
-
+	
 	#Root Window
 	TITLE = "Project 1"
 	BACKGROUND = "light blue"
@@ -31,4 +31,40 @@ module Constants
 			WALL_IMAGE_PATH = MAC_PATH + "wall.png"
 			#WALL_IMAGE_PATH = WIN_PATH + "wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
+			
+	Tk::Tile::Style.configure('InteractObj.TButton', {
+			"font" => "helvetica 12",
+			"width" => 1,
+			"text" => "**"})
+					
+				Tk::Tile::Style.configure('Sand.InteractObj.TButton', {
+					#"image" => Constants::WALL_IMAGE
+					"background" => "tan", 
+					"foreground" => "tan",
+					"text" => "**"})
+									
+				Tk::Tile::Style.configure('Cannon.InteractObj', {
+					"background" => "green",
+					"foreground" => "green",
+					"image" => CANNON_IMAGE})
+								
+				Tk::Tile::Style.configure('Terminal.InteractObj', {
+					"background" => "grey",
+					"foreground" => "grey",
+					"image" => TERM_IMAGE})
+								
+				Tk::Tile::Style.configure('Soldier.InteractObj.TButton', {
+					"background" => "tan1", 
+					"foreground" => "tan1",
+					"image" => SOLDIER_IMAGE})
+		
+					
+		Tk::Tile::Style.configure('StatObj.TLabel', {
+			"font" => "helvetica 17", 
+			"width" => 4, 
+			"justify" => "right"})
+			
+				Tk::Tile::Style.configure('Wall.StatObj', {
+					"image" => WALL_IMAGE})
+					
 end
