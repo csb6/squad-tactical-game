@@ -17,24 +17,22 @@ class StaticObject < GameObject #Object on playing field that is not interactive
 		@isInteractive = false
 		@isMovable = false
 		
-		@button = Tk::Tile::Label.new(rootWin) do
-			grid('row' => yPos, 'column' => xPos)
-		end
+		@button.style("Wall.InteractObj.TLabel")
 	end
 	
 end
 
 	class Wall < StaticObject #Object that is not movable, blocks path
 		
-		def initialize(objectName, id, xPos, yPos)
+		def initialize(objectName, id, xPos, yPos, rootWin)
 			super
 			
 			@description = "A sturdy, unmovable barrier"
 			@weight = 100
 			@size = 1
 			@isBroken = false
-
-			@button.style("Wall.StatObj.TLabel")
+			
+			@button.style("Wall.InteractObj.TLabel")
 		end
 	
 	end

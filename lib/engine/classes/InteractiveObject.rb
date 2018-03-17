@@ -1,4 +1,3 @@
-
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
 	attr_reader :description, :isInteractive, :isMovable, :panelFile, :rootWin
@@ -19,12 +18,8 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@rootWin = rootWin
 		
 		@button = Tk::Tile::Button.new(rootWin) do
-			command do
-				TkToplevel.new(rootWin) do
-					geometry "50x50+50+50"
-				end
-			end
-			grid('row' => yPos, 'column' => xPos)
+			style "InteractObj.TButton"
+			grid("row" => yPos, "column" => xPos)
 		end
 	end
 	
@@ -46,7 +41,7 @@ end
 				@weight = 100
 				@size = 1
 				@isBroken = false
-
+				@button.text("**")
 				@button.style("Sand.InteractObj.TButton")
 			end
 	end
@@ -60,7 +55,6 @@ end
 			@weight = 300
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			
 			@button.style("Cannon.InteractObj.TButton")
 		end
 		
@@ -76,7 +70,6 @@ end
 			@weight = 100
 			@size = 1
 			@panelFile = "terminalControlPanel"
-			
 			@button.style("Terminal.InteractObj.TButton")
 		end
 		
@@ -91,7 +84,6 @@ end
 			@weight = 50
 			@size = 1
 			@panelFile = "soldierInfoPanel"
-			
 			@button.style("Soldier.InteractObj.TButton")
 		end
 		
