@@ -1,7 +1,9 @@
+require_relative '../../Constants'
+
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
 	attr_reader :description, :isInteractive, :isMovable, :panelFile
-	attr_accessor :xPos, :yPos, :weight, :size, :isBroken, :imageFile
+	attr_accessor :xPos, :yPos, :weight, :size, :isBroken
 	
 	def initialize(objectName, id, xPos, yPos)
 		super(objectName, id)
@@ -15,7 +17,9 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@isInteractive = true
 		@isMovable = true
 		@panelFile = ""
-		@imageFile = ""
+		Tk::Tile::Style.configure('InteractObj.TButton', {
+			"font" => "helvetica 12",
+			"width" => 1} )
 	end
 	
 	def openPanel
@@ -38,7 +42,10 @@ end
 			@weight = 300
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			@imageFile = "cannon.png"
+			Tk::Tile::Style.configure('Cannon.InteractObj', {
+				"background" => "green",
+				"foreground" => "green",
+				"image" => Constants::CANNON_IMAGE} )
 		end
 		
 	end
@@ -53,7 +60,10 @@ end
 			@weight = 100
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			@imageFile = "terminal.png"
+			Tk::Tile::Style.configure('Cannon.InteractObj', {
+				"background" => "grey",
+				"foreground" => "grey",
+				"image" => Constants::TERM_IMAGE} )
 		end
 		
 	end
@@ -67,7 +77,10 @@ end
 			@weight = 50
 			@size = 1
 			@panelFile = "soldierInfoPanel"
-			@imageFile = "soldier.png"
+			Tk::Tile::Style.configure('Soldier.TButton', {
+				"background" => "tan1", 
+				"foreground" => "tan1",
+				"image" => Constants::SOLDIER_IMAGE} )
 		end
 		
 	end	

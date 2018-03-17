@@ -1,3 +1,5 @@
+require_relative '../../Constants'
+
 class StaticObject < GameObject #Object on playing field that is not interactive, not movable
 	
 	attr_reader :isInteractive, :isMovable
@@ -12,10 +14,28 @@ class StaticObject < GameObject #Object on playing field that is not interactive
 		@isBroken = isBroken
 		@isInteractive = false
 		@isMovable = false
+		Tk::Tile::Style.configure('StatObj.TLabel', {
+			"font" => "helvetica 17", 
+			"width" => 4, 
+			"justify" => "right"
+		} )
 	end
 	
 end
 
+	
+	class Sand < StaticObject
+		def initialize(objectName, id, xPos, yPos)
+			super
+			
+			@description = "Coarse, sandy soil, common throughout the island"
+			@weight = 100
+			@size = 1
+			@isBroken = false
+			Tk::Tile::Style.configure('.StatObj', {
+				"image" => Constants::WALL_IMAGE})
+		end
+	end
 
 	class Wall < StaticObject #Object that is not movable, blocks path
 		
@@ -26,6 +46,8 @@ end
 			@weight = 100
 			@size = 1
 			@isBroken = false
+			Tk::Tile::Style.configure('Wall.StatObj', {
+				"image" => Constants::WALL_IMAGE})
 		end
 	
 	end

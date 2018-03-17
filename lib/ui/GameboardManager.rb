@@ -5,12 +5,6 @@ require_relative '../engine/classes/InteractiveObject'
 require_relative '../Constants'
 
 #Main UI file, adds/removes buttons, monitors for input
-
-Tk::Tile::Style.configure('Ocean.TLabel', {"font" => "helvetica 17", "background" => "blue", "foreground" => "blue", "width" => 4, "justify" => "right"} )
-Tk::Tile::Style.configure('Land.TButton', {"font" => "helvetica 12", "background" => "tan", "foreground" => "tan", "width" => 1} )
-Tk::Tile::Style.configure('Soldier.TButton', {"font" => "helvetica 12", "background" => "tan1", "width" => 1} )
-#soldierImageFile = TkPhotoImage.new(:file => "/users/kevinblakley/downloads/soldier-smallest.png")
-soldierImageFile = TkPhotoImage.new(:file => "C:\\users\\moose\\git\\project-1\\lib\\ui\\soldier-smallest.png")
   
 #jim = Soldier.new("Jim",0,50,40)
 
@@ -54,35 +48,29 @@ end
 				grid('row' => 1, 'column' => 0) 
 			end
 
-def initField(gameField, soldierImageFile) #When game starts, lays out all tiles as stored in the save
+def initField(gameField) #When game starts, lays out all tiles as stored in the save
 	
 	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
+	fieldArray = [ ]
 
 	r = 0
 	rowArray.each do |row|
 		c = 0
+		fieldArray[r] = [ ]
 		row.each do |letter|
-			
 			case letter
-#				when'o' #Ocean tile
-#					Tk::Tile::Label.new(gameField) do
-#						style "Ocean.TLabel"
-#						text "~~"
-#						grid('row' => r, 'column' => c )
-#					end
-					
 				when 'l' #Land tile
-					Tk::Tile::Button.new(gameField) do
+					fieldArray[r][c] = Tk::Tile::Button.new(gameField) do
 						style "Land.TButton"
 						text "**"
 						grid('row' => r, 'column' => c)
 					end
 					
 				when 's' #Soldier tile
-					Tk::Tile::Button.new(gameField) do
+					fieldArray[r][c] = Tk::Tile::Button.new(gameField) do
 						style "Soldier.TButton"
 						#text "S"
-						image soldierImageFile
+						image Constants::SOLDIER_IMAGE
 						grid('row' => r, 'column' => c )
 					end
 			end
@@ -91,7 +79,6 @@ def initField(gameField, soldierImageFile) #When game starts, lays out all tiles
 		end
 		r += 1
 	end
-	
 	
 end
 
@@ -103,5 +90,5 @@ def saveField
 	
 end
 
-initField(gameField, soldierImageFile)
+initField(gameField)
 Tk.mainloop
