@@ -16,6 +16,10 @@ module Constants
 			LEVEL_PATH = MAC_PATH + "levels/island0.csv"
 			#LEVEL_PATH = WIN_PATH + "levels\\island0.csv"
 			
+			SAND_IMAGE_PATH = MAC_PATH + "sand.png"
+			#SAND_IMAGE_PATH = MAC_PATH + "sand.png"
+			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
+			
 			SOLDIER_IMAGE_PATH = MAC_PATH + "soldier-smallest.png"
 			#SOLDIER_IMAGE_PATH = WIN_PATH + "soldier-smallest.png"
 			SOLDIER_IMAGE = TkPhotoImage.new(:file => SOLDIER_IMAGE_PATH)
@@ -31,31 +35,33 @@ module Constants
 			WALL_IMAGE_PATH = MAC_PATH + "wall.png"
 			#WALL_IMAGE_PATH = WIN_PATH + "wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
-			
-	Tk::Tile::Style.configure('InteractObj.TButton', {
+	
+	Tk::Tile::Style.configure('Field.TButton', {
 		"font" => "helvetica 12",
-		"width" => 1})
-						
-					Tk::Tile::Style.configure('Sand.InteractObj.TButton', {
-						#"image" => Constants::SAND_IMAGE
-						"text" => "**",
-						"foreground" => "tan"})
+		"width" => 1
+	})
+					
+	Tk::Tile::Style.configure('InteractObj.Field.TButton', {
+		"state" => "active"})
 										
-					Tk::Tile::Style.configure('Cannon.InteractObj.TButton', {
-						"background" => "green",
-						"foreground" => "green",
-						"image" => CANNON_IMAGE})
+					Tk::Tile::Style.configure('Cannon.InteractObj.Field.TButton', {
+						"image" => CANNON_IMAGE,
+						"background" => "green"})
 									
-					Tk::Tile::Style.configure('Terminal.InteractObj.TButton', {
-						"background" => "grey",
-						"foreground" => "grey",
-						"image" => TERM_IMAGE})
+					Tk::Tile::Style.configure('Terminal.InteractObj.Field.TButton', {
+						"image" => TERM_IMAGE,
+						"background" => "grey"})
 									
-					Tk::Tile::Style.configure('Soldier.InteractObj.TButton', {
+					Tk::Tile::Style.configure('Soldier.InteractObj.Field.TButton', {
 						"image" => SOLDIER_IMAGE,
-						"background" => "tan1", 
-						"foreground" => "tan1"})
-			
+						"background" => "tan1"})
+	
+	Tk::Tile::Style.configure('OccupObj.Field.TButton', {
+		"state" => "active"})
+					
+					Tk::Tile::Style.configure('Sand.OccupObj.Field.TButton', {
+					"image" => SAND_IMAGE,
+					"background" => "tan"})
 						
 	Tk::Tile::Style.configure('StatObj.TLabel', {
 		"font" => "helvetica 17", 
@@ -63,6 +69,7 @@ module Constants
 		"justify" => "right"})
 		
 					Tk::Tile::Style.configure('Wall.StatObj.TLabel', {
-						"image" => WALL_IMAGE})
+						"image" => WALL_IMAGE,
+						"background" => "grey"})
 			
 end

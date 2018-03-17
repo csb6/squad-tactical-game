@@ -1,7 +1,9 @@
 require 'tk'
 require 'csv'
+require_relative '../engine/classes/FieldSpace'
 require_relative '../engine/classes/GameObject'
 require_relative '../engine/classes/InteractiveObject'
+require_relative '../engine/classes/OccupiableObject'
 require_relative '../Constants'
 
 #Main UI file, adds/removes buttons, monitors for input
@@ -50,27 +52,41 @@ end
 
 def initField(gameField) #When game starts, lays out all tiles as stored in the save
 	
-	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
 	fieldArray = [ ]
+	
+	r = 0
+	27.times do
+		c = 0
+		fieldArray[r] = [ ]
+		32.times do
+			fieldArray[r][c] = FieldSpace.new(c, r, gameField)
+			c += 1
+		end
+		r += 1
+	end
+	
+	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
+	styleArray = [ ]
 
 	r = 0
 	rowArray.each do |row|
 		c = 0
-		fieldArray[r] = [ ]
+		styleArray[r] = [ ]
 		row.each do |letter|
 			case letter
 				when 's' #Sand tile
-					fieldArray[r][c] = Sand.new("sand", c, c, r, gameField)
+					styleArray[r][c] = Sand.new("sand", c, r, gameField)
 					
 				when 'w' #Wall tile
-					fieldArray[r][c] = Tk::Tile::Button.new(gameField) do
+					styleArray[r][c] = Tk::Tile::Button.new(gameField) do
 						style "Wall.StatObj.TButton"
 						grid('row' => r, 'column' => c)
 					end
 				when 'h' #Soldier tile
-					fieldArray[r][c] = Soldier.new("Soldier", c, c, r, gameField)
+					styleArray[r][c] = Soldier.new("Soldier", c, r, gameField)
 			end
 			
+			fieldArray[r][c].setStyle( styleArray[r][c].style )
 			c += 1
 		end
 		r += 1
