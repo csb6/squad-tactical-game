@@ -1,6 +1,6 @@
 class OccupiableObject < GameObject #Tile that someone can stand on, basically just the ground
 	
-	def initialize(objectName, xPos, yPos, rootWin)
+	def initialize(objectName, xPos, yPos)
 		super
 		
 		@isOccupiable = true
@@ -10,7 +10,7 @@ class OccupiableObject < GameObject #Tile that someone can stand on, basically j
 end
 
 		class Sand < OccupiableObject
-			def initialize(objectName, xPos, yPos, rootWin)
+			def initialize(objectName, xPos, yPos)
 				super
 				
 				@description = "Coarse, sandy soil, common throughout the island"

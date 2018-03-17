@@ -11,29 +11,33 @@ module Constants
   #Game Field
 	FIELD_PADX = 80
 	FIELD_PADY = 80
+	
 	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/ui/"
 	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\ui\\"
-			LEVEL_PATH = MAC_PATH + "levels/island0.csv"
-			#LEVEL_PATH = WIN_PATH + "levels\\island0.csv"
+	LEVEL_PATH_MAC = "levels/"
+	LEVEL_PATH_WIN = "levels\\"
+	if RUBY_PLATFORM =~ /darwin/ #Determine platform, change paths based on it
+		PATH = MAC_PATH
+		LEVELS_PATH = LEVEL_PATH_MAC
+	else
+		PATH = WIN_PATH
+		LEVELS_PATH = LEVEL_PATH_WIN
+	end
+			LEVEL_PATH = PATH + LEVELS_PATH + "island0.csv"
 			
-			SAND_IMAGE_PATH = MAC_PATH + "sand.png"
-			#SAND_IMAGE_PATH = MAC_PATH + "sand.png"
+			SAND_IMAGE_PATH = PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
 			
-			SOLDIER_IMAGE_PATH = MAC_PATH + "soldier-smallest.png"
-			#SOLDIER_IMAGE_PATH = WIN_PATH + "soldier-smallest.png"
+			SOLDIER_IMAGE_PATH = PATH + "soldier-smallest.png"
 			SOLDIER_IMAGE = TkPhotoImage.new(:file => SOLDIER_IMAGE_PATH)
 			
-			CANNON_IMAGE_PATH = MAC_PATH + "cannon.png"
-			#CANNON_IMAGE_PATH = WIN_PATH + "cannon.png"
+			CANNON_IMAGE_PATH = PATH + "cannon.png"
 			CANNON_IMAGE = TkPhotoImage.new(:file => CANNON_IMAGE_PATH)
 			
-			TERM_IMAGE_PATH = MAC_PATH + "terminal.png"
-			#TERM_IMAGE_PATH = WIN_PATH + "terminal.png"
+			TERM_IMAGE_PATH = PATH + "terminal.png"
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
-			WALL_IMAGE_PATH = MAC_PATH + "wall.png"
-			#WALL_IMAGE_PATH = WIN_PATH + "wall.png"
+			WALL_IMAGE_PATH = PATH + "wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
 	
 	Tk::Tile::Style.configure('Field.TButton', {

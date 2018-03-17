@@ -2,7 +2,7 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		
 	attr_reader :isInteractive, :panelFile
 	
-	def initialize(objectName, xPos, yPos, rootWin)
+	def initialize(objectName, xPos, yPos)
 		super
 		
 		@isInteractive = true
@@ -22,7 +22,7 @@ end
 	
 	class Cannon < InteractiveObject #Can launch projectiles, can be pushed aside
 		
-		def initialize(objectName, xPos, yPos, rootWin)
+		def initialize(objectName, xPos, yPos)
 			super
 			
 			@description = "A well-fortified, land-based weapon with powerful range"
@@ -37,7 +37,7 @@ end
 	
 	class Terminal < InteractiveObject #Can control base, can be pushed aside
 		
-		def initialize(objectName, xPos, yPos, rootWin)
+		def initialize(objectName, xPos, yPos)
 			super
 			
 			@description = "A computer used for operation of devices or communication with outsiders"
@@ -51,7 +51,7 @@ end
 	
 	class Soldier < InteractiveObject
 		
-		def initialize(objectName, xPos, yPos, rootWin)
+		def initialize(objectName, xPos, yPos)
 			super
 			
 			@description = "A stalwart, sometimes trigger-happy, GI"

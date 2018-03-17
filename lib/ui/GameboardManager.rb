@@ -4,11 +4,14 @@ require_relative '../engine/classes/FieldSpace'
 require_relative '../engine/classes/GameObject'
 require_relative '../engine/classes/InteractiveObject'
 require_relative '../engine/classes/OccupiableObject'
+require_relative '../engine/classes/SelectionManager'
 require_relative '../Constants'
 
 #Main UI file, adds/removes buttons, monitors for input
   
 #jim = Soldier.new("Jim",0,50,40)
+
+selectionManager = SelectionManager.instance
 
 root = TkRoot.new() do
   title Constants::TITLE
@@ -50,16 +53,16 @@ end
 				grid('row' => 1, 'column' => 0) 
 			end
 
-def initField(gameField) #When game starts, lays out all tiles as stored in the save
+def initField(selectionManager, gameField) #When game starts, lays out all tiles as stored in the save
 	
 	fieldArray = [ ]
 	
 	r = 0
-	27.times do
+	27.times do #Creates rows and columns of buttons on UI
 		c = 0
 		fieldArray[r] = [ ]
 		32.times do
-			fieldArray[r][c] = FieldSpace.new(c, r, gameField)
+			fieldArray[r][c] = FieldSpace.new(c, r, selectionManager, gameField)
 			c += 1
 		end
 		r += 1
@@ -69,13 +72,13 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 	styleArray = [ ]
 
 	r = 0
-	rowArray.each do |row|
+	rowArray.each do |row| #Assigns styles to the buttons, creates class instances associated w/ those buttons' positions
 		c = 0
 		styleArray[r] = [ ]
 		row.each do |letter|
 			case letter
 				when 's' #Sand tile
-					styleArray[r][c] = Sand.new("sand", c, r, gameField)
+					styleArray[r][c] = Sand.new("Sand", c, r)
 					
 				when 'w' #Wall tile
 					styleArray[r][c] = Tk::Tile::Button.new(gameField) do
@@ -83,7 +86,7 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 						grid('row' => r, 'column' => c)
 					end
 				when 'h' #Soldier tile
-					styleArray[r][c] = Soldier.new("Soldier", c, r, gameField)
+					styleArray[r][c] = Soldier.new("Soldier", c, r)
 			end
 			
 			fieldArray[r][c].setStyle( styleArray[r][c].style )
@@ -94,7 +97,7 @@ def initField(gameField) #When game starts, lays out all tiles as stored in the 
 	
 end
 
-def updateField
+def updateField(isRunning, selectionManager)
 	
 end
 
@@ -102,5 +105,5 @@ def saveField
 	
 end
 
-initField(gameField)
+initField(selectionManager, gameField)
 Tk.mainloop
