@@ -67,12 +67,10 @@ module Constants
 					"image" => SAND_IMAGE,
 					"background" => "tan"})
 						
-	Tk::Tile::Style.configure('StatObj.TLabel', {
-		"font" => "helvetica 17", 
-		"width" => 4, 
-		"justify" => "right"})
+	Tk::Tile::Style.configure('StatObj.Field.TButton', {
+		"state" => "inactive"})
 		
-					Tk::Tile::Style.configure('Wall.StatObj.TLabel', {
+					Tk::Tile::Style.configure('Wall.StatObj.Field.TButton', {
 						"image" => WALL_IMAGE,
 						"background" => "grey"})
 			

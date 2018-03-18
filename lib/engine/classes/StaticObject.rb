@@ -4,7 +4,7 @@ class StaticObject < GameObject #Object on playing field that is not interactive
 	
 	attr_reader :isInteractive
 	
-	def initialize(objectName, xPos, yPos, rootWin)
+	def initialize(objectName, xPos, yPos)
 		super
 		
 		@isInteractive = false
@@ -15,13 +15,13 @@ end
 
 	class Wall < StaticObject #Object that is not movable, blocks path
 		
-		def initialize(objectName, xPos, yPos, rootWin)
+		def initialize(objectName, xPos, yPos)
 			super
 			
 			@description = "A sturdy, unmovable barrier"
 			@weight = 100
 			@size = 1
-			@style = "Wall.InteractObj.TLabel"
+			@style = "Wall.StatObj.Field.TButton"
 		end
 	
 	end

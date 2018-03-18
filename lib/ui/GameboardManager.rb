@@ -3,6 +3,7 @@ require 'csv'
 require_relative '../engine/classes/FieldSpace'
 require_relative '../engine/classes/GameObject'
 require_relative '../engine/classes/InteractiveObject'
+require_relative '../engine/classes/StaticObject'
 require_relative '../engine/classes/OccupiableObject'
 require_relative '../engine/classes/SelectionManager'
 require_relative '../Constants'
@@ -53,12 +54,10 @@ end
 				grid('row' => 1, 'column' => 0) 
 			end
 
-def initField(selectionManager, gameField) #When game starts, lays out all tiles as stored in the save
-	
+def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
 	fieldArray = [ ]
-	
 	r = 0
-	27.times do #Creates rows and columns of buttons on UI
+	27.times do
 		c = 0
 		fieldArray[r] = [ ]
 		32.times do
@@ -68,11 +67,15 @@ def initField(selectionManager, gameField) #When game starts, lays out all tiles
 		r += 1
 	end
 	
-	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
-	styleArray = [ ]
+	return fieldArray
+end
 
+def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
+	styleArray = [ ]
+	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
+	
 	r = 0
-	rowArray.each do |row| #Assigns styles to the buttons, creates class instances associated w/ those buttons' positions
+	rowArray.each do |row| 
 		c = 0
 		styleArray[r] = [ ]
 		row.each do |letter|
@@ -81,10 +84,14 @@ def initField(selectionManager, gameField) #When game starts, lays out all tiles
 					styleArray[r][c] = Sand.new("Sand", c, r)
 					
 				when 'w' #Wall tile
-					styleArray[r][c] = Tk::Tile::Button.new(gameField) do
-						style "Wall.StatObj.TButton"
-						grid('row' => r, 'column' => c)
-					end
+					styleArray[r][c] = Wall.new("Wall", c, r)
+					
+				when 'c'
+					styleArray[r][c] = Cannon.new("Cannon", c, r)
+					
+				when 't'
+					styleArray[r][c] = Terminal.new("Terminal", c, r)
+					
 				when 'h' #Soldier tile
 					styleArray[r][c] = Soldier.new("Soldier", c, r)
 			end
@@ -95,15 +102,26 @@ def initField(selectionManager, gameField) #When game starts, lays out all tiles
 		r += 1
 	end
 	
+	return styleArray
 end
 
-def updateField(isRunning, selectionManager)
-	
-end
+#def updateTiles(fieldArray, selectionManager)
+#	targetX = selectionManager.xPos
+#	targetY = selectionManager.yPos
+#	
+#	fieldArray[ currentxPos ][ currentyPos ].setStyle("Sand.OccupObj.Field.TButton")
+#	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
+#end
 
-def saveField
-	
-end
-
-initField(selectionManager, gameField)
+fieldArray = drawField(selectionManager, gameField)
+styleArray = stylizeField(fieldArray, selectionManager, gameField)
 Tk.mainloop
+#while true
+#	if selectionManager.xPos != nil
+#		if selectionManager.style != fieldArray[selectionManager.yPos][selectionManager.xPos].getStyle
+#			updateTiles(fieldArray, selectionManager)
+#		end
+#	end
+#	Tk.update_idletasks
+#	Tk.update
+#end

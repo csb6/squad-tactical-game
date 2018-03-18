@@ -17,14 +17,19 @@ class FieldSpace
 		
 		#@button.command{setStyle("Soldier.InteractObj.Field.TButton") }
 		@button.command{
-			@selectManager.xPos = @xPos
-			@selectManager.yPos = @yPos
 			@selectManager.style = @button.style
+			if @button.style != 'Sand.OccupObj.Field.TButton'
+				@button.style('Sand.OccupObj.Field.TButton')
+			end
 		}
 	end
 	
 	def setStyle(style)
 		@button.style(style)
+	end
+	
+	def getStyle #Seems broken; fix this
+		return @button.style
 	end
 	
 end
