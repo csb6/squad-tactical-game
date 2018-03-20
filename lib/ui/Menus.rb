@@ -35,7 +35,8 @@ def drawUI(selectionManager)
 				grid('row' => 1, 'column' => 1, 'sticky' => 'w')
 			end
 			
-								selectedName = TkVariable.new(selectionManager.currentName)
+								selectedName = TkVariable.new()
+								selectedName.value = selectionManager.currentName
 			
 								nameLabel = Tk::Tile::Label.new(sideMenu) do
 									textvariable selectedName
@@ -56,4 +57,6 @@ def drawUI(selectionManager)
 									text "Take Cover"
 									grid('row' => 3, 'column' => 0)
 								end
+		
+		return selectedName
 end

@@ -62,7 +62,7 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 					styleArray[r][c] = Soldier.new("Soldier", c, r)
 			end
 			
-			fieldArray[r][c].setStyle( styleArray[r][c].style )
+			fieldArray[r][c].setTraits( styleArray[r][c] )
 			c += 1
 		end
 		r += 1
@@ -79,8 +79,8 @@ end
 #	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
 #end
 
+nameText = drawUI(selectionManager)
 fieldArray = drawField(selectionManager, gameField)
-drawUI(selectionManager)
 styleArray = stylizeField(fieldArray, selectionManager, gameField)
 Tk.mainloop
 #while true

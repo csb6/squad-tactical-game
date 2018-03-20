@@ -17,31 +17,33 @@ class FieldSpace
 		
 		#@button.command{setStyle("Soldier.InteractObj.Field.TButton") }
 		@button.command{
-			if @selectManager.inMovingMode
-				@selectManager.targetStyle = @button.style
-				@button.style = @selectManager.currentStyle
+			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and there's an object ready to move here, swap places with it
+				@selectManager.targetTraits = @traits
+				setTraits(@selectManager.currentTraits)
 				@selectManager.destroyOrig
-				
 				@selectManager.inMovingMode = false
 				
-			elsif @button.style[0][0] === "Soldier.InteractObj.Field.TButton" #button.style[0][0] === the actual string?? Why?!
+			elsif @traits.isMovable
 				@selectManager.currentTile = @button
 				@selectManager.currentName = "Soldier"
 #				@selectManager.currentX = @xPos
 #				@selectManager.currentY = @yPos
-				@selectManager.currentStyle = @button.style
+				@selectManager.currentTraits = @traits
 				
 				@selectManager.inMovingMode = true
 			end
 		}
 	end
 	
-	def setStyle(style)
-		@button.style(style)
+	def setTraits(traits)
+		@traits = traits
+		@button.style = traits.style
+		@traits.xPos = @xPos
+		@traits.yPos = @yPos
 	end
 	
-	def getStyle #Seems broken; fix this
-		return @button.style
+	def getStyle #button.style[0][0] === the actual string?? Why?!
+		return @button.style[0][0]
 	end
 	
 end

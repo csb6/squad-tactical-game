@@ -16,8 +16,6 @@ module Constants
 	  resizable true, true
 	end
 	
-	SELECT_MAN = SelectionManager.instance
-	
 	#Side Menu
 	SIDEBAR_PADX = 30
 	SIDEBAR_PADY = 20

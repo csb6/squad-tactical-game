@@ -3,7 +3,7 @@ require 'singleton'
 class SelectionManager
 	include Singleton
 	
-	attr_accessor :inMovingMode, :currentTile, :currentName, :currentX, :currentY, :currentStyle, :targetStyle
+	attr_accessor :inMovingMode, :currentTile, :currentName, :currentX, :currentY, :currentTraits, :targetTraits
 	
 	def initialize
 		
@@ -11,16 +11,16 @@ class SelectionManager
 		
 		@currentTile = nil
 		
-		@currentName = "Tubby"
+		@currentName = "Soldier"
 		@currentX = nil
 		@currentY = nil
-		@currentStyle = nil
+		@currentTraits = nil
 		
-		@targetStyle = nil
+		@targetTraits = nil
 	end
 	
 	def destroyOrig
-		@currentTile.style = @targetStyle
+		@currentTile.style = @targetTraits.style
 	end
 	
 end
