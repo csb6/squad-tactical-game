@@ -18,6 +18,7 @@ class FieldSpace
 		#@button.command{setStyle("Soldier.InteractObj.Field.TButton") }
 		@button.command{
 			@selectManager.style = @button.style
+			Constants::SELECT_MANG.name = "Soldier"
 			if @button.style != 'Sand.OccupObj.Field.TButton'
 				@button.style('Sand.OccupObj.Field.TButton')
 			end

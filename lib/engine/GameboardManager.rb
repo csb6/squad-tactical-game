@@ -1,53 +1,19 @@
 require 'tk'
 require 'csv'
-require_relative '../engine/classes/FieldSpace'
-require_relative '../engine/classes/GameObject'
-require_relative '../engine/classes/InteractiveObject'
-require_relative '../engine/classes/StaticObject'
-require_relative '../engine/classes/OccupiableObject'
-require_relative '../engine/classes/SelectionManager'
+require_relative 'classes/FieldSpace'
+require_relative 'classes/GameObject'
+require_relative 'classes/InteractiveObject'
+require_relative 'classes/StaticObject'
+require_relative 'classes/OccupiableObject'
+require_relative 'classes/SelectionManager'
+require_relative '../ui/menus'
 require_relative '../Constants'
 
 #Main UI file, adds/removes buttons, monitors for input
   
 #jim = Soldier.new("Jim",0,50,40)
 
-selectionManager = SelectionManager.instance
-
-root = TkRoot.new() do
-  title Constants::TITLE
-  background Constants::BACKGROUND
-  minsize(Constants::WIDTH, Constants::HEIGHT)
-  resizable true, true
-end
-
-      menu = TkFrame.new(root) { grid('row' => 0, 'column' => 0) }
-      
-            TkButton.new(menu) do
-              text "Exit"
-              command{root.destroy}
-              grid('row' => 0, 'column' => 0)
-            end
-            
-            TkButton.new(menu) do
-            		text "Load Game"
-            		
-            		command do
-            			loadFile = Tk::getOpenFile
-            		end
-            		grid('row' => 0, 'column' => 2)
-            end
-            
-            TkButton.new(menu) do
-            		text "Save Game"
-            		
-							command do
-								saveFile = Tk::getSaveFile
-							end
-							grid('row' => 0, 'column' => 1)
-					 end
-
-			gameField = TkFrame.new(root) do
+			gameField = TkFrame.new(Constants::ROOT) do
 				padx Constants::FIELD_PADX
 				pady Constants::FIELD_PADY
 				background Constants::BACKGROUND
@@ -113,8 +79,8 @@ end
 #	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
 #end
 
-fieldArray = drawField(selectionManager, gameField)
-styleArray = stylizeField(fieldArray, selectionManager, gameField)
+fieldArray = drawField(Constants::SELECT_MANG, gameField)
+styleArray = stylizeField(fieldArray, Constants::SELECT_MANG, gameField)
 Tk.mainloop
 #while true
 #	if selectionManager.xPos != nil

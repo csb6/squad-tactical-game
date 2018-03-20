@@ -1,3 +1,5 @@
+require_relative 'engine/classes/SelectionManager'
+
 module Constants
 	
 	#Root Window
@@ -7,9 +9,23 @@ module Constants
 	WIDTH = 1000
 	HEIGHT = 900
 	#HEIGHT = "1000"
+	ROOT = TkRoot.new() do
+	  title Constants::TITLE
+	  background Constants::BACKGROUND
+	  minsize(Constants::WIDTH, Constants::HEIGHT)
+	  resizable true, true
+	end
+	
+	SELECT_MANG = SelectionManager.instance
+	SELECT_NAME = SELECT_MANG.name
+	NAME_VAR = TkVariable.new(SELECT_NAME)
+	
+	#Side Menu
+	SIDEBAR_PADX = 30
+	SIDEBAR_PADY = 20
 	
   #Game Field
-	FIELD_PADX = 80
+	FIELD_PADX = 40
 	FIELD_PADY = 80
 	
 	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/ui/"
