@@ -11,7 +11,7 @@ require_relative '../Constants'
 
 #Main UI file, adds/removes buttons, monitors for input
   
-#jim = Soldier.new("Jim",0,50,40)
+selectionManager = SelectionManager.instance
 
 			gameField = TkFrame.new(Constants::ROOT) do
 				padx Constants::FIELD_PADX
@@ -19,8 +19,6 @@ require_relative '../Constants'
 				background Constants::BACKGROUND
 				grid('row' => 1, 'column' => 0) 
 			end
-
-#selectionManager = SelectionManager.instance
 			
 def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
 	fieldArray = [ ]
@@ -81,8 +79,9 @@ end
 #	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
 #end
 
-fieldArray = drawField(Constants::SELECT_MAN, gameField)
-styleArray = stylizeField(fieldArray, Constants::SELECT_MAN, gameField)
+fieldArray = drawField(selectionManager, gameField)
+drawUI(selectionManager)
+styleArray = stylizeField(fieldArray, selectionManager, gameField)
 Tk.mainloop
 #while true
 #	if selectionManager.xPos != nil
