@@ -35,8 +35,10 @@ sideMenu = TkFrame.new(Constants::ROOT) do
 	grid('row' => 1, 'column' => 1, 'sticky' => 'w')
 end
 
+					selectedName = TkVariable.new(Constants::SELECT_MAN.currentName)
+
 					nameLabel = Tk::Tile::Label.new(sideMenu) do
-						textvariable Constants::NAME_VAR
+						textvariable selectedName
 						grid('row' => 0, 'column' => 0)
 					end
 					

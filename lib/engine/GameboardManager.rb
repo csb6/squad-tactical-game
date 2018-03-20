@@ -20,6 +20,8 @@ require_relative '../Constants'
 				grid('row' => 1, 'column' => 0) 
 			end
 
+#selectionManager = SelectionManager.instance
+			
 def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
 	fieldArray = [ ]
 	r = 0
@@ -79,8 +81,8 @@ end
 #	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
 #end
 
-fieldArray = drawField(Constants::SELECT_MANG, gameField)
-styleArray = stylizeField(fieldArray, Constants::SELECT_MANG, gameField)
+fieldArray = drawField(Constants::SELECT_MAN, gameField)
+styleArray = stylizeField(fieldArray, Constants::SELECT_MAN, gameField)
 Tk.mainloop
 #while true
 #	if selectionManager.xPos != nil

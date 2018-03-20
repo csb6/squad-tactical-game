@@ -3,13 +3,18 @@ require 'singleton'
 class SelectionManager
 	include Singleton
 	
-	attr_accessor :xPos, :yPos, :style, :lastX, :lastY, :lastStyle, :name
+	attr_accessor :inMovingMode, :currentName, :currentX, :currentY, :currentStyle, :targetStyle
 	
 	def initialize
-		@xPos = nil
-		@yPos = nil
-		@name = "Sand"
-		@style = nil
+		
+		@inMovingMode = false
+		
+		@currentName = "Tubby"
+		@currentX = nil
+		@currentY = nil
+		@currentStyle = nil
+		
+		@targetStyle = nil
 	end
 	
 end

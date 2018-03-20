@@ -16,9 +16,7 @@ module Constants
 	  resizable true, true
 	end
 	
-	SELECT_MANG = SelectionManager.instance
-	SELECT_NAME = SELECT_MANG.name
-	NAME_VAR = TkVariable.new(SELECT_NAME)
+	SELECT_MAN = SelectionManager.instance
 	
 	#Side Menu
 	SIDEBAR_PADX = 30
