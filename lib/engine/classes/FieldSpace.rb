@@ -25,7 +25,8 @@ class FieldSpace
 				
 			elsif @traits.isMovable
 				@selectManager.currentTile = @button
-				@selectManager.currentName = "Soldier"
+				@selectManager.labelText.value = @traits.objectName
+#				@selectManager.currentName = "Soldier"
 #				@selectManager.currentX = @xPos
 #				@selectManager.currentY = @yPos
 				@selectManager.currentTraits = @traits

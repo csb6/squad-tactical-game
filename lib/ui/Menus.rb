@@ -39,23 +39,22 @@ def drawUI(selectionManager)
 								selectedName.value = selectionManager.currentName
 			
 								nameLabel = Tk::Tile::Label.new(sideMenu) do
-									textvariable selectedName
+									textvariable selectionManager.labelText
 									grid('row' => 0, 'column' => 0)
 								end
 								
-								walkButton = Tk::Tile::Button.new(sideMenu) do
-									text "Walk"
-									grid('row' => 1, 'column' => 0)
-								end
+									def updateSelectedName(name)
+										selectedName = name
+									end
 								
 								attackButton = Tk::Tile::Button.new(sideMenu) do
 									text "Attack"
-									grid('row' => 2, 'column' => 0)
+									grid('row' => 1, 'column' => 0)
 								end
 								
 								takeCoverButton = Tk::Tile::Button.new(sideMenu) do
 									text "Take Cover"
-									grid('row' => 3, 'column' => 0)
+									grid('row' => 2, 'column' => 0)
 								end
 		
 		return selectedName

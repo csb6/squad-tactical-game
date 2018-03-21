@@ -3,7 +3,7 @@ require 'singleton'
 class SelectionManager
 	include Singleton
 	
-	attr_accessor :inMovingMode, :currentTile, :currentName, :currentX, :currentY, :currentTraits, :targetTraits
+	attr_accessor :inMovingMode, :currentTile, :currentName, :currentX, :currentY, :currentTraits, :targetTraits, :labelText
 	
 	def initialize
 		
@@ -11,7 +11,8 @@ class SelectionManager
 		
 		@currentTile = nil
 		
-		@currentName = "Soldier"
+#		@currentName = "Tubby"
+		@labelText = TkVariable.new("")
 		@currentX = nil
 		@currentY = nil
 		@currentTraits = nil
