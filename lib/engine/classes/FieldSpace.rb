@@ -12,23 +12,20 @@ class FieldSpace
 		@rootWin = rootWin
 		@button = Tk::Tile::Button.new(rootWin) do
 			style "Field.TButton"
-			grid("row" => yPos, "column" => xPos)
+			grid("row" => yPos, "column" => xPos) #Key that it's xPos, not @xPos; tiles must stay at their initial assigned location
 		end
 		
-		#@button.command{setStyle("Soldier.InteractObj.Field.TButton") }
 		@button.command{
-			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and there's an object ready to move here, swap places with it
+			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
 				@selectManager.targetTraits = @traits
 				setTraits(@selectManager.currentTraits)
 				@selectManager.destroyOrig
+				
 				@selectManager.inMovingMode = false
 				
 			elsif @traits.isMovable
 				@selectManager.currentTile = @button
 				@selectManager.labelText.value = @traits.objectName
-#				@selectManager.currentName = "Soldier"
-#				@selectManager.currentX = @xPos
-#				@selectManager.currentY = @yPos
 				@selectManager.currentTraits = @traits
 				
 				@selectManager.inMovingMode = true
@@ -43,7 +40,7 @@ class FieldSpace
 		@traits.yPos = @yPos
 	end
 	
-	def getStyle #button.style[0][0] === the actual string?? Why?!
+	def getStyle #button.style[0][0] === the actual style name string?? Why?!
 		return @button.style[0][0]
 	end
 	

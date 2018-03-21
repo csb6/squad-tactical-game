@@ -71,24 +71,7 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 	return styleArray
 end
 
-#def updateTiles(fieldArray, selectionManager)
-#	targetX = selectionManager.xPos
-#	targetY = selectionManager.yPos
-#	
-#	fieldArray[ currentxPos ][ currentyPos ].setStyle("Sand.OccupObj.Field.TButton")
-#	fieldArray[ 5 ][ 5 ].setStyle(currentStyle)
-#end
-
-nameText = drawUI(selectionManager)
+drawUI(selectionManager)
 fieldArray = drawField(selectionManager, gameField)
 styleArray = stylizeField(fieldArray, selectionManager, gameField)
 Tk.mainloop
-#while true
-#	if selectionManager.xPos != nil
-#		if selectionManager.style != fieldArray[selectionManager.yPos][selectionManager.xPos].getStyle
-#			updateTiles(fieldArray, selectionManager)
-#		end
-#	end
-#	Tk.update_idletasks
-#	Tk.update
-#end

@@ -35,17 +35,10 @@ def drawUI(selectionManager)
 				grid('row' => 1, 'column' => 1, 'sticky' => 'w')
 			end
 			
-								selectedName = TkVariable.new()
-								selectedName.value = selectionManager.currentName
-			
-								nameLabel = Tk::Tile::Label.new(sideMenu) do
+								nameLabel = Tk::Tile::Label.new(sideMenu) do #Shows objectName of currently selected object
 									textvariable selectionManager.labelText
 									grid('row' => 0, 'column' => 0)
 								end
-								
-									def updateSelectedName(name)
-										selectedName = name
-									end
 								
 								attackButton = Tk::Tile::Button.new(sideMenu) do
 									text "Attack"
@@ -56,6 +49,15 @@ def drawUI(selectionManager)
 									text "Take Cover"
 									grid('row' => 2, 'column' => 0)
 								end
+								
+								deselectButton = Tk::Tile::Button.new(sideMenu) do
+									text "Deselect Unit"
+									command do
+										if selectionManager.labelText
+											selectionManager.labelText = false
+										end
+									end
+									grid('row' => 3, 'column' => 0)
+								end
 		
-		return selectedName
 end
