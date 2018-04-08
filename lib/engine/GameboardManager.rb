@@ -46,6 +46,8 @@ def updateField(fieldArray, selectionManager)
 			fieldArray[currentRow][currentCol].setTraits(selectionManager.targetTraits)
 			fieldArray[targetRow][targetCol].setTraits(selectionManager.currentTraits)
 			selectionManager.isTargetSet = false
+			fieldArray = nil
+			targetRow, targetCol, currentRow, currentCol = nil
 		end
 end
 
@@ -81,16 +83,15 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 		r += 1
 	end
 	
-	return styleArray
+	styleArray = nil
 end
 
 drawUI(selectionManager)
 fieldArray = drawField(selectionManager, gameField)
-styleArray = stylizeField(fieldArray, selectionManager, gameField)
-#Tk.after(100, updateField(fieldArray, selectionManager) )
-while true
+stylizeField(fieldArray, selectionManager, gameField)
+
+while selectionManager.rootExists #While main window exists
 	updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
 	Tk.update_idletasks
 	Tk.update
 end
-Tk.mainloop

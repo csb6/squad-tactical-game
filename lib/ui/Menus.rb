@@ -6,7 +6,10 @@ def drawUI(selectionManager)
 			      
 			            TkButton.new(topMenu) do
 			              text "Exit"
-			              command{root.destroy}
+			              command do
+			              	selectionManager.rootExists = false
+			              	root.destroy
+			              end
 			              grid('row' => 0, 'column' => 0)
 			            end
 			            
@@ -53,8 +56,8 @@ def drawUI(selectionManager)
 								deselectButton = Tk::Tile::Button.new(sideMenu) do
 									text "Deselect Unit"
 									command do
-										if selectionManager.labelText
-											selectionManager.labelText = false
+										if selectionManager.inMovingMode #Tells manager to stop looking for tile to move to
+											selectionManager.inMovingMode = false
 										end
 									end
 									grid('row' => 3, 'column' => 0)

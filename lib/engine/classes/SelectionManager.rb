@@ -3,18 +3,17 @@ require 'singleton'
 class SelectionManager
 	include Singleton
 	
-	attr_accessor :inMovingMode, :currentTile, :currentTraits, :targetTraits, :labelText, :isTargetSet
+	attr_accessor :inMovingMode, :rootExists, :currentTraits, :targetTraits, :labelText, :isTargetSet
 	
 	def initialize
 		
 		@inMovingMode = false
 		@isTargetSet = false
 		
-		@currentTile = nil
-		
 		@labelText = TkVariable.new("")
-		@currentTraits = nil
+		@rootExists = true
 		
+		@currentTraits = nil
 		@targetTraits = nil
 	end
 	
