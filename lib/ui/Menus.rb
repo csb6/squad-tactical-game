@@ -45,6 +45,9 @@ def drawUI(selectionManager)
 								
 								attackButton = Tk::Tile::Button.new(sideMenu) do
 									text "Attack"
+									command do
+										selectionManager.inShootingMode = true
+									end
 									grid('row' => 1, 'column' => 0)
 								end
 								
@@ -58,6 +61,7 @@ def drawUI(selectionManager)
 									command do
 										if selectionManager.inMovingMode #Tells manager to stop looking for tile to move to
 											selectionManager.inMovingMode = false
+											selectionManager.inShootingMode = false
 										end
 									end
 									grid('row' => 3, 'column' => 0)

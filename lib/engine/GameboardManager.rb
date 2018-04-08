@@ -37,7 +37,7 @@ def drawField(selectionManager, gameField)#Creates rows and columns of buttons o
 end
 
 def updateField(fieldArray, selectionManager)
-		if selectionManager.isTargetSet
+		if selectionManager.isTargetSet #If a soldier is directed to go somewhere
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos
 			currentRow = selectionManager.currentTraits.yPos
@@ -46,9 +46,23 @@ def updateField(fieldArray, selectionManager)
 			fieldArray[currentRow][currentCol].setTraits(selectionManager.targetTraits)
 			fieldArray[targetRow][targetCol].setTraits(selectionManager.currentTraits)
 			selectionManager.isTargetSet = false
-			fieldArray = nil
+			targetRow, targetCol, currentRow, currentCol = nil
+			
+		elsif selectionManager.isVictimSet #If a soldier has picked a target to shoot
+			targetRow = selectionManager.victimY
+			targetCol = selectionManager.victimX
+			currentRow = selectionManager.shooterY
+			currentCol = selectionManager.shooterX
+			
+			fieldArray[currentRow][currentCol].setAmmo(selectionManager.shooterAmmo - 1)
+				puts "Ammo: #{selectionManager.shooterAmmo-1}"
+			fieldArray[targetRow][targetCol].setHealth(selectionManager.victimHealth - 15)
+				puts "Ouch!!"
+			
+			selectionManager.isVictimSet = false
 			targetRow, targetCol, currentRow, currentCol = nil
 		end
+		return fieldArray
 end
 
 def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
@@ -91,7 +105,7 @@ fieldArray = drawField(selectionManager, gameField)
 stylizeField(fieldArray, selectionManager, gameField)
 
 while selectionManager.rootExists #While main window exists
-	updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
+	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
 	Tk.update_idletasks
 	Tk.update
 end

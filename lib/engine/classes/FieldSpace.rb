@@ -16,17 +16,31 @@ class FieldSpace
 		end
 		
 		@button.command{
+			@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
+			
 			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
 				@selectManager.targetTraits = @traits
 				@selectManager.inMovingMode = false
 				@selectManager.isTargetSet = true
 				
-			elsif @traits.isMovable
+			elsif @traits.isInteractive && @selectManager.inShootingMode
+				@selectManager.shooterAmmo = @traits.ammo
+				@selectManager.shooterX = @xPos
+				@selectManager.shooterY = @yPos
+				@selectManager.inShootingMode = false
+				@selectManager.isShooterSet = true
+					
+			elsif @traits.isInteractive && @selectManager.isShooterSet
+				@selectManager.victimX = @xPos
+				@selectManager.victimY = @yPos
+				@selectManager.victimHealth = @traits.health
+				@selectManager.isShooterSet = false
+				@selectManager.isVictimSet = true
+				
+			elsif @traits.isMovable && !@selectManager.inShootingMode #If space can be moved, not in shoot mode, put it in moving mode
 				@selectManager.currentTraits = @traits
 				@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
 				@selectManager.inMovingMode = true
-			else
-				@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
 			end
 		}
 	end
@@ -36,6 +50,14 @@ class FieldSpace
 		@button.style = traits.style
 		@traits.xPos = @xPos
 		@traits.yPos = @yPos
+	end
+	
+	def setAmmo(ammoAmt)
+		@traits.ammo = ammoAmt
+	end
+	
+	def setHealth(healthAmt)
+		@traits.health = healthAmt
 	end
 	
 	def getStyle #button.style[0][0] === the actual style name string?? Why?!

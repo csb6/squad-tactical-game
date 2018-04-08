@@ -5,7 +5,7 @@
 
 class GameObject
 	
-	attr_reader :isGameObject, :objectName, :description, :weight, :size
+	attr_reader :isGameObject, :objectName, :description, :weight, :size, :isInteractive
 	attr_accessor :xPos, :yPos, :isBroken, :isMovable, :isOccupiable, :isOccupied, :style
 	
 	def initialize(objectName, xPos, yPos)
@@ -21,6 +21,7 @@ class GameObject
 		@isMovable = false
 		@isOccupiable = false
 		@isOccupied = true
+		@isInteractive = false
 	end
 	
 end

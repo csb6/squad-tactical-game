@@ -1,6 +1,6 @@
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
-	attr_reader :isInteractive, :panelFile, :team
+	attr_reader :panelFile, :team
 	
 	def initialize(objectName, xPos, yPos)
 		super
@@ -74,7 +74,8 @@ end
 	
 	class Soldier < InteractiveObject
 		
-		attr_accessor :weapon
+		attr_accessor :weapon, :health, :ammo
+		attr_reader :canShoot
 		
 		def initialize(objectName, xPos, yPos)
 			super
@@ -84,7 +85,10 @@ end
 			@size = 1
 			@panelFile = "soldierInfoPanel"
 			@isMovable = true
+			@canShoot = true
 			@weapon = "gun"
+			@health = 100
+			@ammo = 50
 			@style = "Soldier.InteractObj.Field.TButton"
 		end
 		
