@@ -75,7 +75,6 @@ end
 	class Soldier < InteractiveObject
 		
 		attr_accessor :weapon, :health, :ammo
-		attr_reader :canShoot
 		
 		def initialize(objectName, xPos, yPos)
 			super

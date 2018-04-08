@@ -23,14 +23,14 @@ class FieldSpace
 				@selectManager.inMovingMode = false
 				@selectManager.isTargetSet = true
 				
-			elsif @traits.isInteractive && @selectManager.inShootingMode
+			elsif @traits.canShoot && @selectManager.inShootingMode
 				@selectManager.shooterAmmo = @traits.ammo
 				@selectManager.shooterX = @xPos
 				@selectManager.shooterY = @yPos
 				@selectManager.inShootingMode = false
 				@selectManager.isShooterSet = true
 					
-			elsif @traits.isInteractive && @selectManager.isShooterSet
+			elsif @traits.canShoot && @selectManager.isShooterSet
 				@selectManager.victimX = @xPos
 				@selectManager.victimY = @yPos
 				@selectManager.victimHealth = @traits.health
