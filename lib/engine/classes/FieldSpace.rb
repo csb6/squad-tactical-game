@@ -18,17 +18,15 @@ class FieldSpace
 		@button.command{
 			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
 				@selectManager.targetTraits = @traits
-				setTraits(@selectManager.currentTraits)
-				@selectManager.destroyOrig
-				
 				@selectManager.inMovingMode = false
+				@selectManager.isTargetSet = true
 				
 			elsif @traits.isMovable
-				@selectManager.currentTile = @button
-				@selectManager.labelText.value = @traits.objectName
 				@selectManager.currentTraits = @traits
-				
+				@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
 				@selectManager.inMovingMode = true
+			else
+				@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
 			end
 		}
 	end

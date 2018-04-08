@@ -36,6 +36,19 @@ def drawField(selectionManager, gameField)#Creates rows and columns of buttons o
 	return fieldArray
 end
 
+def updateField(fieldArray, selectionManager)
+		if selectionManager.isTargetSet
+			targetRow = selectionManager.targetTraits.yPos
+			targetCol = selectionManager.targetTraits.xPos
+			currentRow = selectionManager.currentTraits.yPos
+			currentCol = selectionManager.currentTraits.xPos
+			
+			fieldArray[currentRow][currentCol].setTraits(selectionManager.targetTraits)
+			fieldArray[targetRow][targetCol].setTraits(selectionManager.currentTraits)
+			selectionManager.isTargetSet = false
+		end
+end
+
 def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
 	styleArray = [ ]
 	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
@@ -74,4 +87,10 @@ end
 drawUI(selectionManager)
 fieldArray = drawField(selectionManager, gameField)
 styleArray = stylizeField(fieldArray, selectionManager, gameField)
+#Tk.after(100, updateField(fieldArray, selectionManager) )
+while true
+	updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
+	Tk.update_idletasks
+	Tk.update
+end
 Tk.mainloop
