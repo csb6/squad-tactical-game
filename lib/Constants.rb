@@ -6,13 +6,13 @@ module Constants
 	TITLE = "Project 1"
 	BACKGROUND = "light blue"
 	#WIDTH = "1920"
-	WIDTH = 1000
-	HEIGHT = 900
+	ROOT_WIDTH = 1000
+	ROOT_HEIGHT = 900
 	#HEIGHT = "1000"
 	ROOT = TkRoot.new() do
 	  title Constants::TITLE
 	  background Constants::BACKGROUND
-	  minsize(Constants::WIDTH, Constants::HEIGHT)
+	  minsize(Constants::ROOT_WIDTH, Constants::ROOT_HEIGHT)
 	  resizable true, true
 	end
 	
@@ -23,7 +23,10 @@ module Constants
   #Game Field
 	FIELD_PADX = 40
 	FIELD_PADY = 80
+	FIELD_WIDTH = 27
+	FIELD_HEIGHT = 32
 	
+	#Files
 	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/ui/"
 	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\ui\\"
 	LEVEL_PATH_MAC = "levels/"
@@ -57,33 +60,33 @@ module Constants
 		"width" => 1
 	})
 					
-	Tk::Tile::Style.configure('InteractObj.Field.TButton', {
-		"state" => "active"})
+		Tk::Tile::Style.configure('InteractObj.Field.TButton', {
+			"state" => "active"})
+											
+						Tk::Tile::Style.configure('Cannon.InteractObj.Field.TButton', {
+							"image" => CANNON_IMAGE,
+							"background" => "green"})
 										
-					Tk::Tile::Style.configure('Cannon.InteractObj.Field.TButton', {
-						"image" => CANNON_IMAGE,
-						"background" => "green"})
-									
-					Tk::Tile::Style.configure('Terminal.InteractObj.Field.TButton', {
-						"image" => TERM_IMAGE,
-						"background" => "grey"})
-									
-					Tk::Tile::Style.configure('Soldier.InteractObj.Field.TButton', {
-						"image" => SOLDIER_IMAGE,
-						"background" => "tan1"})
-	
-	Tk::Tile::Style.configure('OccupObj.Field.TButton', {
-		"state" => "active"})
-					
-					Tk::Tile::Style.configure('Sand.OccupObj.Field.TButton', {
-					"image" => SAND_IMAGE,
-					"background" => "tan"})
-						
-	Tk::Tile::Style.configure('StatObj.Field.TButton', {
-		"state" => "inactive"})
+						Tk::Tile::Style.configure('Terminal.InteractObj.Field.TButton', {
+							"image" => TERM_IMAGE,
+							"background" => "grey"})
+										
+						Tk::Tile::Style.configure('Soldier.InteractObj.Field.TButton', {
+							"image" => SOLDIER_IMAGE,
+							"background" => "tan1"})
 		
-					Tk::Tile::Style.configure('Wall.StatObj.Field.TButton', {
-						"image" => WALL_IMAGE,
-						"background" => "grey"})
+		Tk::Tile::Style.configure('OccupObj.Field.TButton', {
+			"state" => "active"})
+						
+						Tk::Tile::Style.configure('Sand.OccupObj.Field.TButton', {
+						"image" => SAND_IMAGE,
+						"background" => "tan"})
+							
+		Tk::Tile::Style.configure('StatObj.Field.TButton', {
+			"state" => "inactive"})
+			
+						Tk::Tile::Style.configure('Wall.StatObj.Field.TButton', {
+							"image" => WALL_IMAGE,
+							"background" => "grey"})
 			
 end

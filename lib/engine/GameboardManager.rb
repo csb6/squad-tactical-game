@@ -23,10 +23,10 @@ selectionManager = SelectionManager.instance
 def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
 	fieldArray = [ ]
 	r = 0
-	27.times do
+	Constants::FIELD_WIDTH.times do
 		c = 0
 		fieldArray[r] = [ ]
-		32.times do
+		Constants::FIELD_HEIGHT.times do
 			fieldArray[r][c] = FieldSpace.new(c, r, selectionManager, gameField)
 			c += 1
 		end
@@ -37,7 +37,8 @@ def drawField(selectionManager, gameField)#Creates rows and columns of buttons o
 end
 
 def updateField(fieldArray, selectionManager)
-		if selectionManager.isTargetSet #If a soldier is directed to go somewhere
+		#if selectionManager.isTargetSet #If a soldier is directed to go somewhere
+		if selectionManager.inMovingMode
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos
 			currentRow = selectionManager.currentTraits.yPos
@@ -45,59 +46,63 @@ def updateField(fieldArray, selectionManager)
 			
 			fieldArray[currentRow][currentCol].setTraits(selectionManager.targetTraits)
 			fieldArray[targetRow][targetCol].setTraits(selectionManager.currentTraits)
+			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
+			selectionManager.inMovingMode = false
 			targetRow, targetCol, currentRow, currentCol = nil
 			
-		elsif selectionManager.isVictimSet #If a soldier has picked a target to shoot
-			targetRow = selectionManager.victimY
-			targetCol = selectionManager.victimX
-			currentRow = selectionManager.shooterY
-			currentCol = selectionManager.shooterX
+#		elsif selectionManager.isVictimSet #If a soldier has picked a target to shoot
+		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
+			targetRow = selectionManager.targetTraits.yPos
+			targetCol = selectionManager.targetTraits.xPos
+			currentRow = selectionManager.currentTraits.yPos
+			currentCol = selectionManager.currentTraits.xPos
 			
-			fieldArray[currentRow][currentCol].setAmmo(selectionManager.shooterAmmo - 1)
-				puts "Ammo: #{selectionManager.shooterAmmo-1}"
-			fieldArray[targetRow][targetCol].setHealth(selectionManager.victimHealth - 15)
+			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
+				puts "Ammo: #{selectionManager.currentTraits.ammo}"
+			fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
 				puts "Ouch!!"
 			
-			selectionManager.isVictimSet = false
+			selectionManager.isCurrentSet = false
+			selectionManager.isTargetSet = false
+			selectionManager.inShootingMode = false
+#			selectionManager.isVictimSet = false
 			targetRow, targetCol, currentRow, currentCol = nil
 		end
 		return fieldArray
 end
 
 def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
-	styleArray = [ ]
 	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
+	style = nil
 	
 	r = 0
 	rowArray.each do |row| 
 		c = 0
-		styleArray[r] = [ ]
 		row.each do |letter|
 			case letter
 				when 's' #Sand tile
-					styleArray[r][c] = Sand.new("Sand", c, r)
+					style = Sand.new("Sand", c, r)
 					
 				when 'w' #Wall tile
-					styleArray[r][c] = Wall.new("Wall", c, r)
+					style = Wall.new("Wall", c, r)
 					
 				when 'c'
-					styleArray[r][c] = Cannon.new("Cannon", c, r)
+					style = Cannon.new("Cannon", c, r)
 					
 				when 't'
-					styleArray[r][c] = Terminal.new("Terminal", c, r)
+					style = Terminal.new("Terminal", c, r)
 					
 				when 'h' #Soldier tile
-					styleArray[r][c] = Soldier.new("Soldier #{c} #{r}", c, r)
+					style = Soldier.new("Soldier #{c} #{r}", c, r)
 			end
 			
-			fieldArray[r][c].setTraits( styleArray[r][c] )
+			fieldArray[r][c].setTraits( style )
+			style = nil
 			c += 1
 		end
 		r += 1
 	end
-	
-	styleArray = nil
 end
 
 drawUI(selectionManager)

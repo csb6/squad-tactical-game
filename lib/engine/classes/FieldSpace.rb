@@ -18,30 +18,46 @@ class FieldSpace
 		@button.command{
 			@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
 			
-			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
-				@selectManager.targetTraits = @traits
-				@selectManager.inMovingMode = false
-				@selectManager.isTargetSet = true
-				
-			elsif @traits.canShoot && @selectManager.inShootingMode
-				@selectManager.shooterAmmo = @traits.ammo
-				@selectManager.shooterX = @xPos
-				@selectManager.shooterY = @yPos
-				@selectManager.inShootingMode = false
-				@selectManager.isShooterSet = true
-					
-			elsif @traits.canShoot && @selectManager.isShooterSet
-				@selectManager.victimX = @xPos
-				@selectManager.victimY = @yPos
-				@selectManager.victimHealth = @traits.health
-				@selectManager.isShooterSet = false
-				@selectManager.isVictimSet = true
-				
-			elsif @traits.isMovable && !@selectManager.inShootingMode #If space can be moved, not in shoot mode, put it in moving mode
+			if !@selectManager.isCurrentSet && @traits.isMovable #If no tile currently selected, select the one clicked on
 				@selectManager.currentTraits = @traits
-				@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
-				@selectManager.inMovingMode = true
+				@selectManager.isCurrentSet = true
+				
+			elsif !@selectManager.isTargetSet #If no tile currently targeted, select the one clicked on
+				if @selectManager.inShootingMode
+					if @traits.canShoot
+						@selectManager.targetTraits = @traits
+						@selectManager.isTargetSet = true
+					end
+				else
+					if @traits.isOccupiable
+						@selectManager.targetTraits = @traits
+						@selectManager.isTargetSet = true
+						@selectManager.inMovingMode = true
+					end
+				end
+				@selectManager.targetTraits = @traits
+				@selectManager.isTargetSet = true
 			end
+			
+#			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
+#				@selectManager.targetTraits = @traits
+#				@selectManager.inMovingMode = false
+#				@selectManager.isTargetSet = true
+#				
+#			elsif @traits.canShoot && @selectManager.inShootingMode
+#				@selectManager.currentTraits = @traits
+#				@selectManager.inShootingMode = false
+#				@selectManager.isShooterSet = true
+#					
+#			elsif @traits.canShoot && @selectManager.isShooterSet
+#				@selectManager.targetTraits = @traits
+#				@selectManager.isShooterSet = false
+#				@selectManager.isVictimSet = true
+#				
+#			elsif @traits.isMovable && !@selectManager.inShootingMode #If space can be moved, not in shoot mode, put it in moving mode
+#				@selectManager.currentTraits = @traits
+#				@selectManager.inMovingMode = true
+#			end
 		}
 	end
 	

@@ -59,10 +59,10 @@ def drawUI(selectionManager)
 								deselectButton = Tk::Tile::Button.new(sideMenu) do
 									text "Deselect Unit"
 									command do
-										if selectionManager.inMovingMode #Tells manager to stop looking for tile to move to
-											selectionManager.inMovingMode = false
-											selectionManager.inShootingMode = false
-										end
+										selectionManager.isCurrentSet = false
+										selectionManager.isTargetSet = false
+										selectionManager.inMovingMode = false
+										selectionManager.inShootingMode = false
 									end
 									grid('row' => 3, 'column' => 0)
 								end
