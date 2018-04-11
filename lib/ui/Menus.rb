@@ -63,6 +63,7 @@ def drawUI(selectionManager)
 										selectionManager.isTargetSet = false
 										selectionManager.inMovingMode = false
 										selectionManager.inShootingMode = false
+										selectionManager.currentTraits, selectionManager.targetTraits = nil
 									end
 									grid('row' => 3, 'column' => 0)
 								end

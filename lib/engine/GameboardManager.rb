@@ -37,7 +37,7 @@ def drawField(selectionManager, gameField)#Creates rows and columns of buttons o
 end
 
 def updateField(fieldArray, selectionManager)
-		#if selectionManager.isTargetSet #If a soldier is directed to go somewhere
+
 		if selectionManager.inMovingMode
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos
@@ -51,7 +51,6 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.inMovingMode = false
 			targetRow, targetCol, currentRow, currentCol = nil
 			
-#		elsif selectionManager.isVictimSet #If a soldier has picked a target to shoot
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos
@@ -66,7 +65,6 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
 			selectionManager.inShootingMode = false
-#			selectionManager.isVictimSet = false
 			targetRow, targetCol, currentRow, currentCol = nil
 		end
 		return fieldArray

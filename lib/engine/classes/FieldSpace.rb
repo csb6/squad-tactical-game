@@ -22,7 +22,7 @@ class FieldSpace
 				@selectManager.currentTraits = @traits
 				@selectManager.isCurrentSet = true
 				
-			elsif !@selectManager.isTargetSet #If no tile currently targeted, select the one clicked on
+			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile currently targeted, select the one clicked on
 				if @selectManager.inShootingMode
 					if @traits.canShoot
 						@selectManager.targetTraits = @traits
