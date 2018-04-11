@@ -16,7 +16,12 @@ class FieldSpace
 		end
 		
 		@button.command{
-			@selectManager.labelText.value = @traits.objectName #Sets name of nameLabel on sidebar
+			@selectManager.nameLabel.value = @traits.objectName #Sets name of nameLabel on sidebar
+			if @traits.canShoot
+				@selectManager.healthLabel.value = "Health: #{@traits.health}"
+				@selectManager.ammoLabel.value = "Ammo: #{@traits.ammo}"
+			end
+			
 			
 			if !@selectManager.isCurrentSet && @traits.isMovable #If no tile currently selected, select the one clicked on
 				@selectManager.currentTraits = @traits

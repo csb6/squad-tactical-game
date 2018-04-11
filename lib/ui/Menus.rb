@@ -37,11 +37,31 @@ def drawUI(selectionManager)
 				background Constants::BACKGROUND
 				grid('row' => 1, 'column' => 1, 'sticky' => 'w')
 			end
-			
-								nameLabel = Tk::Tile::Label.new(sideMenu) do #Shows objectName of currently selected object
-									textvariable selectionManager.labelText
+								
+								labelPanel = TkFrame.new(sideMenu) do
+#									padx Constants::SIDEBAR_PADX
+									pady 5
+									background Constants::BACKGROUND
 									grid('row' => 0, 'column' => 0)
 								end
+			
+											nameLabel = Tk::Tile::Label.new(labelPanel) do #Shows objectName of currently selected object
+												font "TkDefaultFont 14 bold"
+												textvariable selectionManager.nameLabel
+												grid('row' => 0, 'column' => 0)
+											end
+											
+											healthLabel = Tk::Tile::Label.new(labelPanel)do
+												textvariable selectionManager.healthLabel
+												grid('row' => 1, 'column' => 0)
+											end
+											
+											ammoLabel = Tk::Tile::Label.new(labelPanel) do
+												textvariable selectionManager.ammoLabel
+												grid('row' => 2, 'column' => 0)
+											end
+											
+											
 								
 								attackButton = Tk::Tile::Button.new(sideMenu) do
 									text "Attack"
@@ -59,11 +79,7 @@ def drawUI(selectionManager)
 								deselectButton = Tk::Tile::Button.new(sideMenu) do
 									text "Deselect Unit"
 									command do
-										selectionManager.isCurrentSet = false
-										selectionManager.isTargetSet = false
-										selectionManager.inMovingMode = false
-										selectionManager.inShootingMode = false
-										selectionManager.currentTraits, selectionManager.targetTraits = nil
+										selectionManager.resetAll
 									end
 									grid('row' => 3, 'column' => 0)
 								end

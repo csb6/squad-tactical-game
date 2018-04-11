@@ -3,7 +3,8 @@ require 'singleton'
 class SelectionManager
 	include Singleton
 	
-	attr_accessor :inMovingMode, :inShootingMode, :rootExists, :currentTraits, :targetTraits, :labelText, :isTargetSet, :isCurrentSet
+	attr_accessor :inMovingMode, :inShootingMode, :rootExists, :currentTraits, :targetTraits, :nameLabel, :isTargetSet, :isCurrentSet
+	attr_accessor :ammoLabel, :healthLabel
 	
 	def initialize
 		
@@ -17,8 +18,17 @@ class SelectionManager
 		@currentTraits = nil
 		@targetTraits = nil
 		
-		@labelText = TkVariable.new("")
+		@nameLabel = TkVariable.new("")
+		@healthLabel = TkVariable.new("Health: ")
+		@ammoLabel = TkVariable.new("Ammo: ")
 		@rootExists = true
+	end
+	
+	def resetAll
+		@isCurrentSet, @isTargetSet, @inMovingMode, @inShootingMode = false
+		@currentTraits, @targetTraits = nil
+		@healthLabel.value = "Health: "
+		@ammoLabel.value = "Ammo: "
 	end
 	
 end

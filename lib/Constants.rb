@@ -42,6 +42,7 @@ module Constants
 			
 			SAND_IMAGE_PATH = PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
+			SAND_TEXT = "**"
 			
 			SOLDIER_IMAGE_PATH = PATH + "soldier-smallest.png"
 			SOLDIER_IMAGE = TkPhotoImage.new(:file => SOLDIER_IMAGE_PATH)
@@ -60,8 +61,7 @@ module Constants
 		"width" => 1
 	})
 					
-		Tk::Tile::Style.configure('InteractObj.Field.TButton', {
-			"state" => "active"})
+		Tk::Tile::Style.configure('InteractObj.Field.TButton')
 											
 						Tk::Tile::Style.configure('Cannon.InteractObj.Field.TButton', {
 							"image" => CANNON_IMAGE,
@@ -75,15 +75,15 @@ module Constants
 							"image" => SOLDIER_IMAGE,
 							"background" => "tan1"})
 		
-		Tk::Tile::Style.configure('OccupObj.Field.TButton', {
-			"state" => "active"})
+		Tk::Tile::Style.configure('OccupObj.Field.TButton')
 						
 						Tk::Tile::Style.configure('Sand.OccupObj.Field.TButton', {
+						#"text" => SAND_TEXT,
 						"image" => SAND_IMAGE,
 						"background" => "tan"})
 							
 		Tk::Tile::Style.configure('StatObj.Field.TButton', {
-			"state" => "inactive"})
+			"state" => "disabled"})
 			
 						Tk::Tile::Style.configure('Wall.StatObj.Field.TButton', {
 							"image" => WALL_IMAGE,
