@@ -53,7 +53,8 @@ module Constants
 			TERM_IMAGE_PATH = PATH + "terminal.png"
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
-			WALL_IMAGE_PATH = PATH + "wall.png"
+#			WALL_IMAGE_PATH = PATH + "wall.png"
+			WALL_IMAGE_PATH = PATH + "double-small-wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
 	
 	Tk::Tile::Style.configure('Field.TButton', {

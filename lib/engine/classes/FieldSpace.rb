@@ -20,14 +20,17 @@ class FieldSpace
 			if @traits.canShoot
 				@selectManager.healthLabel.value = "Health: #{@traits.health}"
 				@selectManager.ammoLabel.value = "Ammo: #{@traits.ammo}"
+			else
+				@selectManager.healthLabel.value = "Health: "
+				@selectManager.ammoLabel.value = "Ammo: "
 			end
 			
 			
-			if !@selectManager.isCurrentSet && @traits.isMovable #If no tile currently selected, select the one clicked on
+			if !@selectManager.isCurrentSet && @traits.isMovable #If no current yet and this tile = movable, one pressed = target
 				@selectManager.currentTraits = @traits
 				@selectManager.isCurrentSet = true
 				
-			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile currently targeted, select the one clicked on
+			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but have current, one pressed = target
 				if @selectManager.inShootingMode
 					if @traits.canShoot
 						@selectManager.targetTraits = @traits
@@ -43,26 +46,6 @@ class FieldSpace
 				@selectManager.targetTraits = @traits
 				@selectManager.isTargetSet = true
 			end
-			
-#			if @selectManager.inMovingMode && @traits.isOccupiable #If this space is occupiable and something's ready to move here, swap places
-#				@selectManager.targetTraits = @traits
-#				@selectManager.inMovingMode = false
-#				@selectManager.isTargetSet = true
-#				
-#			elsif @traits.canShoot && @selectManager.inShootingMode
-#				@selectManager.currentTraits = @traits
-#				@selectManager.inShootingMode = false
-#				@selectManager.isShooterSet = true
-#					
-#			elsif @traits.canShoot && @selectManager.isShooterSet
-#				@selectManager.targetTraits = @traits
-#				@selectManager.isShooterSet = false
-#				@selectManager.isVictimSet = true
-#				
-#			elsif @traits.isMovable && !@selectManager.inShootingMode #If space can be moved, not in shoot mode, put it in moving mode
-#				@selectManager.currentTraits = @traits
-#				@selectManager.inMovingMode = true
-#			end
 		}
 	end
 	
