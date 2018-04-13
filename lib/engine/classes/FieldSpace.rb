@@ -37,14 +37,14 @@ class FieldSpace
 						@selectManager.isTargetSet = true
 					end
 				else
-					if @traits.isOccupiable
+					if @traits.isOccupiable && Constants.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos) <= 5
 						@selectManager.targetTraits = @traits
 						@selectManager.isTargetSet = true
 						@selectManager.inMovingMode = true
 					end
 				end
-				@selectManager.targetTraits = @traits
-				@selectManager.isTargetSet = true
+#				@selectManager.targetTraits = @traits
+#				@selectManager.isTargetSet = true
 			end
 		}
 	end

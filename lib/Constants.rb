@@ -2,6 +2,13 @@ require_relative 'engine/classes/SelectionManager'
 
 module Constants
 	
+	#Math Methods
+	def Constants.distanceFormula(x1, y1, x2, y2)
+		distance = Math.sqrt( (x2-x1)**2 + (y2-y1)**2 )
+		puts distance
+		return distance.round(1)
+	end
+	
 	#Root Window
 	TITLE = "Project 1"
 	BACKGROUND = "light blue"
@@ -53,8 +60,8 @@ module Constants
 			TERM_IMAGE_PATH = PATH + "terminal.png"
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
-#			WALL_IMAGE_PATH = PATH + "wall.png"
-			WALL_IMAGE_PATH = PATH + "double-small-wall.png"
+			WALL_IMAGE_PATH = PATH + "wall.png"
+#			WALL_IMAGE_PATH = PATH + "double-small-wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
 	
 	Tk::Tile::Style.configure('Field.TButton', {

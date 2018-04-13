@@ -66,7 +66,9 @@ def drawUI(selectionManager)
 								attackButton = Tk::Tile::Button.new(sideMenu) do
 									text "Attack"
 									command do
-										selectionManager.inShootingMode = true
+										if selectionManager.isCurrentSet
+											selectionManager.inShootingMode = true
+										end
 									end
 									grid('row' => 1, 'column' => 0)
 								end
