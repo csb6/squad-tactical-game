@@ -5,7 +5,7 @@ module Constants
 	#Math Methods
 	def Constants.distanceFormula(x1, y1, x2, y2)
 		distance = Math.sqrt( (x2-x1)**2 + (y2-y1)**2 )
-		puts distance
+#		puts distance
 		return distance.round(1)
 	end
 	
@@ -45,14 +45,17 @@ module Constants
 		PATH = WIN_PATH
 		LEVELS_PATH = LEVEL_PATH_WIN
 	end
-			LEVEL_PATH = PATH + LEVELS_PATH + "island0.csv"
+			LEVEL_PATH = PATH + LEVELS_PATH + "island2.csv"
 			
 			SAND_IMAGE_PATH = PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
 			SAND_TEXT = "**"
 			
-			SOLDIER_IMAGE_PATH = PATH + "soldier-smallest.png"
-			SOLDIER_IMAGE = TkPhotoImage.new(:file => SOLDIER_IMAGE_PATH)
+			B_SOLDIER_IMAGE_PATH = PATH + "blue-soldier-smallest.png"
+			B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)
+			
+			R_SOLDIER_IMAGE_PATH = PATH + "red-soldier-smallest.png"
+			R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
 			
 			CANNON_IMAGE_PATH = PATH + "cannon.png"
 			CANNON_IMAGE = TkPhotoImage.new(:file => CANNON_IMAGE_PATH)
@@ -80,8 +83,15 @@ module Constants
 							"background" => "grey"})
 										
 						Tk::Tile::Style.configure('Soldier.InteractObj.Field.TButton', {
-							"image" => SOLDIER_IMAGE,
 							"background" => "tan1"})
+									
+									Tk::Tile::Style.configure('Blue.Soldier.InteractObj.Field.TButton', {
+										"image" => B_SOLDIER_IMAGE
+									})
+									
+									Tk::Tile::Style.configure('Red.Soldier.InteractObj.Field.TButton', {
+										"image" => R_SOLDIER_IMAGE
+									})
 		
 		Tk::Tile::Style.configure('OccupObj.Field.TButton')
 						

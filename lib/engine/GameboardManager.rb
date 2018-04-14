@@ -91,8 +91,11 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 				when 't'
 					style = Terminal.new("Terminal", c, r)
 					
-				when 'h' #Soldier tile
-					style = Soldier.new("Soldier #{c} #{r}", c, r)
+				when 'rh' #Soldier tile
+					style = RedSoldier.new("Red Soldier #{c} #{r}", c, r)
+					
+				when 'bh'
+					style = BlueSoldier.new("Blue Soldier #{c} #{r}", c, r)
 			end
 			
 			fieldArray[r][c].setTraits( style )

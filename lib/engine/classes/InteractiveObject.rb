@@ -99,6 +99,7 @@ end
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Blu-o-polis"
+				@style = "Blue.Soldier.InteractObj.Field.TButton"
 				@team = "blue"
 			end
 			
@@ -110,6 +111,7 @@ end
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Red City"
+				@style = "Red.Soldier.InteractObj.Field.TButton"
 				@team = "red"
 			end
 			

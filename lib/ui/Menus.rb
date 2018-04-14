@@ -39,7 +39,6 @@ def drawUI(selectionManager)
 			end
 								
 								labelPanel = TkFrame.new(sideMenu) do
-#									padx Constants::SIDEBAR_PADX
 									pady 5
 									background Constants::BACKGROUND
 									grid('row' => 0, 'column' => 0)

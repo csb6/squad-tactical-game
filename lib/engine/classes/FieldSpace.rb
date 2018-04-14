@@ -52,6 +52,9 @@ class FieldSpace
 	def setTraits(traits)
 		@traits = traits
 		@button.style = traits.style
+		if @traits.objectName === "Wall"
+			@button.state("disabled")
+		end
 		@traits.xPos = @xPos
 		@traits.yPos = @yPos
 	end
