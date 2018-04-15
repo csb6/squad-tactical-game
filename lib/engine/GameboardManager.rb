@@ -71,11 +71,10 @@ def updateField(fieldArray, selectionManager)
 end
 
 def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
-	rowArray = CSV.read(Constants::LEVEL_PATH, :col_sep => "	" )
 	style = nil
 	
 	r = 0
-	rowArray.each do |row| 
+	CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
 		c = 0
 		row.each do |letter|
 			case letter
