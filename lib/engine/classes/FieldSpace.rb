@@ -3,19 +3,23 @@ require_relative '../../Constants'
 
 class FieldSpace
 	
-	attr_reader :xPos, :yPos, :rootWin, :button
+	attr_reader :xPos, :yPos, :x1, :y1, :rootWin, :button
 	
-	def initialize(xPos, yPos, selectManager, rootWin)
+	def initialize(xPos, yPos, x1, y1, selectManager, rootWin)
 		@xPos = xPos
 		@yPos = yPos
+		@x1 = x1
+		@y1 = y1
 		@selectManager = selectManager
 		@rootWin = rootWin
-		@button = Tk::Tile::Button.new(rootWin) do
-			style "Field.TButton"
-			grid("row" => yPos, "column" => xPos) #Key that it's xPos, not @xPos; tiles must stay at their initial assigned location
-		end
+#		@button = Tk::Tile::Button.new(rootWin) do
+#			style "Field.TButton"
+#			grid("row" => yPos, "column" => xPos) #Key that it's xPos, not @xPos; tiles must stay at their initial assigned location
+#		end
+#		@button = TkcRectangle.new(@rootWin, @x1, @y1, @x1+25, @y1+25)
+		@button = TkcImage.new(@rootWin, @x1, @y1)
 		
-		@button.command{
+		@button.bind("1", proc {
 			@selectManager.nameLabel.value = @traits.objectName #Sets name of nameLabel on sidebar
 			if @traits.canShoot
 				@selectManager.healthLabel.value = "Health: #{@traits.health}"
@@ -46,15 +50,19 @@ class FieldSpace
 #				@selectManager.targetTraits = @traits
 #				@selectManager.isTargetSet = true
 			end
-		}
+		})
 	end
 	
 	def setTraits(traits)
+#		@traits = traits
+#		@button.style = traits.style
+#		if @traits.objectName === "Wall"
+#			@button.state("disabled")
+#		end
+#		@traits.xPos = @xPos
+#		@traits.yPos = @yPos
 		@traits = traits
-		@button.style = traits.style
-		if @traits.objectName === "Wall"
-			@button.state("disabled")
-		end
+		@button[:image] = @traits.image
 		@traits.xPos = @xPos
 		@traits.yPos = @yPos
 	end

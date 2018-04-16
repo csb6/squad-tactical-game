@@ -8,7 +8,7 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@isInteractive = true
 		@panelFile = ""
 		@team = ""
-		@style = "InteractObj.Field.TButton"
+		@image = ""
 	end
 	
 	def openPanel
@@ -30,7 +30,7 @@ end
 			@weight = 300
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			@style = "Cannon.InteractObj.Field.TButton"
+			@image = Constants::CANNON_IMAGE
 		end
 		
 	end
@@ -45,7 +45,7 @@ end
 			@weight = 100
 			@size = 1
 			@panelFile = ""
-			@style = "Terminal.InteractObj.Field.TButton"
+			@image = Constants::CANNON_IMAGE
 		end
 		
 	end
@@ -88,7 +88,7 @@ end
 			@weapon = "gun"
 			@health = 100
 			@ammo = 50
-			@style = "Soldier.InteractObj.Field.TButton"
+			@image = ""
 		end
 		
 	end
@@ -99,7 +99,7 @@ end
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Blu-o-polis"
-				@style = "Blue.Soldier.InteractObj.Field.TButton"
+				@image = Constants::B_SOLDIER_IMAGE
 				@team = "blue"
 			end
 			
@@ -111,7 +111,7 @@ end
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Red City"
-				@style = "Red.Soldier.InteractObj.Field.TButton"
+				@image = Constants::R_SOLDIER_IMAGE
 				@team = "red"
 			end
 			

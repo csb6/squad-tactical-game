@@ -21,7 +21,7 @@ end
 			@description = "A sturdy, unmovable barrier"
 			@weight = 100
 			@size = 1
-			@style = "Wall.StatObj.Field.TButton"
+			@image = Constants::WALL_IMAGE
 		end
 	
 	end

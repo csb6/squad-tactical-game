@@ -29,7 +29,7 @@ module Constants
 	
   #Game Field
 	FIELD_PADX = 40
-	FIELD_PADY = 80
+	FIELD_PADY = 40
 	FIELD_WIDTH = 27
 	FIELD_HEIGHT = 32
 	

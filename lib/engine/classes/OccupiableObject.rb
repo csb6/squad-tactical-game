@@ -5,7 +5,7 @@ class OccupiableObject < GameObject #Tile that someone can stand on, basically j
 		
 		@isOccupiable = true
 		@isOccupied = false
-		@style = "OccupObj.Field.TButton"
+		@image = "OccupObj.Field.TButton"
 	end
 end
 
@@ -16,6 +16,6 @@ end
 				@description = "Coarse, sandy soil, common throughout the island"
 				@weight = 100
 				@size = 1
-				@style = "Sand.OccupObj.Field.TButton"
+				@image = Constants::SAND_IMAGE
 			end
 		end

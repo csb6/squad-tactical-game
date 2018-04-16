@@ -19,22 +19,47 @@ selectionManager = SelectionManager.instance
 				background Constants::BACKGROUND
 				grid('row' => 1, 'column' => 0) 
 			end
-			
-def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
-	fieldArray = [ ]
-	r = 0
-	Constants::FIELD_WIDTH.times do
-		c = 0
-		fieldArray[r] = [ ]
-		Constants::FIELD_HEIGHT.times do
-			fieldArray[r][c] = FieldSpace.new(c, r, selectionManager, gameField)
-			c += 1
-		end
-		r += 1
+
+def drawCanvas(gameField, selectionManager)
+	canvas = TkCanvas.new(gameField) do
+		width 800 - 77
+		height 700
+		grid('row' => 0, 'column' => 0)
 	end
 	
+	r = 2
+	y = 0
+	fieldArray = [ ]
+	29.times do
+		c = 2
+		x = 0
+		fieldArray[y] = [ ]
+		28.times do
+			fieldArray[y][x] = FieldSpace.new(x, y, r, c, selectionManager, canvas)
+			c += 25
+			x += 1
+		end
+		r += 25
+		y += 1
+	end
 	return fieldArray
 end
+			
+#def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
+#	fieldArray = [ ]
+#	r = 0
+#	Constants::FIELD_WIDTH.times do
+#		c = 0
+#		fieldArray[r] = [ ]
+#		Constants::FIELD_HEIGHT.times do
+#			fieldArray[r][c] = FieldSpace.new(c, r, selectionManager, gameField)
+#			c += 1
+#		end
+#		r += 1
+#	end
+#	
+#	return fieldArray
+#end
 
 def updateField(fieldArray, selectionManager)
 
@@ -106,11 +131,12 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 end
 
 drawUI(selectionManager)
-fieldArray = drawField(selectionManager, gameField)
+#fieldArray = drawField(selectionManager, gameField)
+fieldArray = drawCanvas(gameField, selectionManager)
 stylizeField(fieldArray, selectionManager, gameField)
 
 while selectionManager.rootExists #While main window exists
-	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
+#	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
 	Tk.update_idletasks
 	Tk.update
 end
