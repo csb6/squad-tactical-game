@@ -12,11 +12,6 @@ class FieldSpace
 		@y1 = y1
 		@selectManager = selectManager
 		@rootWin = rootWin
-#		@button = Tk::Tile::Button.new(rootWin) do
-#			style "Field.TButton"
-#			grid("row" => yPos, "column" => xPos) #Key that it's xPos, not @xPos; tiles must stay at their initial assigned location
-#		end
-#		@button = TkcRectangle.new(@rootWin, @x1, @y1, @x1+25, @y1+25)
 		@button = TkcImage.new(@rootWin, @x1, @y1)
 		
 		@button.bind("1", proc {
@@ -54,13 +49,6 @@ class FieldSpace
 	end
 	
 	def setTraits(traits)
-#		@traits = traits
-#		@button.style = traits.style
-#		if @traits.objectName === "Wall"
-#			@button.state("disabled")
-#		end
-#		@traits.xPos = @xPos
-#		@traits.yPos = @yPos
 		@traits = traits
 		@button[:image] = @traits.image
 		@traits.xPos = @xPos

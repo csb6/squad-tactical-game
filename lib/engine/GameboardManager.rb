@@ -44,22 +44,6 @@ def drawCanvas(gameField, selectionManager)
 	end
 	return fieldArray
 end
-			
-#def drawField(selectionManager, gameField)#Creates rows and columns of buttons on UI
-#	fieldArray = [ ]
-#	r = 0
-#	Constants::FIELD_WIDTH.times do
-#		c = 0
-#		fieldArray[r] = [ ]
-#		Constants::FIELD_HEIGHT.times do
-#			fieldArray[r][c] = FieldSpace.new(c, r, selectionManager, gameField)
-#			c += 1
-#		end
-#		r += 1
-#	end
-#	
-#	return fieldArray
-#end
 
 def updateField(fieldArray, selectionManager)
 
@@ -131,12 +115,11 @@ def stylizeField(fieldArray, selectionManager, gameField)#Assigns styles to butt
 end
 
 drawUI(selectionManager)
-#fieldArray = drawField(selectionManager, gameField)
 fieldArray = drawCanvas(gameField, selectionManager)
 stylizeField(fieldArray, selectionManager, gameField)
 
 while selectionManager.rootExists #While main window exists
-#	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
+	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
 	Tk.update_idletasks
 	Tk.update
 end

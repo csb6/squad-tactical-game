@@ -64,47 +64,5 @@ module Constants
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
 			WALL_IMAGE_PATH = PATH + "wall.png"
-#			WALL_IMAGE_PATH = PATH + "double-small-wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
-	
-	Tk::Tile::Style.configure('Field.TButton', {
-		"font" => "helvetica 12",
-		"width" => 1
-	})
-					
-		Tk::Tile::Style.configure('InteractObj.Field.TButton')
-											
-						Tk::Tile::Style.configure('Cannon.InteractObj.Field.TButton', {
-							"image" => CANNON_IMAGE,
-							"background" => "green"})
-										
-						Tk::Tile::Style.configure('Terminal.InteractObj.Field.TButton', {
-							"image" => TERM_IMAGE,
-							"background" => "grey"})
-										
-						Tk::Tile::Style.configure('Soldier.InteractObj.Field.TButton', {
-							"background" => "tan1"})
-									
-									Tk::Tile::Style.configure('Blue.Soldier.InteractObj.Field.TButton', {
-										"image" => B_SOLDIER_IMAGE
-									})
-									
-									Tk::Tile::Style.configure('Red.Soldier.InteractObj.Field.TButton', {
-										"image" => R_SOLDIER_IMAGE
-									})
-		
-		Tk::Tile::Style.configure('OccupObj.Field.TButton')
-						
-						Tk::Tile::Style.configure('Sand.OccupObj.Field.TButton', {
-						#"text" => SAND_TEXT,
-						"image" => SAND_IMAGE,
-						"background" => "tan"})
-							
-		Tk::Tile::Style.configure('StatObj.Field.TButton', {
-			"state" => "disabled"})
-			
-						Tk::Tile::Style.configure('Wall.StatObj.Field.TButton', {
-							"image" => WALL_IMAGE,
-							"background" => "grey"})
-			
 end
