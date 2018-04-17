@@ -38,31 +38,35 @@ module Constants
 	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\ui\\"
 	LEVEL_PATH_MAC = "levels/"
 	LEVEL_PATH_WIN = "levels\\"
+	SPRITE_PATH_MAC = "sprites/"
+	SPRITE_PATH_WIN = "sprites\\"
 	if RUBY_PLATFORM =~ /darwin/ #Determine platform, change paths based on it
 		PATH = MAC_PATH
 		LEVELS_PATH = LEVEL_PATH_MAC
+		SPRITE_PATH = SPRITE_PATH_MAC
 	else
 		PATH = WIN_PATH
 		LEVELS_PATH = LEVEL_PATH_WIN
+		SPRITE_PATH = SPRITE_PATH_WIN
 	end
 			LEVEL_PATH = PATH + LEVELS_PATH + "island2.csv"
 			
-			SAND_IMAGE_PATH = PATH + "sand.png"
+			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
 			SAND_TEXT = "**"
 			
-			B_SOLDIER_IMAGE_PATH = PATH + "blue-soldier-smallest.png"
+			B_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "blue-soldier.png"
 			B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)
 			
-			R_SOLDIER_IMAGE_PATH = PATH + "red-soldier-smallest.png"
+			R_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "red-soldier.png"
 			R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
 			
-			CANNON_IMAGE_PATH = PATH + "cannon.png"
+			CANNON_IMAGE_PATH = PATH + SPRITE_PATH + "cannon.png"
 			CANNON_IMAGE = TkPhotoImage.new(:file => CANNON_IMAGE_PATH)
 			
-			TERM_IMAGE_PATH = PATH + "terminal.png"
+			TERM_IMAGE_PATH = PATH + SPRITE_PATH + "terminal.png"
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
-			WALL_IMAGE_PATH = PATH + "wall.png"
+			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
 end
