@@ -5,7 +5,7 @@ class FieldSpace
 	
 	attr_reader :xPos, :yPos, :x1, :y1, :rootWin, :button
 	
-	def initialize(xPos, yPos, x1, y1, selectManager, rootWin)
+	def initialize(xPos, yPos, y1, x1, selectManager, rootWin)
 		@xPos = xPos
 		@yPos = yPos
 		@x1 = x1

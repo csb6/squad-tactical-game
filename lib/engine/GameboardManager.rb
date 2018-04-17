@@ -22,16 +22,16 @@ selectionManager = SelectionManager.instance
 
 def drawCanvas(gameField, selectionManager)
 	canvas = TkCanvas.new(gameField) do
-		width 800 - 77
-		height 700
+		width 800 - 102
+		height 725
 		grid('row' => 0, 'column' => 0)
 	end
 	
-	r = 2
+	r = 14
 	y = 0
 	fieldArray = [ ]
 	29.times do
-		c = 2
+		c = 12
 		x = 0
 		fieldArray[y] = [ ]
 		28.times do
