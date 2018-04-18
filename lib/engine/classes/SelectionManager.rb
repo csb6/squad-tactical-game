@@ -4,7 +4,7 @@ class SelectionManager
 	include Singleton
 	
 	attr_accessor :inMovingMode, :inShootingMode, :rootExists, :currentTraits, :targetTraits, :nameLabel, :isTargetSet, :isCurrentSet
-	attr_accessor :ammoLabel, :healthLabel
+	attr_accessor :ammoLabel, :healthLabel, :hitText
 	
 	def initialize
 		
@@ -21,6 +21,7 @@ class SelectionManager
 		@nameLabel = TkVariable.new("")
 		@healthLabel = TkVariable.new("Health: ")
 		@ammoLabel = TkVariable.new("Ammo: ")
+		@hitText = TkVariable.new("")
 		@rootExists = true
 	end
 	

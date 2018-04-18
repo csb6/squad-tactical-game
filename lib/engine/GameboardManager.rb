@@ -58,6 +58,7 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
 			selectionManager.inMovingMode = false
+			selectionManager.hitText.value = ""
 			targetRow, targetCol, currentRow, currentCol = nil
 			
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
@@ -67,9 +68,8 @@ def updateField(fieldArray, selectionManager)
 			currentCol = selectionManager.currentTraits.xPos
 			
 			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
-				puts "Ammo: #{selectionManager.currentTraits.ammo}"
+				selectionManager.hitText.value = "Hit!"
 			fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
-				puts "Ouch!!"
 			
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false

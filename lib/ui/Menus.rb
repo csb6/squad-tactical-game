@@ -2,6 +2,7 @@ require 'tk'
 require_relative '../Constants'
 #File defining the various side panels/menus
 def drawUI(selectionManager)
+	hitText = TkVariable.new("")
 			topMenu = TkFrame.new(Constants::ROOT) { grid('row' => 0, 'column' => 0) }
 			      
 			            TkButton.new(topMenu) do
@@ -60,6 +61,11 @@ def drawUI(selectionManager)
 												grid('row' => 2, 'column' => 0)
 											end
 											
+											hitLabel = Tk::Tile::Label.new(labelPanel) do
+												textvariable selectionManager.hitText
+												grid('row' => 3, 'column' => 0)
+											end
+											
 											
 								
 								attackButton = Tk::Tile::Button.new(sideMenu) do
@@ -84,5 +90,5 @@ def drawUI(selectionManager)
 									end
 									grid('row' => 3, 'column' => 0)
 								end
-		
+		return hitText
 end
