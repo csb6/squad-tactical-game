@@ -74,7 +74,7 @@ end
 	
 	class Soldier < InteractiveObject
 		
-		attr_accessor :weapon, :health, :ammo
+		attr_accessor :weapon, :health, :ammo, :coverMod
 		
 		def initialize(objectName, xPos, yPos)
 			super
@@ -89,6 +89,7 @@ end
 			@health = 100
 			@ammo = 50
 			@image = ""
+			@coverMod = 1
 		end
 		
 	end

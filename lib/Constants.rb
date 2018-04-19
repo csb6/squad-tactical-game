@@ -42,11 +42,10 @@ module Constants
 		LEVELS_PATH = LEVEL_PATH_WIN
 		SPRITE_PATH = SPRITE_PATH_WIN
 	end
-			LEVEL_PATH = PATH + LEVELS_PATH + "island2.csv"
+			LEVEL_PATH = PATH + LEVELS_PATH + "island0.csv"
 			
 			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
-			SAND_TEXT = "**"
 			
 			B_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "blue-soldier.png"
 			B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)

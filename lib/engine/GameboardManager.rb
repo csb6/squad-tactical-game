@@ -67,9 +67,10 @@ def updateField(fieldArray, selectionManager)
 			targetCol = selectionManager.targetTraits.xPos
 			currentRow = selectionManager.currentTraits.yPos
 			currentCol = selectionManager.currentTraits.xPos
+			coverModifier = selectionManager.currentTraits.coverMod
 			
 			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
-			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, fieldArray)
+			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
 			selectionManager.hitText.value = "#{chanceToHit}% chance"
 			
 			if GraphMath.hitDeterminer(chanceToHit)
@@ -80,7 +81,8 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
 			selectionManager.inShootingMode = false
-			targetRow, targetCol, currentRow, currentCol, chanceToHit = nil
+			selectionManager.currentTraits.coverMod = 1
+			targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 		end
 		return fieldArray
 end

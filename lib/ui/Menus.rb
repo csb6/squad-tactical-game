@@ -80,6 +80,13 @@ def drawUI(selectionManager)
 								
 								takeCoverButton = Tk::Tile::Button.new(sideMenu) do
 									text "Take Cover"
+									command do
+										command do
+											if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
+												selectionManager.currentTraits.coverMod = 0.8
+											end
+										end
+									end
 									grid('row' => 2, 'column' => 0)
 								end
 								
