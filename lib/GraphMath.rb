@@ -6,7 +6,6 @@ module GraphMath
 		end
 		
 		def GraphMath.hitDeterminer(chanceToHit)
-			puts chanceToHit
 			if rand(100) <= chanceToHit
 				return true
 			else

@@ -62,4 +62,7 @@ module Constants
 			
 			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
+			
+			EXPLO_IMAGE_PATH = PATH + SPRITE_PATH + "explosion.png"
+			EXPLO_IMAGE = TkPhotoImage.new(:file => EXPLO_IMAGE_PATH)
 end

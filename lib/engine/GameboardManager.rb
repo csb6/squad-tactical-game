@@ -73,10 +73,9 @@ def updateField(fieldArray, selectionManager)
 			
 			if GraphMath.hitDeterminer(chanceToHit)
 				fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
-				selectionManager.hitText.value = "#{chanceToHit} Hit"
-			else
-				selectionManager.hitText.value = "#{chanceToHit} Miss"
+				fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
 			end
+			selectionManager.hitText.value = "#{chanceToHit}% chance"
 			
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false

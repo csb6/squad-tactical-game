@@ -64,6 +64,14 @@ class FieldSpace
 		@traits.health = healthAmt
 	end
 	
+	def flashImage(image)
+		origImage = @button[:image]
+		@button[:image] = image
+		Tk.update
+		sleep(0.4)
+		@button[:image] = origImage
+	end
+	
 	def getStyle #button.style[0][0] === the actual style name string?? Why?!
 		return @button.style[0][0]
 	end
