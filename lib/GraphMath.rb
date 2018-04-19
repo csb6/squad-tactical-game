@@ -25,8 +25,8 @@ module GraphMath
 					a = fieldArray[targetX+n][targetY]
 					b = fieldArray[targetX][targetY+n]
 					c = fieldArray[targetX+n][targetY+n]
-					if a.traits.objectName === "Wall" || b.traits.objectName === "Wall" || c.traits.objectName === "Wall"
-						puts "Nice defense"
+					d = fieldArray[targetX-n][targetY+n]
+					if a.traits.objectName === "Wall" || b.traits.objectName === "Wall" || c.traits.objectName === "Wall" || d.traits.objectName === "Wall"
 						chance *= 0.8
 						break
 					end

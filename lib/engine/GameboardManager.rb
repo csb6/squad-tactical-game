@@ -70,12 +70,12 @@ def updateField(fieldArray, selectionManager)
 			
 			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
 			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, fieldArray)
+			selectionManager.hitText.value = "#{chanceToHit}% chance"
 			
 			if GraphMath.hitDeterminer(chanceToHit)
 				fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
 				fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
 			end
-			selectionManager.hitText.value = "#{chanceToHit}% chance"
 			
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
