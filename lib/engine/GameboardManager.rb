@@ -8,6 +8,7 @@ require_relative 'classes/OccupiableObject'
 require_relative 'classes/SelectionManager'
 require_relative '../ui/menus'
 require_relative '../Constants'
+require_relative '../GraphMath'
 
 #Main UI file, adds/removes buttons, monitors for input
   
@@ -68,13 +69,19 @@ def updateField(fieldArray, selectionManager)
 			currentCol = selectionManager.currentTraits.xPos
 			
 			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
-				selectionManager.hitText.value = "Hit!"
-			fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
+			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, fieldArray)
+			
+			if GraphMath.hitDeterminer(chanceToHit)
+				fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
+				selectionManager.hitText.value = "#{chanceToHit} Hit"
+			else
+				selectionManager.hitText.value = "#{chanceToHit} Miss"
+			end
 			
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
 			selectionManager.inShootingMode = false
-			targetRow, targetCol, currentRow, currentCol = nil
+			targetRow, targetCol, currentRow, currentCol, chanceToHit = nil
 		end
 		return fieldArray
 end

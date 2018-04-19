@@ -2,13 +2,6 @@ require_relative 'engine/classes/SelectionManager'
 
 module Constants
 	
-	#Math Methods
-	def Constants.distanceFormula(x1, y1, x2, y2)
-		distance = Math.sqrt( (x2-x1)**2 + (y2-y1)**2 )
-#		puts distance
-		return distance.round(1)
-	end
-	
 	#Root Window
 	TITLE = "Project 1"
 	BACKGROUND = "light blue"

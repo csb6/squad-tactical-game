@@ -1,9 +1,10 @@
 require 'tk'
 require_relative '../../Constants'
+require_relative '../../GraphMath'
 
 class FieldSpace
 	
-	attr_reader :xPos, :yPos, :x1, :y1, :rootWin, :button
+	attr_reader :xPos, :yPos, :x1, :y1, :rootWin, :button, :traits
 	
 	def initialize(xPos, yPos, y1, x1, selectManager, rootWin)
 		@xPos = xPos
@@ -36,7 +37,7 @@ class FieldSpace
 						@selectManager.isTargetSet = true
 					end
 				else
-					if @traits.isOccupiable && Constants.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos) <= 5
+					if @traits.isOccupiable && GraphMath.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos) <= 5
 						@selectManager.targetTraits = @traits
 						@selectManager.isTargetSet = true
 						@selectManager.inMovingMode = true
