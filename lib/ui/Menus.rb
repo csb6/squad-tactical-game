@@ -15,21 +15,24 @@ def drawUI(selectionManager)
 			            end
 			            
 			            TkButton.new(topMenu) do
-			            		text "Load Game"
-			            		
-			            		command do
-			            			loadFile = Tk::getOpenFile
-			            		end
-			            		grid('row' => 0, 'column' => 2)
-			            end
-			            
-			            TkButton.new(topMenu) do
 			            		text "Save Game"
-			            		
 										command do
 											saveFile = Tk::getSaveFile
 										end
 										grid('row' => 0, 'column' => 1)
+									 end
+			            
+			            TkButton.new(topMenu) do
+		            		text "Load Game"
+		            		command do
+		            			loadFile = Tk::getOpenFile
+		            		end
+		            		grid('row' => 0, 'column' => 2)
+			            end
+								 
+								 TkLabel.new(topMenu) do
+							 		textvariable selectionManager.turnLabel
+							 		grid('row' => 0, 'column' => 3)
 								 end
 								 
 			sideMenu = TkFrame.new(Constants::ROOT) do
@@ -67,35 +70,52 @@ def drawUI(selectionManager)
 											end
 											
 											
-								
-								attackButton = Tk::Tile::Button.new(sideMenu) do
-									text "Attack"
-									command do
-										if selectionManager.isCurrentSet
-											selectionManager.inShootingMode = true
-										end
-									end
+								actionPanel = TkFrame.new(sideMenu) do
+									pady 5
+									background Constants::BACKGROUND
 									grid('row' => 1, 'column' => 0)
 								end
 								
-								takeCoverButton = Tk::Tile::Button.new(sideMenu) do
-									text "Take Cover"
-									command do
-										command do
-											if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
-												selectionManager.currentTraits.coverMod = 0.8
+											attackButton = Tk::Tile::Button.new(actionPanel) do
+												text "Attack"
+												command do
+													if selectionManager.isCurrentSet
+														selectionManager.inShootingMode = true
+													end
+												end
+												grid('row' => 0, 'column' => 0)
 											end
-										end
-									end
-									grid('row' => 2, 'column' => 0)
-								end
+											
+											takeCoverButton = Tk::Tile::Button.new(actionPanel) do
+												text "Take Cover"
+												command do
+														if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
+															selectionManager.currentTraits.coverMod = 0.8
+														end
+												end
+												grid('row' => 1, 'column' => 0)
+											end
+											
+											deselectButton = Tk::Tile::Button.new(actionPanel) do
+												text "Deselect Unit"
+												command do
+													selectionManager.resetAll
+												end
+												grid('row' => 2, 'column' => 0)
+											end
+											
 								
-								deselectButton = Tk::Tile::Button.new(sideMenu) do
-									text "Deselect Unit"
-									command do
-										selectionManager.resetAll
-									end
-									grid('row' => 3, 'column' => 0)
+						endTurnButton = Tk::Tile::Button.new(sideMenu) do
+							text "End Turn"
+							command do
+								selectionManager.isBlueTurn = !selectionManager.isBlueTurn
+								if selectionManager.isBlueTurn
+									selectionManager.turnLabel.value = "Blue Turn"
+								else
+									selectionManager.turnLabel.value = "Red Turn "
 								end
+							end
+							grid('row' => 3, 'column' => 0)
+						end
 		return hitText
 end

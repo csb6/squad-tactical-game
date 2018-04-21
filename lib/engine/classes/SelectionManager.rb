@@ -4,7 +4,7 @@ class SelectionManager
 	include Singleton
 	
 	attr_accessor :inMovingMode, :inShootingMode, :rootExists, :currentTraits, :targetTraits, :nameLabel, :isTargetSet, :isCurrentSet
-	attr_accessor :ammoLabel, :healthLabel, :hitText
+	attr_accessor :ammoLabel, :healthLabel, :hitText, :isBlueTurn, :turnLabel, :isBlueTurn
 	
 	def initialize
 		
@@ -23,6 +23,9 @@ class SelectionManager
 		@ammoLabel = TkVariable.new("Ammo: ")
 		@hitText = TkVariable.new("")
 		@rootExists = true
+		
+		@isBlueTurn = true
+		@turnLabel = TkVariable.new("Blue Turn")
 	end
 	
 	def resetAll

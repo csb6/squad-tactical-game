@@ -1,13 +1,14 @@
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
-	attr_reader :panelFile, :team
+	attr_reader :panelFile
+	attr_accessor :isBlueTeam
 	
 	def initialize(objectName, xPos, yPos)
 		super
 		
 		@isInteractive = true
 		@panelFile = ""
-		@team = ""
+		@isBlueTeam = true
 		@image = ""
 	end
 	
@@ -57,7 +58,6 @@ end
 				
 				@description = "A blue-colored computer used for operation of devices or communication with outsiders"
 				@panelFile = "blueTerminalControlPanel"
-				@team = "blue"
 			end
 		end
 		
@@ -68,7 +68,7 @@ end
 				
 				@description = "A red-colored computer used for operation of devices or communication with outsiders"
 				@panelFile = "redTerminalControlPanel"
-				@team = "red"
+				@isBlueTeam = false
 			end
 		end
 	
@@ -101,7 +101,6 @@ end
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Blu-o-polis"
 				@image = Constants::B_SOLDIER_IMAGE
-				@team = "blue"
 			end
 			
 		end
@@ -113,7 +112,7 @@ end
 				
 				@description = "A stalwart, sometimes trigger-happy, GI, working for Red City"
 				@image = Constants::R_SOLDIER_IMAGE
-				@team = "red"
+				@isBlueTeam = false
 			end
 			
 		end

@@ -27,8 +27,10 @@ class FieldSpace
 			
 			
 			if !@selectManager.isCurrentSet && @traits.isMovable #If no current yet and this tile = movable, one pressed = target
-				@selectManager.currentTraits = @traits
-				@selectManager.isCurrentSet = true
+				if @traits.isBlueTeam === @selectManager.isBlueTurn
+					@selectManager.currentTraits = @traits
+					@selectManager.isCurrentSet = true
+				end
 				
 			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but have current, one pressed = target
 				if @selectManager.inShootingMode
@@ -37,7 +39,8 @@ class FieldSpace
 						@selectManager.isTargetSet = true
 					end
 				else
-					if @traits.isOccupiable && GraphMath.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos) <= 5
+					distanceToCurrent = GraphMath.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos)
+					if @traits.isOccupiable &&  distanceToCurrent <= 5
 						@selectManager.targetTraits = @traits
 						@selectManager.isTargetSet = true
 						@selectManager.inMovingMode = true
