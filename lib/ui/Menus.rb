@@ -79,7 +79,7 @@ def drawUI(selectionManager)
 											attackButton = Tk::Tile::Button.new(actionPanel) do
 												text "Attack"
 												command do
-													if selectionManager.isCurrentSet
+													if selectionManager.isCurrentSet && selectionManager.currentTraits.isBlueTeam === selectionManager.isBlueTurn
 														selectionManager.inShootingMode = true
 													end
 												end

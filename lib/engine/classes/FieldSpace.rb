@@ -17,6 +17,7 @@ class FieldSpace
 		
 		@button.bind("1", proc {
 			@selectManager.nameLabel.value = @traits.objectName #Sets name of nameLabel on sidebar
+			
 			if @traits.canShoot
 				@selectManager.healthLabel.value = "Health: #{@traits.health}"
 				@selectManager.ammoLabel.value = "Ammo: #{@traits.ammo}"
