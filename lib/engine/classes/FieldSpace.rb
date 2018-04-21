@@ -27,19 +27,19 @@ class FieldSpace
 			end
 			
 			
-			if !@selectManager.isCurrentSet && @traits.isMovable #If no current yet and this tile = movable, one pressed = target
-				if @traits.isBlueTeam === @selectManager.isBlueTurn
+			if !@selectManager.isCurrentSet && @traits.isMovable #If no current yet and this tile = movable
+				if @traits.isBlueTeam === @selectManager.isBlueTurn #make it the current if it is one of current player's men
 					@selectManager.currentTraits = @traits
 					@selectManager.isCurrentSet = true
 				end
 				
-			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but have current, one pressed = target
-				if @selectManager.inShootingMode
+			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
+				if @selectManager.inShootingMode #If looking for a shooting target and this tile can shoot, make it a target
 					if @traits.canShoot
 						@selectManager.targetTraits = @traits
 						@selectManager.isTargetSet = true
 					end
-				else
+				else #If not looking for shooting target, see if its within 5 tiles, set it as target if it is
 					distanceToCurrent = GraphMath.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @traits.xPos, @traits.yPos)
 					if @traits.isOccupiable &&  distanceToCurrent <= 5
 						@selectManager.targetTraits = @traits

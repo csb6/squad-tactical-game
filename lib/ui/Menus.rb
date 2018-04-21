@@ -109,6 +109,8 @@ def drawUI(selectionManager)
 							text "End Turn"
 							command do
 								selectionManager.isBlueTurn = !selectionManager.isBlueTurn
+								selectionManager.resetAll
+								
 								if selectionManager.isBlueTurn
 									selectionManager.turnLabel.value = "Blue Turn"
 								else

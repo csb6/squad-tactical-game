@@ -1,7 +1,7 @@
 require_relative '../Constants'
 require_relative '../GraphMath'
 
-#Main UI file, adds/removes buttons, monitors for input
+#Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
 
 def updateField(fieldArray, selectionManager)

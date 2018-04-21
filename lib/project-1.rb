@@ -9,6 +9,8 @@ require_relative 'engine/classes/SelectionManager'
 require_relative 'ui/menus'
 require_relative 'engine/GameboardManager'
 
+#Main file, containing ui loop, initial drawing of gameboard, as well as the selection singleton and gameField root window
+
 selectionManager = SelectionManager.instance
 
 			gameField = TkFrame.new(Constants::ROOT) do
