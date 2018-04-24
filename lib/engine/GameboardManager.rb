@@ -17,7 +17,6 @@ def updateField(fieldArray, selectionManager)
 			currentXPx = selectionManager.currentTraits.x1
 			currentYPx = selectionManager.currentTraits.y1
 			
-			puts "#{currentRow} #{currentCol}"
 			fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
 			fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
 			temp = fieldArray[currentRow][currentCol]

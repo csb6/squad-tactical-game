@@ -45,7 +45,6 @@ class GameObject
 				if @isBlueTeam === @selectManager.isBlueTurn #make it the current if it is one of current player's men
 					@selectManager.currentTraits = self
 					@selectManager.isCurrentSet = true
-					puts "Current is: #{@selectManager.currentTraits}. I'm #{self}"
 				end
 				
 			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
@@ -60,7 +59,6 @@ class GameObject
 						@selectManager.targetTraits = self
 						@selectManager.isTargetSet = true
 						@selectManager.inMovingMode = true
-						puts "Target is: #{@selectManager.targetTraits}. I'm #{self}"
 					end
 				end
 				#@selectManager.targetTraits = @traits
@@ -75,15 +73,14 @@ class GameObject
 		@x1 = a
 		@y1 = b
 		@image.coords(@x1, @y1)
-		puts "Coordinates of #{self} set at #{@xPos}, #{@yPos} or #{@x1}, #{@y1}"
 	end
 	
 	def setAmmo(ammoAmt)
-		@traits.ammo = ammoAmt
+		@ammo = ammoAmt
 	end
 	
 	def setHealth(healthAmt)
-		@traits.health = healthAmt
+		@health = healthAmt
 	end
 	
 	def flashImage(pic)

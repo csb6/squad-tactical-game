@@ -1,6 +1,5 @@
 require 'tk'
 require 'csv'
-#require_relative 'engine/classes/FieldSpace'
 require_relative 'engine/classes/GameObject'
 require_relative 'engine/classes/InteractiveObject'
 require_relative 'engine/classes/StaticObject'

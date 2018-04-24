@@ -24,11 +24,11 @@ module GraphMath
 			else
 				chance = 32 * Math.sqrt(-distance+10) #Chance decreases as distance does
 				[1, -1].each do |n|
-					a = fieldArray[targetX+n][targetY]
-					b = fieldArray[targetX][targetY+n]
-					c = fieldArray[targetX+n][targetY+n]
-					d = fieldArray[targetX-n][targetY+n]
-					if a.traits.objectName === "Wall" || b.traits.objectName === "Wall" || c.traits.objectName === "Wall" || d.traits.objectName === "Wall"
+					a = fieldArray[targetY+n][targetX]
+					b = fieldArray[targetY][targetX+n]
+					c = fieldArray[targetY+n][targetX+n]
+					d = fieldArray[targetY-n][targetX+n]
+					if a.objectName === "Wall" || b.objectName === "Wall" || c.objectName === "Wall" || d.objectName === "Wall"
 						chance *= 0.8
 						break
 					end
