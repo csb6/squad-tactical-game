@@ -89,7 +89,6 @@ end
 			@ammo = 50
 			@coverMod = 1
 		end
-		
 	end
 	
 		class BlueSoldier < Soldier

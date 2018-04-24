@@ -27,7 +27,17 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.isTargetSet = false
 			selectionManager.inMovingMode = false
 			selectionManager.hitText.value = ""
-			targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx = nil
+			targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
+			
+		elsif selectionManager.inTakeCoverMode
+			currentRow = selectionManager.currentTraits.yPos
+			currentCol = selectionManager.currentTraits.xPos
+			
+			fieldArray[currentRow][currentCol].coverMod = 0.8
+			
+			selectionManager.isCurrentSet = false
+			selectionManager.inTakeCoverMode = false
+			currentRow, currentCol = nil
 			
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 			targetRow = selectionManager.targetTraits.yPos
@@ -36,12 +46,12 @@ def updateField(fieldArray, selectionManager)
 			currentCol = selectionManager.currentTraits.xPos
 			coverModifier = selectionManager.currentTraits.coverMod
 			
-			fieldArray[currentRow][currentCol].setAmmo(selectionManager.currentTraits.ammo - 1)
+			fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
 			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
 			selectionManager.hitText.value = "#{chanceToHit}% chance"
 			
 			if GraphMath.hitDeterminer(chanceToHit)
-				fieldArray[targetRow][targetCol].setHealth(selectionManager.targetTraits.health - 15)
+				fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
 				fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
 			end
 			

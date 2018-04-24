@@ -34,6 +34,7 @@ module GraphMath
 					end
 				end
 			end
+			puts "Modifier: #{coverModifier}"
 			return (chance * coverModifier).round(1)
 		end
 end

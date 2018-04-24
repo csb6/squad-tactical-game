@@ -4,13 +4,14 @@ class SelectionManager
 	include Singleton
 	
 	attr_accessor :inMovingMode, :inShootingMode, :rootExists, :currentTraits, :targetTraits, :nameLabel, :isTargetSet, :isCurrentSet
-	attr_accessor :ammoLabel, :healthLabel, :hitText, :isBlueTurn, :turnLabel, :isBlueTurn
+	attr_accessor :ammoLabel, :healthLabel, :hitText, :isBlueTurn, :turnLabel, :isBlueTurn, :inTakeCoverMode
 	
 	def initialize
 		
 		#Variables for action modes
 		@inMovingMode = false
 		@inShootingMode = false
+		@inTakeCoverMode = false
 		
 		#Variables for actions
 		@isTargetSet = false

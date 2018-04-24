@@ -75,14 +75,6 @@ class GameObject
 		@image.coords(@x1, @y1)
 	end
 	
-	def setAmmo(ammoAmt)
-		@ammo = ammoAmt
-	end
-	
-	def setHealth(healthAmt)
-		@health = healthAmt
-	end
-	
 	def flashImage(pic)
 		origImage = @image[:image]
 		@image[:image] = pic

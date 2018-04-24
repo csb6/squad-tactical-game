@@ -90,7 +90,7 @@ def drawUI(selectionManager)
 												text "Take Cover"
 												command do
 														if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
-															selectionManager.currentTraits.coverMod = 0.8
+															selectionManager.inTakeCoverMode = true
 														end
 												end
 												grid('row' => 1, 'column' => 0)
