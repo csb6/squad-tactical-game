@@ -35,6 +35,7 @@ def updateField(fieldArray, selectionManager)
 			
 			fieldArray[currentRow][currentCol].coverMod = 0.8
 			
+			selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
 			selectionManager.isCurrentSet = false
 			selectionManager.inTakeCoverMode = false
 			currentRow, currentCol = nil

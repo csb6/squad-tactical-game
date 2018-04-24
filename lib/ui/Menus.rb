@@ -64,11 +64,16 @@ def drawUI(selectionManager)
 												grid('row' => 2, 'column' => 0)
 											end
 											
-											hitLabel = Tk::Tile::Label.new(labelPanel) do
-												textvariable selectionManager.hitText
+											coverLabel = Tk::Tile::Label.new(labelPanel) do
+												textvariable selectionManager.coverLabel
 												grid('row' => 3, 'column' => 0)
 											end
+												
 											
+											hitLabel = Tk::Tile::Label.new(labelPanel) do
+												textvariable selectionManager.hitText
+												grid('row' => 4, 'column' => 0)
+											end
 											
 								actionPanel = TkFrame.new(sideMenu) do
 									pady 5

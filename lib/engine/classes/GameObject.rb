@@ -35,9 +35,11 @@ class GameObject
 			if @canShoot
 				@selectManager.healthLabel.value = "Health: #{@health}"
 				@selectManager.ammoLabel.value = "Ammo: #{@ammo}"
+				@selectManager.coverLabel.value = "Cover: #{@coverMod}"
 			else
 				@selectManager.healthLabel.value = "Health: "
 				@selectManager.ammoLabel.value = "Ammo: "
+				@selectManager.coverLabel.value = "Cover: "
 			end
 			
 			
