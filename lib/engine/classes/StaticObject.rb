@@ -2,26 +2,21 @@ require_relative '../../Constants'
 
 class StaticObject < GameObject #Object on playing field that is not interactive, not movable
 	
-	attr_reader :isInteractive
-	
-	def initialize(objectName, xPos, yPos)
+	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 		super
-		
-		@isInteractive = false
-		@style = "Wall.InteractObj.TLabel"
 	end
 	
 end
 
 	class Wall < StaticObject #Object that is not movable, blocks path
 		
-		def initialize(objectName, xPos, yPos)
+		def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 			super
 			
 			@description = "A sturdy, unmovable barrier"
 			@weight = 100
 			@size = 1
-			@image = Constants::WALL_IMAGE
+			@image[:image] = Constants::WALL_IMAGE
 		end
 	
 	end

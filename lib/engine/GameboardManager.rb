@@ -9,16 +9,26 @@ def updateField(fieldArray, selectionManager)
 		if selectionManager.inMovingMode
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos
+			targetXPx = selectionManager.targetTraits.x1
+			targetYPx = selectionManager.targetTraits.y1
+			
 			currentRow = selectionManager.currentTraits.yPos
 			currentCol = selectionManager.currentTraits.xPos
+			currentXPx = selectionManager.currentTraits.x1
+			currentYPx = selectionManager.currentTraits.y1
 			
-			fieldArray[currentRow][currentCol].setTraits(selectionManager.targetTraits)
-			fieldArray[targetRow][targetCol].setTraits(selectionManager.currentTraits)
+			puts "#{currentRow} #{currentCol}"
+			fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
+			fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
+			temp = fieldArray[currentRow][currentCol]
+			fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
+			fieldArray[targetRow][targetCol] = temp
+			
 			selectionManager.isCurrentSet = false
 			selectionManager.isTargetSet = false
 			selectionManager.inMovingMode = false
 			selectionManager.hitText.value = ""
-			targetRow, targetCol, currentRow, currentCol = nil
+			targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx = nil
 			
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 			targetRow = selectionManager.targetTraits.yPos
