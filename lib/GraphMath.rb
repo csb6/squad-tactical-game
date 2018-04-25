@@ -1,4 +1,7 @@
 module GraphMath
+	@@D = 1
+	@@D2 = 1
+	@@P = 0.01 #P is tiebreaker value, should be < (cost for 1 step/max expected path length), so p < 1/5
 	#Math Methods
 		def GraphMath.distanceFormula(x1, y1, x2, y2)
 			distance = Math.sqrt( (x2-x1)**2 + (y2-y1)**2 )
@@ -35,5 +38,12 @@ module GraphMath
 				end
 			end
 			return (chance * coverModifier).round(1)
+		end
+		
+		def GraphMath.estimateTravelCost(currentX, currentY, targetX, targetY)
+			xDistance = (targetX - currentX).abs
+			yDistance = (targetY - currentY).abs
+			estimate = @@D * (xDistance + yDistance) + (@@D2 - 2 * @@D) * [xDistance, yDistance].min
+			return estimate * (1 + p) #breaks ties
 		end
 end

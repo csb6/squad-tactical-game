@@ -45,7 +45,7 @@ def updateField(fieldArray, selectionManager)
 			targetCol = selectionManager.targetTraits.xPos
 			currentRow = selectionManager.currentTraits.yPos
 			currentCol = selectionManager.currentTraits.xPos
-			coverModifier = selectionManager.currentTraits.coverMod
+			coverModifier = selectionManager.targetTraits.coverMod
 			
 			fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
 			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
