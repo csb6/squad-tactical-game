@@ -64,3 +64,47 @@ def updateField(fieldArray, selectionManager)
 		end
 		return fieldArray
 end
+
+def drawField(selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
+	canvas = TkCanvas.new(gameField) do
+			width 800 - 102
+			height 725
+			grid('row' => 0, 'column' => 0)
+	end
+	
+	fieldArray = [ ]
+	
+	r = 14
+	y = 0
+	CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
+		c = 12
+		x = 0
+		fieldArray[y] = [ ]
+		row.each do |letter|
+			case letter
+				when 's' #Sand tile
+					fieldArray[y][x] = Sand.new("Sand", x, y, c, r, selectionManager, canvas)
+					
+				when 'w' #Wall tile
+					fieldArray[y][x] = Wall.new("Wall", x, y, c, r, selectionManager, canvas)
+					
+				when 'c'
+					fieldArray[y][x] = Cannon.new("Cannon", x, y, c, r, selectionManager, canvas)
+					
+				when 't'
+					fieldArray[y][x] = Terminal.new("Terminal", x, y, c, r, selectionManager, canvas)
+					
+				when 'rh' #Soldier tile
+					fieldArray[y][x] = RedSoldier.new("Red Soldier #{x} #{y}", x, y, c, r, selectionManager, canvas)
+					
+				when 'bh'
+					fieldArray[y][x] = BlueSoldier.new("Blue Soldier #{x} #{y}", x, y, c, r, selectionManager, canvas)
+			end
+			c += 25
+			x += 1
+		end
+		r += 25
+		y += 1
+	end
+	return fieldArray
+end

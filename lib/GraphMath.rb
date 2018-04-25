@@ -40,8 +40,9 @@ module GraphMath
 			return (chance * coverModifier).round(1)
 		end
 		
-		def GraphMath.estimateTravelCost(currentX, currentY, targetX, targetY)
-			xDistance = (targetX - currentX).abs
+		
+		def GraphMath.estimateTravelCost(currentX, currentY, targetX, targetY) #Heurisitic that is h(x) in A*; configured for 8-directions
+			xDistance = (targetX - currentX).abs																#of movement
 			yDistance = (targetY - currentY).abs
 			estimate = @@D * (xDistance + yDistance) + (@@D2 - 2 * @@D) * [xDistance, yDistance].min
 			return estimate * (1 + p) #breaks ties
