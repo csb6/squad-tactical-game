@@ -40,6 +40,29 @@ def updateField(fieldArray, selectionManager)
 			selectionManager.inTakeCoverMode = false
 			currentRow, currentCol = nil
 			
+		elsif selectionManager.resetCover
+			selectionManager.isBlueTurn = !selectionManager.isBlueTurn
+			selectionManager.resetAll
+			selectionManager.resetCover = false
+			
+			if selectionManager.isBlueTurn
+				selectionManager.turnLabel.value = "Blue Turn"
+			else
+				selectionManager.turnLabel.value = "Red Turn "
+			end
+			
+			y = 0
+			fieldArray.each do |row|
+				x = 0
+				row.each do
+					if fieldArray[y][x].canShoot
+						fieldArray[y][x].coverMod = 1
+					end
+					x += 1
+				end
+				y += 1
+			end
+			
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 			targetRow = selectionManager.targetTraits.yPos
 			targetCol = selectionManager.targetTraits.xPos

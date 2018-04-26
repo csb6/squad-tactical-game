@@ -112,14 +112,7 @@ def drawUI(selectionManager)
 						endTurnButton = Tk::Tile::Button.new(sideMenu) do
 							text "End Turn"
 							command do
-								selectionManager.isBlueTurn = !selectionManager.isBlueTurn
-								selectionManager.resetAll
-								
-								if selectionManager.isBlueTurn
-									selectionManager.turnLabel.value = "Blue Turn"
-								else
-									selectionManager.turnLabel.value = "Red Turn "
-								end
+								selectionManager.resetCover = true
 							end
 							grid('row' => 3, 'column' => 0)
 						end
