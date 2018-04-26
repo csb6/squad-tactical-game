@@ -105,7 +105,7 @@ module GraphMath
 			
 			closedSet = [ ] #All values already visited
 			openSet = [ start ] #All values not yet visited
-			pathSoFar = [ ]
+			pathSoFar = { }
 				
 			while openSet.length > 0 #While still unvisited points left
 				current = nil
@@ -119,7 +119,7 @@ module GraphMath
 				
 				if current === target #If goal reached
 					path = [ current ]
-					pathSoFar.each do |vertex|
+					pathSoFar.each do |k, vertex|
 						path << vertex
 					end
 					puts "Path: #{path.reverse}" #Print out results when done
@@ -132,17 +132,16 @@ module GraphMath
 				GraphMath.findNeighbors(current).each do |neighbor|
 					if closedSet.include?(neighbor)
 						next
-						puts "This failed"
 					end
 					temp = g[current] + GraphMath.estimateTravelCost(current[0],current[1],target[0],target[1])
 					
-					if !openSet.include?(neighbor)
+					if !(openSet.include?(neighbor))
 						openSet << neighbor
 					elsif temp >= g[neighbor]
 						next
 					end
 					
-					pathSoFar << current
+					pathSoFar[neighbor] = current
 					g[neighbor] = temp
 					f[neighbor] = g[neighbor] + GraphMath.estimateTravelCost(neighbor[0],neighbor[1],target[0],target[1])
 				end
