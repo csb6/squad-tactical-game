@@ -74,8 +74,8 @@ end
 		
 		attr_accessor :weapon, :health, :ammo, :coverMod
 		
-		def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
-			super
+		def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
+			super(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 			
 			@description = "A stalwart, sometimes trigger-happy, GI"
 			@weight = 50
@@ -83,7 +83,7 @@ end
 			@panelFile = "soldierInfoPanel"
 			@isMovable = true
 			@canShoot = true
-			@weapon = "gun"
+			@weapon = weapon
 			@health = 100
 			@ammo = 50
 			@coverMod = 1
@@ -92,16 +92,22 @@ end
 		def openPanel
 			super
 			description = @description
-			@description = TkLabel.new(@panel) do
+			@descriptionLabel = TkLabel.new(@panel) do
 				text description
 				grid('row' => 0, 'column' => 0)
+			end
+			
+			weapon = @weapon
+			@weaponLabel = TkLabel.new(@panel) do
+				text weapon
+				grid('row' => 1, 'column' => 0)
 			end
 		end
 	end
 	
 		class BlueSoldier < Soldier
 			
-			def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
+			def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI working for Blu-o-polis"
@@ -112,7 +118,7 @@ end
 		
 		class RedSoldier < Soldier
 			
-			def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
+			def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
 				super
 				
 				@description = "A stalwart, sometimes trigger-happy, GI working for Red City"

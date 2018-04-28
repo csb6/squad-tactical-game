@@ -31,18 +31,24 @@ module Constants
 	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\"
 	LEVEL_PATH_MAC = "levels/"
 	LEVEL_PATH_WIN = "levels\\"
+	CHARS_PATH_MAC = "characters/"
+	CHARS_PATH_WIN = "characters\\"
 	SPRITE_PATH_MAC = "ui/sprites/"
 	SPRITE_PATH_WIN = "ui\\sprites\\"
 	if RUBY_PLATFORM =~ /darwin/ #Determine platform, change paths based on it
 		PATH = MAC_PATH
 		LEVELS_PATH = LEVEL_PATH_MAC
 		SPRITE_PATH = SPRITE_PATH_MAC
+		CHARS_PATH = CHARS_PATH_MAC
 	else
 		PATH = WIN_PATH
 		LEVELS_PATH = LEVEL_PATH_WIN
 		SPRITE_PATH = SPRITE_PATH_WIN
+		CHARS_PATH = CHARS_PATH_WIN
 	end
 			LEVEL_PATH = PATH + LEVELS_PATH + "island0.csv"
+			RED_CHAR_PATH = PATH + CHARS_PATH + "red-soldiers.csv"
+			BLUE_CHAR_PATH = PATH + CHARS_PATH + "blue-soldiers.csv"
 			
 			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)

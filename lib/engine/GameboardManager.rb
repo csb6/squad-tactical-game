@@ -96,9 +96,13 @@ def drawField(selectionManager, gameField)#Assigns styles to buttons, creates cl
 	end
 	
 	fieldArray = [ ]
+	redTraits = CSV.read(Constants::RED_CHAR_PATH, :col_sep => "	")
+	blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
 	
 	r = 14
 	y = 0
+	rt = 0
+	bt = 0
 	CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
 		c = 12
 		x = 0
@@ -118,10 +122,12 @@ def drawField(selectionManager, gameField)#Assigns styles to buttons, creates cl
 					fieldArray[y][x] = Terminal.new("Terminal", x, y, c, r, selectionManager, canvas)
 					
 				when 'rh' #Soldier tile
-					fieldArray[y][x] = RedSoldier.new("Red Soldier #{x} #{y}", x, y, c, r, selectionManager, canvas)
+					fieldArray[y][x] = RedSoldier.new(redTraits[rt][0], redTraits[rt][1], x, y, c, r, selectionManager, canvas)
+					rt += 1
 					
 				when 'bh'
-					fieldArray[y][x] = BlueSoldier.new("Blue Soldier #{x} #{y}", x, y, c, r, selectionManager, canvas)
+					fieldArray[y][x] = BlueSoldier.new(blueTraits[bt][0], blueTraits[bt][1], x, y, c, r, selectionManager, canvas)
+					bt += 1
 			end
 			c += 25
 			x += 1
