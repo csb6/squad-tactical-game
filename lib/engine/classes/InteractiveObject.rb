@@ -91,15 +91,19 @@ end
 		
 		def openPanel
 			super
+			objectName = @objectName
 			description = @description
+			@panel["title"] = objectName
+			
 			@descriptionLabel = TkLabel.new(@panel) do
-				text description
+				text "Description:\n#{description}"
+				wraplength 350
 				grid('row' => 0, 'column' => 0)
 			end
 			
 			weapon = @weapon
 			@weaponLabel = TkLabel.new(@panel) do
-				text weapon
+				text "Weapon:\n#{weapon}"
 				grid('row' => 1, 'column' => 0)
 			end
 		end

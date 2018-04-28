@@ -101,7 +101,7 @@ def drawUI(selectionManager)
 											end
 											
 											equipButton = Tk::Tile::Button.new(actionPanel) do
-												text "Unit Inventory"
+												text "Unit Info"
 												command do
 													if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
 														selectionManager.currentTraits.openPanel
