@@ -100,12 +100,23 @@ def drawUI(selectionManager)
 												grid('row' => 1, 'column' => 0)
 											end
 											
+											equipButton = Tk::Tile::Button.new(actionPanel) do
+												text "Unit Inventory"
+												command do
+													if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
+														selectionManager.currentTraits.openPanel
+														selectionManager.resetAll
+													end
+												end
+												grid('row' => 2, 'column' => 0)
+											end
+											
 											deselectButton = Tk::Tile::Button.new(actionPanel) do
 												text "Deselect Unit"
 												command do
 													selectionManager.resetAll
 												end
-												grid('row' => 2, 'column' => 0)
+												grid('row' => 3, 'column' => 0)
 											end
 											
 								

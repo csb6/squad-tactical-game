@@ -11,11 +11,11 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 	end
 	
 	def openPanel
-		
-	end
-	
-	def closePanel
-		
+		@panel = TkToplevel.new(@rootWin) do
+			title "Inventory"
+			background "grey"
+			geometry '500x200-5+40'
+		end
 	end
 	
 end
@@ -29,7 +29,6 @@ end
 			@weight = 300
 			@size = 1
 			@panelFile = "cannonControlPanel"
-			@image = TkcImage.new(@selectManager, rootWin, @x1, @y1)
 			@image[:image] = Constants::CANNON_IMAGE
 		end
 		
@@ -89,6 +88,15 @@ end
 			@ammo = 50
 			@coverMod = 1
 		end
+		
+		def openPanel
+			super
+			description = @description
+			@description = TkLabel.new(@panel) do
+				text description
+				grid('row' => 0, 'column' => 0)
+			end
+		end
 	end
 	
 		class BlueSoldier < Soldier
@@ -96,7 +104,7 @@ end
 			def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 				super
 				
-				@description = "A stalwart, sometimes trigger-happy, GI, working for Blu-o-polis"
+				@description = "A stalwart, sometimes trigger-happy, GI working for Blu-o-polis"
 				@image[:image] = Constants::B_SOLDIER_IMAGE
 			end
 			
@@ -107,7 +115,7 @@ end
 			def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 				super
 				
-				@description = "A stalwart, sometimes trigger-happy, GI, working for Red City"
+				@description = "A stalwart, sometimes trigger-happy, GI working for Red City"
 				@image[:image] = Constants::R_SOLDIER_IMAGE
 				@isBlueTeam = false
 			end
