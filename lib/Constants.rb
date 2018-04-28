@@ -27,12 +27,12 @@ module Constants
 	FIELD_HEIGHT = 32
 	
 	#Files
-	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/ui/"
-	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\ui\\"
+	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/"
+	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\"
 	LEVEL_PATH_MAC = "levels/"
 	LEVEL_PATH_WIN = "levels\\"
-	SPRITE_PATH_MAC = "sprites/"
-	SPRITE_PATH_WIN = "sprites\\"
+	SPRITE_PATH_MAC = "ui/sprites/"
+	SPRITE_PATH_WIN = "ui\\sprites\\"
 	if RUBY_PLATFORM =~ /darwin/ #Determine platform, change paths based on it
 		PATH = MAC_PATH
 		LEVELS_PATH = LEVEL_PATH_MAC
