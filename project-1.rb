@@ -1,12 +1,12 @@
 require 'tk'
 require 'csv'
-require_relative 'engine/classes/GameObject'
-require_relative 'engine/classes/InteractiveObject'
-require_relative 'engine/classes/StaticObject'
-require_relative 'engine/classes/OccupiableObject'
-require_relative 'engine/classes/SelectionManager'
-require_relative 'ui/menus'
-require_relative 'engine/GameboardManager'
+require_relative 'lib/engine/classes/GameObject'
+require_relative 'lib/engine/classes/InteractiveObject'
+require_relative 'lib/engine/classes/StaticObject'
+require_relative 'lib/engine/classes/OccupiableObject'
+require_relative 'lib/engine/classes/SelectionManager'
+require_relative 'lib/ui/menus'
+require_relative 'lib/engine/GameboardManager'
 
 #Main file, containing ui loop, as well as the selection singleton and gameField frame
 
