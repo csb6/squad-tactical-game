@@ -21,7 +21,7 @@ selectionManager = SelectionManager.instance
 
 drawUI(selectionManager)
 fieldArray = drawField(selectionManager, gameField)
-#pathArray = GraphMath.makePathfindingGrid(fieldArray)
+#pathArray = PathFind.makePathfindingGrid(fieldArray)
 
 while selectionManager.rootExists #While main window exists
 	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
