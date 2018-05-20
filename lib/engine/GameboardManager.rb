@@ -5,42 +5,7 @@ require_relative '../GraphMath'
 
 
 def updateField(fieldArray, selectionManager)
-
-		if selectionManager.inMovingMode
-			targetRow = selectionManager.targetTraits.yPos
-			targetCol = selectionManager.targetTraits.xPos
-			targetXPx = selectionManager.targetTraits.x1
-			targetYPx = selectionManager.targetTraits.y1
-			
-			currentRow = selectionManager.currentTraits.yPos
-			currentCol = selectionManager.currentTraits.xPos
-			currentXPx = selectionManager.currentTraits.x1
-			currentYPx = selectionManager.currentTraits.y1
-			
-			fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
-			fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
-			temp = fieldArray[currentRow][currentCol]
-			fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
-			fieldArray[targetRow][targetCol] = temp
-			
-			selectionManager.isCurrentSet = false
-			selectionManager.isTargetSet = false
-			selectionManager.inMovingMode = false
-			selectionManager.hitText.value = ""
-			targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
-			
-		elsif selectionManager.inTakeCoverMode
-			currentRow = selectionManager.currentTraits.yPos
-			currentCol = selectionManager.currentTraits.xPos
-			
-			fieldArray[currentRow][currentCol].coverMod = 0.8
-			
-			selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
-			selectionManager.isCurrentSet = false
-			selectionManager.inTakeCoverMode = false
-			currentRow, currentCol = nil
-			
-		elsif selectionManager.resetCover
+		if selectionManager.resetCover
 			selectionManager.isBlueTurn = !selectionManager.isBlueTurn
 			selectionManager.resetAll
 			selectionManager.resetCover = false
@@ -62,37 +27,104 @@ def updateField(fieldArray, selectionManager)
 				end
 				y += 1
 			end
-			
-		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
-			targetRow = selectionManager.targetTraits.yPos
-			targetCol = selectionManager.targetTraits.xPos
-			currentRow = selectionManager.currentTraits.yPos
-			currentCol = selectionManager.currentTraits.xPos
-			coverModifier = selectionManager.targetTraits.coverMod
-			
-			fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
-			chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
-			selectionManager.hitText.value = "#{chanceToHit}% chance"
-			
-			if GraphMath.hitDeterminer(chanceToHit)
-				fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
-				fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
+
+		elsif selectionManager.isBlueTurn
+			if selectionManager.inMovingMode
+				targetRow = selectionManager.targetTraits.yPos
+				targetCol = selectionManager.targetTraits.xPos
+				targetXPx = selectionManager.targetTraits.x1
+				targetYPx = selectionManager.targetTraits.y1
+				
+				currentRow = selectionManager.currentTraits.yPos
+				currentCol = selectionManager.currentTraits.xPos
+				currentXPx = selectionManager.currentTraits.x1
+				currentYPx = selectionManager.currentTraits.y1
+				
+				fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
+				fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
+				temp = fieldArray[currentRow][currentCol]
+				fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
+				fieldArray[targetRow][targetCol] = temp
+				
+				selectionManager.isCurrentSet = false
+				selectionManager.isTargetSet = false
+				selectionManager.inMovingMode = false
+				selectionManager.hitText.value = ""
+				targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
+				
+			elsif selectionManager.inTakeCoverMode
+				currentRow = selectionManager.currentTraits.yPos
+				currentCol = selectionManager.currentTraits.xPos
+				
+				fieldArray[currentRow][currentCol].coverMod = 0.8
+				
+				selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
+				selectionManager.isCurrentSet = false
+				selectionManager.inTakeCoverMode = false
+				currentRow, currentCol = nil
+				
+			elsif selectionManager.inShootingMode && selectionManager.isTargetSet
+				targetRow = selectionManager.targetTraits.yPos
+				targetCol = selectionManager.targetTraits.xPos
+				currentRow = selectionManager.currentTraits.yPos
+				currentCol = selectionManager.currentTraits.xPos
+				coverModifier = selectionManager.targetTraits.coverMod
+				
+				fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
+				chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
+				selectionManager.hitText.value = "#{chanceToHit}% chance"
+				
+				if GraphMath.hitDeterminer(chanceToHit)
+					fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
+					fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
+				end
+				
+				selectionManager.isCurrentSet = false
+				selectionManager.isTargetSet = false
+				selectionManager.inShootingMode = false
+				selectionManager.currentTraits.coverMod = 1
+				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 			end
+		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
+			path = [ [10, 2], [9, 2], [8, 2], [ 7, 2] ]
 			
-			selectionManager.isCurrentSet = false
-			selectionManager.isTargetSet = false
-			selectionManager.inShootingMode = false
-			selectionManager.currentTraits.coverMod = 1
-			targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
+			currentRow = nil
+			path.each do |point|
+				if currentRow === nil
+					currentRow = fieldArray[ point[1] ][ point[0] ].yPos
+					currentCol = fieldArray[ point[1] ][ point[0] ].xPos
+					currentXPx = fieldArray[ point[1] ][ point[0] ].x1
+					currentYPx = fieldArray[ point[1] ][ point[0] ].y1
+				else
+					targetRow = fieldArray[ point[1] ][ point[0] ].yPos
+					targetCol = fieldArray[ point[1] ][ point[0] ].xPos
+					targetXPx = fieldArray[ point[1] ][ point[0] ].x1
+					targetYPx = fieldArray[ point[1] ][ point[0] ].y1
+					
+					fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
+					fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
+					temp = fieldArray[currentRow][currentCol]
+					fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
+					fieldArray[targetRow][targetCol] = temp
+					currentRow = targetRow
+					currentCol = targetCol
+					currentXPx = targetXPx
+					currentYPx = targetYPx
+					temp = nil
+					Tk.update
+					sleep(0.4)
+				end
+			end
+			selectionManager.resetCover = true
 		end
 		return fieldArray
 end
 
-def drawField(selectionManager, gameField)#Assigns styles to buttons, creates class instances w/ buttons' positions
+def drawField(selectionManager, gameField) #Assigns styles to buttons, creates class instances w/ buttons' positions
 	canvas = TkCanvas.new(gameField) do
-			width 800 - 102
-			height 725
-			grid('row' => 0, 'column' => 0)
+		width 800 - 102
+		height 725
+		grid('row' => 0, 'column' => 0)
 	end
 	
 	fieldArray = [ ]

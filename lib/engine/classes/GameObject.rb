@@ -1,7 +1,6 @@
 
-#Parent class to all trait classes. Trait classes contain attritubes such as weight and typically a Tk style which
-#is applied to FieldSpace instances by GameboardManager.stylizeField and when a player moves and a tile passes its trait class
-#to the tile the player moves to, using SelectionManager
+#Parent class to all trait classes. Trait classes contain attritubes such as weight and a TkImage. When a player moves
+#he selects a Trait class as currentTraits and one for targetTraits; they switch places, simulating movement
 
 class GameObject
 	
@@ -30,8 +29,10 @@ class GameObject
 		@isBlueTeam = true
 		
 		@image.bind("1", proc {
-			updateLabels
-			performAction
+			if selectManager.isBlueTurn
+				updateLabels
+				performAction
+			end
 		})
 	end
 	
