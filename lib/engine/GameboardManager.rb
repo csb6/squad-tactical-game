@@ -86,7 +86,8 @@ def updateField(fieldArray, selectionManager)
 				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 			end
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-			path = [ [10, 2], [9, 2], [8, 2], [ 7, 2] ]
+			# path = [ [10, 2], [9, 2], [8, 2], [ 7, 2] ]
+			path = [ [10,2], [11, 3], [11, 2], [11, 1], [10, 1], [9, 1], [9, 2], [9, 3], [10, 3], [8, 1], [8, 2], [8, 3], [7, 1], [7, 2], [6, 1], [6, 2], [6, 3], [5, 1], [5, 2], [5, 3], [5, 4], [6, 4]]
 			
 			currentRow = nil
 			path.each do |point|
