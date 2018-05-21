@@ -29,7 +29,6 @@ module PathFind
                 end
             end
         end
-        puts "Neighbors found"
         return neighbors
     end
     
@@ -47,12 +46,15 @@ module PathFind
         return lowPoint[0]
     end
 
-    def PathFind.reconstructPath(cameFrom, target)
-        path = [ ]
-        cameFrom.each_key do |point|
-            path << point
+    def PathFind.reconstructPath(cameFrom, start, target)
+        point = target
+        path = [ point ]
+        while point != start
+            prevPoint = cameFrom[point]
+            path << prevPoint
+            point = prevPoint
         end
-        return path
+        return path.reverse
     end
 
     def PathFind.findBestPath(start, target)
@@ -69,17 +71,14 @@ module PathFind
             i += 1
             current = PathFind.getSmallestFScore(fScore, openSet)
             if current === target
-                # return PathFind.reconstructPath(cameFrom, target)
-                return "Solution: #{PathFind.reconstructPath(cameFrom, target)}"
+                return PathFind.reconstructPath(cameFrom, start, target)
             end
             openSet.delete(current)
             closedSet << current
             neighbors = PathFind.findNeighbors(current)
-            puts "Current point is: #{current}    Neighbors are: #{neighbors}"
 
             neighbors.each do |neighbor|
                 if closedSet.include?(neighbor)
-                    puts "Skip at #{i}"
                     next
                 end
                 if !openSet.include?(neighbor)
@@ -88,7 +87,6 @@ module PathFind
                 tempG = gScore[current] + GraphMath.estimateTravelCost( current[0], current[1], neighbor[0], neighbor[1] )
                 if gScore.has_key?(neighbor)
                     if tempG >= gScore[neighbor]
-                        puts "Already have better gScore at #{i}"
                         next
                     end
                 end
@@ -102,4 +100,3 @@ module PathFind
 
     end
 end
-puts "#{PathFind.findBestPath( [10,2], [5,3] )}"

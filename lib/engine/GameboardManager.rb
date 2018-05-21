@@ -1,5 +1,6 @@
 require_relative '../Constants'
 require_relative '../GraphMath'
+require_relative '../PathFind'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
@@ -87,7 +88,7 @@ def updateField(fieldArray, selectionManager)
 			end
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
 			# path = [ [10, 2], [9, 2], [8, 2], [ 7, 2] ]
-			path = [ [10,2], [11, 3], [11, 2], [11, 1], [10, 1], [9, 1], [9, 2], [9, 3], [10, 3], [8, 1], [8, 2], [8, 3], [7, 1], [7, 2], [6, 1], [6, 2], [6, 3], [5, 1], [5, 2], [5, 3], [5, 4], [6, 4]]
+			path = PathFind.findBestPath( [10,2], [0,10] )
 			
 			currentRow = nil
 			path.each do |point|
