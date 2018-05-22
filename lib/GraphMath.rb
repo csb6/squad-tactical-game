@@ -31,9 +31,11 @@ module GraphMath
 					b = fieldArray[targetY][targetX+n]
 					c = fieldArray[targetY+n][targetX+n]
 					d = fieldArray[targetY-n][targetX+n]
-					if a.objectName === "Wall" || b.objectName === "Wall" || c.objectName === "Wall" || d.objectName === "Wall"
-						chance *= 0.8
-						break
+					[a,b,c,d].each do |x|
+						if x.objectName === "Wall"
+							chance *= 0.8
+							break
+						end
 					end
 				end
 			end

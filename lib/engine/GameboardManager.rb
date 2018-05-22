@@ -4,30 +4,46 @@ require_relative '../PathFind'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
+def clearCoverMods(selectionManager, fieldArray)
+	selectionManager.isBlueTurn = !selectionManager.isBlueTurn
+	selectionManager.resetAll
+	selectionManager.resetCover = false
+	
+	if selectionManager.isBlueTurn
+		selectionManager.turnLabel.value = "Blue Turn"
+	else
+		selectionManager.turnLabel.value = "Red Turn "
+	end
+	
+	y = 0
+	fieldArray.each do |row|
+		x = 0
+		row.each do
+			if fieldArray[y][x].canShoot && fieldArray[y][x].isBlueTeam === selectionManager.isBlueTurn
+				fieldArray[y][x].coverMod = 1
+			end
+			x += 1
+		end
+		y += 1
+	end
+end
+
+def applyCoverMod(selectionManager, fieldArray)
+	currentRow = selectionManager.currentTraits.yPos
+	currentCol = selectionManager.currentTraits.xPos
+	
+	fieldArray[currentRow][currentCol].coverMod = 0.8
+	
+	selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
+	selectionManager.isCurrentSet = false
+	selectionManager.inTakeCoverMode = false
+	currentRow, currentCol = nil
+	return fieldArray
+end
 
 def updateField(fieldArray, selectionManager)
 		if selectionManager.resetCover
-			selectionManager.isBlueTurn = !selectionManager.isBlueTurn
-			selectionManager.resetAll
-			selectionManager.resetCover = false
-			
-			if selectionManager.isBlueTurn
-				selectionManager.turnLabel.value = "Blue Turn"
-			else
-				selectionManager.turnLabel.value = "Red Turn "
-			end
-			
-			y = 0
-			fieldArray.each do |row|
-				x = 0
-				row.each do
-					if fieldArray[y][x].canShoot && fieldArray[y][x].isBlueTeam === selectionManager.isBlueTurn
-						fieldArray[y][x].coverMod = 1
-					end
-					x += 1
-				end
-				y += 1
-			end
+			fieldArray = clearCoverMods(selectionManager, fieldArray)
 
 		elsif selectionManager.isBlueTurn
 			if selectionManager.inMovingMode
@@ -54,15 +70,7 @@ def updateField(fieldArray, selectionManager)
 				targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
 				
 			elsif selectionManager.inTakeCoverMode
-				currentRow = selectionManager.currentTraits.yPos
-				currentCol = selectionManager.currentTraits.xPos
-				
-				fieldArray[currentRow][currentCol].coverMod = 0.8
-				
-				selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
-				selectionManager.isCurrentSet = false
-				selectionManager.inTakeCoverMode = false
-				currentRow, currentCol = nil
+				fieldArray = applyCoverMod(selectionManager, fieldArray)
 				
 			elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 				targetRow = selectionManager.targetTraits.yPos
@@ -87,7 +95,7 @@ def updateField(fieldArray, selectionManager)
 				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 			end
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-			path = PathFind.findBestPath( [10,2], [10,19], fieldArray )
+			path = PathFind.findBestPath( [10,2], [25,27], fieldArray )
 			
 			currentRow = nil
 			path.each do |point|
@@ -113,7 +121,7 @@ def updateField(fieldArray, selectionManager)
 					currentYPx = targetYPx
 					temp = nil
 					Tk.update
-					sleep(0.4)
+					sleep(0.3)
 				end
 			end
 			selectionManager.resetCover = true

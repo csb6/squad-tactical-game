@@ -74,9 +74,8 @@ module PathFind
         gScore[start] = 0
         fScore = { } #Cost from start to target through this point
         fScore[start] = GraphMath.estimateTravelCost( start[0], start[1], target[0], target[1] )
-        i = -1
+
         while !openSet.empty?
-            i += 1
             current = PathFind.getSmallestFScore(fScore, openSet)
             if current === target
                 return PathFind.reconstructPath(cameFrom, start, target)
