@@ -1,20 +1,28 @@
 require_relative "GraphMath"
 module PathFind
 
-    WALL_TILES = [ [7, 0], [7, 3], [7, 4], [8, 4], [9, 4], [10, 4], [10, 5], [10, 6] ]
-
-    def PathFind.checkIfWall(point)
-        isWall = false
-        WALL_TILES.each do |tile|
-            if tile[0] === point[0] && tile[1] === point[1]
-                isWall = true
-                break
-            end
+    def PathFind.checkIfOccup(point, fieldArray)
+        isOccupiable = false
+        if fieldArray[ point[1] ][ point[0] ].isOccupiable
+            isOccupiable = true
         end
-        return isWall
+
+        return isOccupiable
+    end
+
+    def PathFind.findAllWallsOnField(fieldArray) #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
+        wallTiles = [ ]
+        fieldArray.each do |row|
+        	row.each do |tile|
+        		if tile.description === "A sturdy, unmovable barrier"
+        			wallTiles << [tile.xPos, tile.yPos]
+        		end
+        	end
+        end
+        return wallTiles
     end
     
-    def PathFind.findNeighbors(current)
+    def PathFind.findNeighbors(current, fieldArray)
         neighbors = [ ]
         values = [ [1,1], [1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1], [0,1] ]
 
@@ -22,8 +30,8 @@ module PathFind
             point = [ current[0]+x, current[1]+y ]
             if point[0] >= 0 && point[1] >= 0
                 if point[0] < 28 && point[1] < 29
-                    isWall = PathFind.checkIfWall(point)
-                    if !isWall
+                    isOccupiable = PathFind.checkIfOccup(point, fieldArray)
+                    if isOccupiable
                         neighbors << point
                     end
                 end
@@ -57,7 +65,7 @@ module PathFind
         return path.reverse
     end
 
-    def PathFind.findBestPath(start, target)
+    def PathFind.findBestPath(start, target, fieldArray)
         openSet = [ start ]
         closedSet = [ ]
 
@@ -75,7 +83,7 @@ module PathFind
             end
             openSet.delete(current)
             closedSet << current
-            neighbors = PathFind.findNeighbors(current)
+            neighbors = PathFind.findNeighbors(current, fieldArray)
 
             neighbors.each do |neighbor|
                 if closedSet.include?(neighbor)
