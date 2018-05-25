@@ -1,3 +1,5 @@
+require_relative 'PathFind'
+
 module FieldUtils
     def FieldUtils.clearCoverMods(selectionManager, fieldArray)
         selectionManager.isBlueTurn = !selectionManager.isBlueTurn
@@ -30,6 +32,45 @@ module FieldUtils
         fieldArray[ currentPos[1] ][ currentPos[0] ] = fieldArray[ targetPos[1] ][ targetPos[0] ]
         fieldArray[ targetPos[1] ][ targetPos[0] ] = temp
         
+        return fieldArray
+    end
+
+    def FieldUtils.manualMove(fieldArray, selectionManager)
+        targetPos = [ selectionManager.targetTraits.xPos, selectionManager.targetTraits.yPos ]
+        targetPx = [ selectionManager.targetTraits.x1, selectionManager.targetTraits.y1 ]
+        currentPos = [ selectionManager.currentTraits.xPos, selectionManager.currentTraits.yPos ]
+        currentPx = [ selectionManager.currentTraits.x1, selectionManager.currentTraits.y1 ]
+        
+        fieldArray = FieldUtils.move( currentPos, targetPos, currentPx, targetPx, fieldArray )
+        
+        selectionManager.isCurrentSet = false
+        selectionManager.isTargetSet = false
+        selectionManager.inMovingMode = false
+        selectionManager.hitText.value = ""
+        return fieldArray
+    end
+
+    def FieldUtils.autoMove(fieldArray, selectionManager)
+        path = PathFind.findBestPath( [10,2], [25,27], fieldArray )
+			
+        currentPos, currentPx, targetPx = nil
+        path.each do |point|
+            if currentPos === nil
+                currentPos = [ fieldArray[ point[1] ][ point[0] ].xPos, fieldArray[ point[1] ][ point[0] ].yPos ]
+                currentPx = [ fieldArray[ point[1] ][ point[0] ].x1, fieldArray[ point[1] ][ point[0] ].y1 ]
+            else
+                targetPos = [ fieldArray[ point[1] ][ point[0] ].xPos, fieldArray[ point[1] ][ point[0] ].yPos ]
+                targetPx = [ fieldArray[ point[1] ][ point[0] ].x1, fieldArray[ point[1] ][ point[0] ].y1 ]
+                
+                fieldArray = FieldUtils.move( currentPos, targetPos, currentPx, targetPx, fieldArray )
+                currentPos = targetPos
+                currentPx = targetPx
+                temp = nil
+                Tk.update
+                sleep(0.3)
+            end
+        end
+        selectionManager.resetCover = true
         return fieldArray
     end
 

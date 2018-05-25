@@ -11,22 +11,7 @@ def updateField(fieldArray, selectionManager)
 
 		elsif selectionManager.isBlueTurn
 			if selectionManager.inMovingMode
-				targetRow = selectionManager.targetTraits.yPos
-				targetCol = selectionManager.targetTraits.xPos
-				targetXPx = selectionManager.targetTraits.x1
-				targetYPx = selectionManager.targetTraits.y1
-				
-				currentRow = selectionManager.currentTraits.yPos
-				currentCol = selectionManager.currentTraits.xPos
-				currentXPx = selectionManager.currentTraits.x1
-				currentYPx = selectionManager.currentTraits.y1
-				
-				fieldArray = FieldUtils.move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
-				
-				selectionManager.isCurrentSet = false
-				selectionManager.isTargetSet = false
-				selectionManager.inMovingMode = false
-				selectionManager.hitText.value = ""
+				fieldArray = FieldUtils.manualMove(fieldArray, selectionManager)
 				targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
 				
 			elsif selectionManager.inTakeCoverMode
@@ -54,33 +39,9 @@ def updateField(fieldArray, selectionManager)
 				selectionManager.currentTraits.coverMod = 1
 				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 			end
-		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-			path = PathFind.findBestPath( [10,2], [25,27], fieldArray )
 			
-			currentRow = nil
-			path.each do |point|
-				if currentRow === nil
-					currentRow = fieldArray[ point[1] ][ point[0] ].yPos
-					currentCol = fieldArray[ point[1] ][ point[0] ].xPos
-					currentXPx = fieldArray[ point[1] ][ point[0] ].x1
-					currentYPx = fieldArray[ point[1] ][ point[0] ].y1
-				else
-					targetRow = fieldArray[ point[1] ][ point[0] ].yPos
-					targetCol = fieldArray[ point[1] ][ point[0] ].xPos
-					targetXPx = fieldArray[ point[1] ][ point[0] ].x1
-					targetYPx = fieldArray[ point[1] ][ point[0] ].y1
-					
-					fieldArray = FieldUtils.move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
-					currentRow = targetRow
-					currentCol = targetCol
-					currentXPx = targetXPx
-					currentYPx = targetYPx
-					temp = nil
-					Tk.update
-					sleep(0.3)
-				end
-			end
-			selectionManager.resetCover = true
+		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
+			fieldArray = FieldUtils.autoMove(fieldArray, selectionManager)
 		end
 		return fieldArray
 end
