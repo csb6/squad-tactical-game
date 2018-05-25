@@ -37,12 +37,12 @@ def drawField(selectionManager, gameField) #Assigns styles to buttons, creates c
 	redTraits = CSV.read(Constants::RED_CHAR_PATH, :col_sep => "	")
 	blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
 	
-	r = 14
+	r = 15
 	y = 0
 	rt = 0
 	bt = 0
 	CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
-		c = 12
+		c = 14
 		x = 0
 		fieldArray[y] = [ ]
 		row.each do |letter|

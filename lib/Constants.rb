@@ -50,22 +50,22 @@ module Constants
 			RED_CHAR_PATH = PATH + CHARS_PATH + "red-soldiers.csv"
 			BLUE_CHAR_PATH = PATH + CHARS_PATH + "blue-soldiers.csv"
 			
-			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand.png"
+			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand2.png"
 			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
 			
-			B_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "blue-soldier.png"
+			B_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "blue-soldier2.png"
 			B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)
 			
-			R_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "red-soldier.png"
+			R_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "red-soldier2.png"
 			R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
 			
-			CANNON_IMAGE_PATH = PATH + SPRITE_PATH + "cannon.png"
+			CANNON_IMAGE_PATH = PATH + SPRITE_PATH + "cannon2.png"
 			CANNON_IMAGE = TkPhotoImage.new(:file => CANNON_IMAGE_PATH)
 			
 			TERM_IMAGE_PATH = PATH + SPRITE_PATH + "terminal.png"
 			TERM_IMAGE = TkPhotoImage.new(:file => TERM_IMAGE_PATH)
 			
-			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall.png"
+			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall2.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
 			
 			EXPLO_IMAGE_PATH = PATH + SPRITE_PATH + "explosion.png"
