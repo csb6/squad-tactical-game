@@ -87,6 +87,31 @@ end
 			@health = 100
 			@ammo = 50
 			@coverMod = 1
+
+			@image.bind("1", proc {
+				if selectManager.isBlueTurn
+					updateLabels
+					performAction
+				end
+			})
+		end
+
+		def performAction #Makes the soldier move or shoot something, checking what is selected, if target/current positions are set
+
+			if !@selectManager.isCurrentSet && @isMovable #If no current yet and this tile = movable
+				setCurrent
+				
+			elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
+				setTarget
+			end
+		end
+		
+		
+		def setCurrent #tile to be this tile if it's the turn of the tile's team
+			if @isBlueTeam === @selectManager.isBlueTurn
+				@selectManager.currentTraits = self
+				@selectManager.isCurrentSet = true
+			end
 		end
 		
 		def openPanel

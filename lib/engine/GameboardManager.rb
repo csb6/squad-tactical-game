@@ -1,59 +1,13 @@
 require_relative '../Constants'
 require_relative '../GraphMath'
 require_relative '../PathFind'
+require_relative '../FieldUtils'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
-def clearCoverMods(selectionManager, fieldArray)
-	selectionManager.isBlueTurn = !selectionManager.isBlueTurn
-	selectionManager.resetAll
-	selectionManager.resetCover = false
-	
-	if selectionManager.isBlueTurn
-		selectionManager.turnLabel.value = "Blue Turn"
-	else
-		selectionManager.turnLabel.value = "Red Turn "
-	end
-	
-	y = 0
-	fieldArray.each do |row|
-		x = 0
-		row.each do
-			if fieldArray[y][x].canShoot && fieldArray[y][x].isBlueTeam === selectionManager.isBlueTurn
-				fieldArray[y][x].coverMod = 1
-			end
-			x += 1
-		end
-		y += 1
-	end
-end
-
-def move(currentPos, targetPos, currentPx, targetPx, fieldArray) #Moves a GameObject from current position to target position by swapping the tiles at those locations
-	fieldArray[ currentPos[1] ][ currentPos[0] ].setPosition(targetPos, targetPx)
-	fieldArray[ targetPos[1] ][ targetPos[0] ].setPosition(currentPos, currentPx)
-	temp = fieldArray[ currentPos[1] ][ currentPos[0] ]
-	fieldArray[ currentPos[1] ][ currentPos[0] ] = fieldArray[ targetPos[1] ][ targetPos[0] ]
-	fieldArray[ targetPos[1] ][ targetPos[0] ] = temp
-	
-	return fieldArray
-end
-
-def applyCoverMod(selectionManager, fieldArray)
-	currentRow = selectionManager.currentTraits.yPos
-	currentCol = selectionManager.currentTraits.xPos
-	
-	fieldArray[currentRow][currentCol].coverMod = 0.8
-	
-	selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
-	selectionManager.isCurrentSet = false
-	selectionManager.inTakeCoverMode = false
-	currentRow, currentCol = nil
-	return fieldArray
-end
-
 def updateField(fieldArray, selectionManager)
 		if selectionManager.resetCover
-			fieldArray = clearCoverMods(selectionManager, fieldArray)
+			fieldArray = FieldUtils.clearCoverMods(selectionManager, fieldArray)
 
 		elsif selectionManager.isBlueTurn
 			if selectionManager.inMovingMode
@@ -67,7 +21,7 @@ def updateField(fieldArray, selectionManager)
 				currentXPx = selectionManager.currentTraits.x1
 				currentYPx = selectionManager.currentTraits.y1
 				
-				fieldArray = move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
+				fieldArray = FieldUtils.move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
 				
 				selectionManager.isCurrentSet = false
 				selectionManager.isTargetSet = false
@@ -76,7 +30,7 @@ def updateField(fieldArray, selectionManager)
 				targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
 				
 			elsif selectionManager.inTakeCoverMode
-				fieldArray = applyCoverMod(selectionManager, fieldArray)
+				fieldArray = FieldUtils.applyCoverMod(selectionManager, fieldArray)
 				
 			elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 				targetRow = selectionManager.targetTraits.yPos
@@ -116,7 +70,7 @@ def updateField(fieldArray, selectionManager)
 					targetXPx = fieldArray[ point[1] ][ point[0] ].x1
 					targetYPx = fieldArray[ point[1] ][ point[0] ].y1
 					
-					fieldArray = move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
+					fieldArray = FieldUtils.move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
 					currentRow = targetRow
 					currentCol = targetCol
 					currentXPx = targetXPx

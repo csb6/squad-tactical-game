@@ -31,7 +31,9 @@ class GameObject
 		@image.bind("1", proc {
 			if selectManager.isBlueTurn
 				updateLabels
-				performAction
+				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
+					setTarget
+				end
 			end
 		})
 	end
@@ -50,25 +52,6 @@ class GameObject
 			@selectManager.coverLabel.value = "Cover: "
 		end
 	end
-		
-		
-	def performAction #Makes the soldier move or shoot something, checking what is selected, if target/current positions are set
-
-		if !@selectManager.isCurrentSet && @isMovable #If no current yet and this tile = movable
-			setCurrent
-			
-		elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-			setTarget
-		end
-	end
-	
-	
-	def setCurrent #tile to be this tile if it's the turn of the tile's team
-		if @isBlueTeam === @selectManager.isBlueTurn
-			@selectManager.currentTraits = self
-			@selectManager.isCurrentSet = true
-		end
-	end
 	
 	
 	def setTarget #tile to be this tile if it's the turn of the tile's team
@@ -85,8 +68,6 @@ class GameObject
 				@selectManager.inMovingMode = true
 			end
 		end
-		#@selectManager.targetTraits = @traits
-		#@selectManager.isTargetSet = true
 	end
 	
 	
