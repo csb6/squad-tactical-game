@@ -1,6 +1,5 @@
 require_relative '../Constants'
 require_relative '../GraphMath'
-require_relative '../PathFind'
 require_relative '../FieldUtils'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
@@ -12,32 +11,12 @@ def updateField(fieldArray, selectionManager)
 		elsif selectionManager.isBlueTurn
 			if selectionManager.inMovingMode
 				fieldArray = FieldUtils.manualMove(fieldArray, selectionManager)
-				targetRow, targetCol, targetXPx, targetYPx, currentRow, currentCol, currentXPx, currentYPx, temp = nil
 				
 			elsif selectionManager.inTakeCoverMode
 				fieldArray = FieldUtils.applyCoverMod(selectionManager, fieldArray)
 				
 			elsif selectionManager.inShootingMode && selectionManager.isTargetSet
-				targetRow = selectionManager.targetTraits.yPos
-				targetCol = selectionManager.targetTraits.xPos
-				currentRow = selectionManager.currentTraits.yPos
-				currentCol = selectionManager.currentTraits.xPos
-				coverModifier = selectionManager.targetTraits.coverMod
-				
-				fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
-				chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
-				selectionManager.hitText.value = "#{chanceToHit}% chance"
-				
-				if GraphMath.hitDeterminer(chanceToHit)
-					fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
-					fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
-				end
-				
-				selectionManager.isCurrentSet = false
-				selectionManager.isTargetSet = false
-				selectionManager.inShootingMode = false
-				selectionManager.currentTraits.coverMod = 1
-				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
+				fieldArray = FieldUtils.shootTarget(fieldArray, selectionManager)
 			end
 
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path

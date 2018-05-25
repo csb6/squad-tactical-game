@@ -1,6 +1,20 @@
 require_relative 'PathFind'
 
 module FieldUtils
+
+    def FieldUtils.applyCoverMod(selectionManager, fieldArray)
+        currentRow = selectionManager.currentTraits.yPos
+        currentCol = selectionManager.currentTraits.xPos
+        
+        fieldArray[currentRow][currentCol].coverMod = 0.8
+        
+        selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
+        selectionManager.isCurrentSet = false
+        selectionManager.inTakeCoverMode = false
+        currentRow, currentCol = nil
+        return fieldArray
+    end
+
     def FieldUtils.clearCoverMods(selectionManager, fieldArray)
         selectionManager.isBlueTurn = !selectionManager.isBlueTurn
         selectionManager.resetAll
@@ -71,16 +85,27 @@ module FieldUtils
         return fieldArray
     end
 
-    def FieldUtils.applyCoverMod(selectionManager, fieldArray)
+    def FieldUtils.shootTarget(fieldArray, selectionManager)
+        targetRow = selectionManager.targetTraits.yPos
+        targetCol = selectionManager.targetTraits.xPos
         currentRow = selectionManager.currentTraits.yPos
         currentCol = selectionManager.currentTraits.xPos
+        coverModifier = selectionManager.targetTraits.coverMod
         
-        fieldArray[currentRow][currentCol].coverMod = 0.8
+        fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
+        chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
+        selectionManager.hitText.value = "#{chanceToHit}% chance"
         
-        selectionManager.coverLabel.value = "Cover: #{fieldArray[currentRow][currentCol].coverMod}"
+        if GraphMath.hitDeterminer(chanceToHit)
+            fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
+            fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
+        end
+        
         selectionManager.isCurrentSet = false
-        selectionManager.inTakeCoverMode = false
-        currentRow, currentCol = nil
+        selectionManager.isTargetSet = false
+        selectionManager.inShootingMode = false
+        selectionManager.currentTraits.coverMod = 1
         return fieldArray
     end
+
 end
