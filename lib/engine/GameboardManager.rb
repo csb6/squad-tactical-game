@@ -39,9 +39,10 @@ def updateField(fieldArray, selectionManager)
 				selectionManager.currentTraits.coverMod = 1
 				targetRow, targetCol, currentRow, currentCol, coverModifier, chanceToHit = nil
 			end
-			
+
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-			fieldArray = FieldUtils.autoMove(fieldArray, selectionManager)
+			fieldArray = FieldUtils.autoMove([10,2], [25,27], fieldArray)
+			selectionManager.resetCover = true
 		end
 		return fieldArray
 end

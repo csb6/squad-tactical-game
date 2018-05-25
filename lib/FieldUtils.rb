@@ -37,11 +37,9 @@ module FieldUtils
 
     def FieldUtils.manualMove(fieldArray, selectionManager)
         targetPos = [ selectionManager.targetTraits.xPos, selectionManager.targetTraits.yPos ]
-        targetPx = [ selectionManager.targetTraits.x1, selectionManager.targetTraits.y1 ]
         currentPos = [ selectionManager.currentTraits.xPos, selectionManager.currentTraits.yPos ]
-        currentPx = [ selectionManager.currentTraits.x1, selectionManager.currentTraits.y1 ]
         
-        fieldArray = FieldUtils.move( currentPos, targetPos, currentPx, targetPx, fieldArray )
+        fieldArray = FieldUtils.autoMove(currentPos, targetPos, fieldArray)
         
         selectionManager.isCurrentSet = false
         selectionManager.isTargetSet = false
@@ -50,8 +48,8 @@ module FieldUtils
         return fieldArray
     end
 
-    def FieldUtils.autoMove(fieldArray, selectionManager)
-        path = PathFind.findBestPath( [10,2], [25,27], fieldArray )
+    def FieldUtils.autoMove(start, target, fieldArray)
+        path = PathFind.findBestPath( start, target, fieldArray )
 			
         currentPos, currentPx, targetPx = nil
         path.each do |point|
@@ -70,7 +68,6 @@ module FieldUtils
                 sleep(0.3)
             end
         end
-        selectionManager.resetCover = true
         return fieldArray
     end
 
