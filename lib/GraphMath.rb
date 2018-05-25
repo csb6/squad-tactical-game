@@ -1,6 +1,6 @@
 module GraphMath
 	@@D = 1
-	@@P = 0.01 #P is tiebreaker value, should be < (cost for 1 step/max expected path length), so p < 1/5
+	@@P = 0.001 #P is tiebreaker value, should be < (cost for 1 step/max expected path length), so p < 1/5
 	@@Barriers = [ ]
 	#Math Methods
 		def GraphMath.distanceFormula(x1, y1, x2, y2)

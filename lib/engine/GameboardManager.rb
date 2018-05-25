@@ -28,6 +28,16 @@ def clearCoverMods(selectionManager, fieldArray)
 	end
 end
 
+def move(currentPos, targetPos, currentPx, targetPx, fieldArray) #Moves a GameObject from current position to target position by swapping the tiles at those locations
+	fieldArray[ currentPos[1] ][ currentPos[0] ].setPosition(targetPos, targetPx)
+	fieldArray[ targetPos[1] ][ targetPos[0] ].setPosition(currentPos, currentPx)
+	temp = fieldArray[ currentPos[1] ][ currentPos[0] ]
+	fieldArray[ currentPos[1] ][ currentPos[0] ] = fieldArray[ targetPos[1] ][ targetPos[0] ]
+	fieldArray[ targetPos[1] ][ targetPos[0] ] = temp
+	
+	return fieldArray
+end
+
 def applyCoverMod(selectionManager, fieldArray)
 	currentRow = selectionManager.currentTraits.yPos
 	currentCol = selectionManager.currentTraits.xPos
@@ -57,11 +67,7 @@ def updateField(fieldArray, selectionManager)
 				currentXPx = selectionManager.currentTraits.x1
 				currentYPx = selectionManager.currentTraits.y1
 				
-				fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
-				fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
-				temp = fieldArray[currentRow][currentCol]
-				fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
-				fieldArray[targetRow][targetCol] = temp
+				fieldArray = move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
 				
 				selectionManager.isCurrentSet = false
 				selectionManager.isTargetSet = false
@@ -110,11 +116,7 @@ def updateField(fieldArray, selectionManager)
 					targetXPx = fieldArray[ point[1] ][ point[0] ].x1
 					targetYPx = fieldArray[ point[1] ][ point[0] ].y1
 					
-					fieldArray[currentRow][currentCol].setPosition(targetCol, targetRow, targetXPx, targetYPx)
-					fieldArray[targetRow][targetCol].setPosition(currentCol, currentRow, currentXPx, currentYPx)
-					temp = fieldArray[currentRow][currentCol]
-					fieldArray[currentRow][currentCol] = fieldArray[targetRow][targetCol]
-					fieldArray[targetRow][targetCol] = temp
+					fieldArray = move( [currentCol, currentRow], [targetCol, targetRow], [currentXPx, currentYPx], [targetXPx, targetYPx], fieldArray )
 					currentRow = targetRow
 					currentCol = targetCol
 					currentXPx = targetXPx
@@ -132,7 +134,7 @@ end
 def drawField(selectionManager, gameField) #Assigns styles to buttons, creates class instances w/ buttons' positions
 	canvas = TkCanvas.new(gameField) do
 		width 800 - 102
-		height 725
+		height 724
 		grid('row' => 0, 'column' => 0)
 	end
 	

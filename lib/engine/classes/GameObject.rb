@@ -90,11 +90,11 @@ class GameObject
 	end
 	
 	
-	def setPosition(x, y, a, b)
-		@xPos = x
-		@yPos = y
-		@x1 = a
-		@y1 = b
+	def setPosition(pos, px)
+		@xPos = pos[0]
+		@yPos = pos[1]
+		@x1 = px[0]
+		@y1 = px[1]
 		@image.coords(@x1, @y1)
 	end
 	
