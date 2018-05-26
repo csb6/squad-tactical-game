@@ -13,6 +13,7 @@ class SelectionManager
 		@inShootingMode = false
 		@inTakeCoverMode = false
 		@resetCover = false
+		@setContextMenu = false
 		
 		#Variables for actions
 		@isTargetSet = false

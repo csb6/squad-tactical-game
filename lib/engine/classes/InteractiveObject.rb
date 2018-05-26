@@ -8,6 +8,23 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		
 		@isInteractive = true
 		@panelFile = ""
+		@image.bind("2", proc {
+			if selectManager.isBlueTurn
+				updateLabels
+				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
+					contextMenu = TkcRectangle.new(@rootWin, @x1, @y1, @x1+50, @y1+50, :fill => 'grey')
+						testText = TkcText.new(@rootWin, @x1+30, @y1+15, :text => "Test")
+						exitContext = TkcImage.new(@rootWin, @x1+7, @y1+7)
+						exitContext[:image] = Constants::CONTEXT_EXIT_IMAGE
+						exitContext.bind("1", proc {
+							contextMenu.delete
+							exitContext.delete
+							testText.delete
+						})
+
+				end
+			end
+		})
 	end
 	
 	def openPanel

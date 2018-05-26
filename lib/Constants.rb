@@ -70,4 +70,7 @@ module Constants
 			
 			EXPLO_IMAGE_PATH = PATH + SPRITE_PATH + "explosion.png"
 			EXPLO_IMAGE = TkPhotoImage.new(:file => EXPLO_IMAGE_PATH)
+
+			CONTEXT_EXIT_PATH = PATH + SPRITE_PATH + "contextx.png"
+			CONTEXT_EXIT_IMAGE = TkPhotoImage.new(:file => CONTEXT_EXIT_PATH)
 end
