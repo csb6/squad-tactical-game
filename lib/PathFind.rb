@@ -1,6 +1,11 @@
 require_relative "GraphMath"
 module PathFind
 
+    @@walls = [ ]
+    def PathFind.setWalls(walls)
+        @@walls = walls
+    end
+
     def PathFind.checkIfOccup(point, fieldArray)
         isOccupiable = false
         if fieldArray[ point[1] ][ point[0] ].isOccupiable
@@ -10,13 +15,16 @@ module PathFind
         return isOccupiable
     end
 
-    def PathFind.findAllWallsOnField(fieldArray) #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
+    def PathFind.findAllWallsOnField #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
         wallTiles = [ ]
-        fieldArray.each do |row|
-        	row.each do |tile|
-        		if tile.description === "A sturdy, unmovable barrier"
-        			wallTiles << [tile.xPos, tile.yPos]
-        		end
+        @@walls.each do |row|
+            row.each do |tile|
+                tileCoords = [tile.xPos, tile.yPos]
+                @@walls.each do |wallCoords|
+                    if tileCoords === wallCoords
+                        wallTiles << tileCoords
+                    end
+                end
         	end
         end
         return wallTiles
