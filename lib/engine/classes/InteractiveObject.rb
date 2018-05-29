@@ -12,13 +12,30 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 			if selectManager.isBlueTurn
 				updateLabels
 				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-					contextMenu = TkcRectangle.new(@rootWin, @x1, @y1, @x1+50, @y1+50, :fill => 'grey')
-						testText = TkcText.new(@rootWin, @x1+30, @y1+15, :text => "Test")
-						exitContext = TkcImage.new(@rootWin, @x1+7, @y1+7)
-						exitContext[:image] = Constants::CONTEXT_EXIT_IMAGE
-						exitContext.bind("1", proc {
+					if (@xPos >= 24 && @yPos >= 2) || (@yPos >= 27 && @xPos >= 4) #Upper left position /
+						a = -100; c = -65; e = -7
+						b = -50; d = -40; f = -7
+					elsif @xPos < 4 && @yPos >= 27 #Upper right position /
+						a = 100; c = 35; e = 7
+						b = -50; d = -40; f = -7
+					elsif @xPos >= 24 && @yPos < 2 #Bottom left position /
+						a = -100; c = -65; e = -7
+						b = 50; d = 20; f = 7
+					else #Bottom right position /
+						a = 100; c = 35; e = 7
+						b = 50; d = 20; f = 7
+					end
+
+					currentRow = selectManager.currentTraits.yPos
+					currentCol = selectManager.currentTraits.xPos
+					hitChance = GraphMath.calcHitChance(currentCol, currentRow, @xPos, @yPos, 1)
+
+					contextMenu = TkcRectangle.new(@rootWin, @x1, @y1, @x1+a, @y1+b, :fill => 'grey')
+						testText = TkcText.new(@rootWin, @x1+c, @y1+d, :text => "HC: #{hitChance}%")
+						exitButton = TkcText.new(@rootWin, @x1+e, @y1+f, :text => "X")
+						exitButton.bind("1", proc {
 							contextMenu.delete
-							exitContext.delete
+							exitButton.delete
 							testText.delete
 						})
 

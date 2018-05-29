@@ -93,7 +93,7 @@ module FieldUtils
         coverModifier = selectionManager.targetTraits.coverMod
         
         fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
-        chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier, fieldArray)
+        chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier)
         selectionManager.hitText.value = "#{chanceToHit}% chance"
         
         if GraphMath.hitDeterminer(chanceToHit)

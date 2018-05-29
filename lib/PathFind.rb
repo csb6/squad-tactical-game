@@ -6,6 +6,10 @@ module PathFind
         @@walls = walls
     end
 
+    def PathFind.getWalls
+        return @@walls
+    end
+
     def PathFind.checkIfOccup(point, fieldArray)
         isOccupiable = false
         if fieldArray[ point[1] ][ point[0] ].isOccupiable

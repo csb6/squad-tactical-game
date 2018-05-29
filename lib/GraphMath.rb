@@ -18,7 +18,7 @@ module GraphMath
 		end
 		
 		
-		def GraphMath.calcHitChance(currentX, currentY, targetX, targetY, coverModifier, fieldArray)
+		def GraphMath.calcHitChance(currentX, currentY, targetX, targetY, coverModifier)
 			distance = GraphMath.distanceFormula(currentX, currentY, targetX, targetY)
 			if distance >= 10
 				chance = 0
@@ -27,14 +27,16 @@ module GraphMath
 			else
 				chance = 32 * Math.sqrt(-distance+10) #Chance decreases as distance does
 				[1, -1].each do |n|
-					a = fieldArray[targetY+n][targetX]
-					b = fieldArray[targetY][targetX+n]
-					c = fieldArray[targetY+n][targetX+n]
-					d = fieldArray[targetY-n][targetX+n]
+					a = [targetX+n, targetY]
+					b = [targetX, targetY+n]
+					c = [targetX+n, targetY+n]
+					d = [targetX-n, targetY+n]
 					[a,b,c,d].each do |x|
-						if x.objectName === "Wall"
-							chance *= 0.8
-							break
+						PathFind.getWalls.each do |wall|
+							if wall === x
+								chance *= 0.8
+								break
+							end
 						end
 					end
 				end
