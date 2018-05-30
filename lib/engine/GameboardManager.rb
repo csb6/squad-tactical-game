@@ -1,6 +1,11 @@
 require_relative '../Constants'
 require_relative '../GraphMath'
 require_relative '../FieldUtils'
+require_relative 'classes/GameObject'
+require_relative 'classes/InteractiveObject'
+require_relative 'classes/Soldier'
+require_relative 'classes/StaticObject'
+require_relative 'classes/OccupiableObject'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 

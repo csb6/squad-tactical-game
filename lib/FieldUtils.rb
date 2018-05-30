@@ -30,8 +30,10 @@ module FieldUtils
         fieldArray.each do |row|
             x = 0
             row.each do
-                if fieldArray[y][x].canShoot && fieldArray[y][x].isBlueTeam === selectionManager.isBlueTurn
-                    fieldArray[y][x].coverMod = 1
+                if fieldArray[y][x].canShoot
+                    if fieldArray[y][x].isBlueTeam === selectionManager.isBlueTurn
+                        fieldArray[y][x].coverMod = 1
+                    end
                 end
                 x += 1
             end

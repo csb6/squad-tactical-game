@@ -4,11 +4,10 @@
 
 class GameObject
 	
-	attr_reader :isGameObject, :objectName, :description, :weight, :size, :isInteractive, :canShoot, :selectManager, :isBlueTeam
+	attr_reader :objectName, :description, :weight, :size, :isInteractive, :canShoot, :selectManager
 	attr_accessor :xPos, :yPos, :isBroken, :isMovable, :isOccupiable, :isOccupied, :image, :x1, :y1
 	
 	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
-		@isGameObject = true
 		@objectName = objectName
 		@description = ""
 		@xPos = xPos
@@ -26,7 +25,6 @@ class GameObject
 		@isOccupied = true
 		@isInteractive = false
 		@canShoot = false
-		@isBlueTeam = true
 		
 		@image.bind("1", proc {
 			if selectManager.isBlueTurn
