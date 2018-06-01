@@ -76,7 +76,14 @@ class GameObject
 		@y1 = px[1]
 		@image.coords(@x1, @y1)
 	end
-	
+
+	def getCoords
+		return [ @xPos, @yPos ]
+	end
+
+	def getPxCoords
+		return [ @x1, @y1 ]
+	end
 	
 	def flashImage(pic)
 		origImage = @image[:image]
