@@ -36,7 +36,7 @@ class Soldier < InteractiveObject
     
     def setCurrent #tile to be this tile if it's the turn of the tile's team
         if @isBlueTeam === @selectManager.isBlueTurn
-            @selectManager.currentTraits = self
+            @selectManager.currentTile = self
             @selectManager.isCurrentSet = true
         end
     end
@@ -57,8 +57,8 @@ class Soldier < InteractiveObject
             b = 50; d = 20; f = 7
         end
 
-        currentRow = selectManager.currentTraits.yPos
-        currentCol = selectManager.currentTraits.xPos
+        currentRow = selectManager.currentTile.yPos
+        currentCol = selectManager.currentTile.xPos
         hitChance = GraphMath.calcHitChance(currentCol, currentRow, @xPos, @yPos, @coverMod) #Calc chance of current selected object to hit self
 
         @contextMenu = TkcRectangle.new(@rootWin, @x1, @y1, @x1+a, @y1+b, :fill => 'grey')
@@ -74,7 +74,7 @@ class Soldier < InteractiveObject
             end
 
             @attackButton.bind("1", proc {
-                if selectManager.isCurrentSet && selectManager.currentTraits.isBlueTeam === selectManager.isBlueTurn
+                if selectManager.isCurrentSet && selectManager.currentTile.isBlueTeam === selectManager.isBlueTurn
                     selectManager.inShootingMode = true
                     setTarget
                     closeContextMenu

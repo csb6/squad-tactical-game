@@ -83,7 +83,7 @@ def drawUI(selectionManager)
 											takeCoverButton = Tk::Tile::Button.new(actionPanel) do
 												text "Take Cover"
 												command do
-														if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
+														if selectionManager.isCurrentSet && selectionManager.currentTile.canShoot
 															selectionManager.inTakeCoverMode = true
 														end
 												end
@@ -93,8 +93,8 @@ def drawUI(selectionManager)
 											equipButton = Tk::Tile::Button.new(actionPanel) do
 												text "Unit Info"
 												command do
-													if selectionManager.isCurrentSet && selectionManager.currentTraits.canShoot
-														selectionManager.currentTraits.openPanel
+													if selectionManager.isCurrentSet && selectionManager.currentTile.canShoot
+														selectionManager.currentTile.openPanel
 														selectionManager.resetAll
 													end
 												end

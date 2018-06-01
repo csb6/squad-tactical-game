@@ -1,6 +1,6 @@
 
 #Parent class to all trait classes. Trait classes contain attritubes such as weight and a TkImage. When a player moves
-#he selects a Trait class as currentTraits and one for targetTraits; they switch places, simulating movement
+#he selects a Trait class as currentTile and one for targetTile; they switch places, simulating movement
 
 class GameObject
 	
@@ -55,13 +55,13 @@ class GameObject
 	def setTarget #tile to be this tile if it's the turn of the tile's team
 		if @selectManager.inShootingMode #If looking for a shooting target and this tile can shoot, make it a target
 			if @canShoot
-				@selectManager.targetTraits = self
+				@selectManager.targetTile = self
 				@selectManager.isTargetSet = true
 			end
 		else #If not looking for shooting target, see if this tile is within 5 tiles, set it as target if it is
-			distanceToCurrent = GraphMath.distanceFormula(@selectManager.currentTraits.xPos, @selectManager.currentTraits.yPos, @xPos, @yPos)
+			distanceToCurrent = GraphMath.distanceFormula(@selectManager.currentTile.xPos, @selectManager.currentTile.yPos, @xPos, @yPos)
 			if @isOccupiable &&  distanceToCurrent <= 5
-				@selectManager.targetTraits = self
+				@selectManager.targetTile = self
 				@selectManager.isTargetSet = true
 				@selectManager.inMovingMode = true
 			end

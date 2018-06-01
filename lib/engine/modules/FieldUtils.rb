@@ -3,8 +3,8 @@ require_relative 'PathFind'
 module FieldUtils
 
     def FieldUtils.applyCoverMod(selectionManager, fieldArray)
-        currentRow = selectionManager.currentTraits.yPos
-        currentCol = selectionManager.currentTraits.xPos
+        currentRow = selectionManager.currentTile.yPos
+        currentCol = selectionManager.currentTile.xPos
         
         fieldArray[currentRow][currentCol].coverMod = 0.8
         
@@ -52,8 +52,8 @@ module FieldUtils
     end
 
     def FieldUtils.manualMove(fieldArray, selectionManager)
-        targetPos = [ selectionManager.targetTraits.xPos, selectionManager.targetTraits.yPos ]
-        currentPos = [ selectionManager.currentTraits.xPos, selectionManager.currentTraits.yPos ]
+        targetPos = [ selectionManager.targetTile.xPos, selectionManager.targetTile.yPos ]
+        currentPos = [ selectionManager.currentTile.xPos, selectionManager.currentTile.yPos ]
         
         fieldArray = FieldUtils.autoMove(currentPos, targetPos, fieldArray)
         
@@ -88,25 +88,25 @@ module FieldUtils
     end
 
     def FieldUtils.shootTarget(fieldArray, selectionManager)
-        targetRow = selectionManager.targetTraits.yPos
-        targetCol = selectionManager.targetTraits.xPos
-        currentRow = selectionManager.currentTraits.yPos
-        currentCol = selectionManager.currentTraits.xPos
-        coverModifier = selectionManager.targetTraits.coverMod
+        targetRow = selectionManager.targetTile.yPos
+        targetCol = selectionManager.targetTile.xPos
+        currentRow = selectionManager.currentTile.yPos
+        currentCol = selectionManager.currentTile.xPos
+        coverModifier = selectionManager.targetTile.coverMod
         
-        fieldArray[currentRow][currentCol].ammo = selectionManager.currentTraits.ammo - 1
+        fieldArray[currentRow][currentCol].ammo = selectionManager.currentTile.ammo - 1
         chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier)
         selectionManager.hitText.value = "#{chanceToHit}% chance"
         
         if GraphMath.hitDeterminer(chanceToHit)
-            fieldArray[targetRow][targetCol].health = selectionManager.targetTraits.health - 15
+            fieldArray[targetRow][targetCol].health = selectionManager.targetTile.health - 15
             fieldArray[targetRow][targetCol].flashImage(Constants::EXPLO_IMAGE)
         end
         
         selectionManager.isCurrentSet = false
         selectionManager.isTargetSet = false
         selectionManager.inShootingMode = false
-        selectionManager.currentTraits.coverMod = 1
+        selectionManager.currentTile.coverMod = 1
         return fieldArray
     end
 
