@@ -44,16 +44,16 @@ class Soldier < InteractiveObject
     def openContextMenu
         #Configured for 28x29 field
         if (@xPos >= 24 && @yPos >= 2) || (@yPos >= 27 && @xPos >= 4) #Upper left position /
-            a = -100; c = -65; e = -7
+            a = -100; c = -63; e = -7; g = -25
             b = -50; d = -40; f = -7
         elsif @xPos < 4 && @yPos >= 27 #Upper right position /
-            a = 100; c = 35; e = 7
+            a = 100; c = 38; e = 7; g = -25
             b = -50; d = -40; f = -7
         elsif @xPos >= 24 && @yPos < 2 #Bottom left position /
-            a = -100; c = -65; e = -7
+            a = -100; c = -63; e = -7; g = 35
             b = 50; d = 20; f = 7
         else #Bottom right position /
-            a = 100; c = 35; e = 7
+            a = 100; c = 38; e = 7; g = 35
             b = 50; d = 20; f = 7
         end
 
@@ -62,12 +62,26 @@ class Soldier < InteractiveObject
         hitChance = GraphMath.calcHitChance(currentCol, currentRow, @xPos, @yPos, @coverMod) #Calc chance of current selected object to hit self
 
         @contextMenu = TkcRectangle.new(@rootWin, @x1, @y1, @x1+a, @y1+b, :fill => 'grey')
-            @testText = TkcText.new(@rootWin, @x1+c, @y1+d, :text => "HC: #{hitChance}%")
+            @hitText = TkcText.new(@rootWin, @x1+c, @y1+d, :text => "HC: #{hitChance}%")
+            @attackButton = TkcText.new(@rootWin, @x1+c, @y1+g, :text => "Attack")
             @exitButton = TkcText.new(@rootWin, @x1+e, @y1+f, :text => "X")
-            @exitButton.bind("1", proc {
+
+            def closeContextMenu
                 @contextMenu.delete
+                @attackButton.delete
                 @exitButton.delete
-                @testText.delete
+                @hitText.delete
+            end
+
+            @attackButton.bind("1", proc {
+                if selectManager.isCurrentSet && selectManager.currentTraits.isBlueTeam === selectManager.isBlueTurn
+                    selectManager.inShootingMode = true
+                    setTarget
+                    closeContextMenu
+                end
+            })
+            @exitButton.bind("1", proc {
+                closeContextMenu
             })
     end
     

@@ -79,16 +79,6 @@ def drawUI(selectionManager)
 									background Constants::BACKGROUND
 									grid('row' => 1, 'column' => 0)
 								end
-								
-											attackButton = Tk::Tile::Button.new(actionPanel) do
-												text "Attack"
-												command do
-													if selectionManager.isCurrentSet && selectionManager.currentTraits.isBlueTeam === selectionManager.isBlueTurn
-														selectionManager.inShootingMode = true
-													end
-												end
-												grid('row' => 0, 'column' => 0)
-											end
 											
 											takeCoverButton = Tk::Tile::Button.new(actionPanel) do
 												text "Take Cover"
@@ -97,7 +87,7 @@ def drawUI(selectionManager)
 															selectionManager.inTakeCoverMode = true
 														end
 												end
-												grid('row' => 1, 'column' => 0)
+												grid('row' => 0, 'column' => 0)
 											end
 											
 											equipButton = Tk::Tile::Button.new(actionPanel) do
@@ -108,7 +98,7 @@ def drawUI(selectionManager)
 														selectionManager.resetAll
 													end
 												end
-												grid('row' => 2, 'column' => 0)
+												grid('row' => 1, 'column' => 0)
 											end
 											
 											deselectButton = Tk::Tile::Button.new(actionPanel) do
@@ -116,7 +106,7 @@ def drawUI(selectionManager)
 												command do
 													selectionManager.resetAll
 												end
-												grid('row' => 3, 'column' => 0)
+												grid('row' => 2, 'column' => 0)
 											end
 											
 								
