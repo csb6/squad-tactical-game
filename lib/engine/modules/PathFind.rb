@@ -19,16 +19,13 @@ module PathFind
         return isOccupiable
     end
 
-    def PathFind.findAllWallsOnField #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
+    def PathFind.findAllWallsOnField(fieldArray) #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
         wallTiles = [ ]
-        @@walls.each do |row|
-            row.each do |tile|
-                tileCoords = [tile.xPos, tile.yPos]
-                @@walls.each do |wallCoords|
-                    if tileCoords === wallCoords
-                        wallTiles << tileCoords
-                    end
-                end
+        fieldArray.each do |row|
+        	row.each do |tile|
+        		if tile.description === "A sturdy, unmovable barrier"
+        			wallTiles << [tile.xPos, tile.yPos]
+        		end
         	end
         end
         return wallTiles
@@ -115,7 +112,7 @@ module PathFind
                 fScore[neighbor] = gScore[neighbor] + GraphMath.estimateTravelCost( neighbor[0], neighbor[1], target[0], target[1] )
             end
         end
-        puts "Didn't work as intended."
+        puts "Error: no path found"
 
     end
 end

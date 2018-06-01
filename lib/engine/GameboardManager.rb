@@ -1,11 +1,11 @@
-require_relative '../Constants'
-require_relative '../GraphMath'
-require_relative '../FieldUtils'
-require_relative 'classes/GameObject'
-require_relative 'classes/InteractiveObject'
-require_relative 'classes/Soldier'
-require_relative 'classes/StaticObject'
-require_relative 'classes/OccupiableObject'
+require_relative 'modules/Constants'
+require_relative 'modules/GraphMath'
+require_relative 'modules/FieldUtils'
+require_relative 'classes/GameObject/GameObject'
+require_relative 'classes/GameObject/InteractiveObject'
+require_relative 'classes/GameObject/Soldier'
+require_relative 'classes/GameObject/StaticObject'
+require_relative 'classes/GameObject/OccupiableObject'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 

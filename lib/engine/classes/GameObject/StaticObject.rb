@@ -1,4 +1,4 @@
-require_relative '../../Constants'
+require_relative '../../modules/Constants'
 
 class StaticObject < GameObject #Object on playing field that is not interactive, not movable
 	

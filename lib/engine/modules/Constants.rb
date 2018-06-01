@@ -1,4 +1,4 @@
-require_relative 'engine/classes/SelectionManager'
+require_relative '../classes/SelectionManager'
 
 module Constants
 	
