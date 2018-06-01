@@ -1,6 +1,6 @@
 class Soldier < InteractiveObject
 		
-    attr_accessor :weapon, :health, :ammo, :coverMod
+    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch
     
     def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
         super(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
@@ -15,6 +15,7 @@ class Soldier < InteractiveObject
         @health = 100
         @ammo = 50
         @coverMod = 1
+        @inOverwatch = false
 
         @image.bind("1", proc {
             if selectManager.isBlueTurn
