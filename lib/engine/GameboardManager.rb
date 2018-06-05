@@ -25,7 +25,12 @@ def updateField(fieldArray, selectionManager)
 			end
 
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
+			owSoldiers = FieldUtils.findOWSoldiers(false, fieldArray)
+			owSoldiers.each do |soldier|
+				puts "#{soldier.objectName}"
+			end
 			fieldArray = FieldUtils.autoMove([10,2], [25,27], fieldArray)
+			puts "#{FieldUtils.findNearbyOW(fieldArray[27][25], owSoldiers)}"
 			selectionManager.resetCover = true
 		end
 		return fieldArray

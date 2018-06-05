@@ -77,11 +77,11 @@ module FieldUtils
                 targetPx = fieldArray[ point[1] ][ point[0] ].getPxCoords
                 
                 fieldArray = FieldUtils.move( currentPos, targetPos, currentPx, targetPx, fieldArray )
+
                 currentPos = targetPos
                 currentPx = targetPx
-                temp = nil
+                sleep(0.2) #0.3 is optimal for normal play
                 Tk.update
-                sleep(0.3)
             end
         end
         return fieldArray
@@ -110,4 +110,31 @@ module FieldUtils
         return fieldArray
     end
 
+    def FieldUtils.findOWSoldiers(isBlueTeam, fieldArray) #find soldiers in overwatch mode
+        owSoldiers = [ ]
+        y = 0
+        fieldArray.each do |row|
+            x = 0
+            row.each do |tile|
+                if tile.canShoot
+                    if tile.inOverwatch && tile.isBlueTeam != isBlueTeam
+                        owSoldiers << fieldArray[y][x]
+                    end
+                end
+                x += 1
+            end
+            y += 1
+        end
+        return owSoldiers
+    end
+
+    def FieldUtils.findNearbyOW(tile, owArray)
+        owArray.each do |owTile|
+            distance = GraphMath.distanceFormula(tile.xPos, tile.yPos, owTile.xPos, owTile.yPos)
+            if distance <= 10
+                return owTile
+            end
+        end
+        return nil
+    end
 end
