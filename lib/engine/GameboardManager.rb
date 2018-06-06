@@ -9,31 +9,31 @@ require_relative 'classes/GameObject/OccupiableObject'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
-def updateField(fieldArray, selectionManager)
+def updateField(field, selectionManager)
 		if selectionManager.resetCover
-			fieldArray = FieldUtils.clearCoverMods(selectionManager, fieldArray)
+			field = FieldUtils.clearCoverMods(selectionManager, field)
 
 		elsif selectionManager.isBlueTurn
 			if selectionManager.inMovingMode
-				fieldArray = FieldUtils.manualMove(fieldArray, selectionManager)
+				field = FieldUtils.manualMove(field, selectionManager)
 				
 			elsif selectionManager.inTakeCoverMode
-				fieldArray = FieldUtils.applyCoverMod(selectionManager, fieldArray)
+				field = FieldUtils.applyCoverMod(selectionManager, field)
 				
 			elsif selectionManager.inShootingMode && selectionManager.isTargetSet
-				fieldArray = FieldUtils.shootTarget(fieldArray, selectionManager)
+				field = FieldUtils.shootTarget(field, selectionManager)
 			end
 
 		elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-			owSoldiers = FieldUtils.findOWSoldiers(false, fieldArray)
-			owSoldiers.each do |soldier|
-				puts "#{soldier.objectName}"
-			end
-			fieldArray = FieldUtils.autoMove([10,2], [25,27], fieldArray)
-			puts "#{FieldUtils.findNearbyOW(fieldArray[27][25], owSoldiers)}"
+			# owSoldiers = FieldUtils.findOWSoldiers(false, field)
+			# owSoldiers.each do |soldier|
+			# 	puts "#{soldier.objectName}"
+			# end
+			field = FieldUtils.autoMove([10,2], [25,27], field)
+			# puts "#{FieldUtils.findNearbyOW(field[27][25], owSoldiers)}"
 			selectionManager.resetCover = true
 		end
-		return fieldArray
+		return field
 end
 
 def drawField(selectionManager, gameField) #Assigns styles to buttons, creates class instances w/ buttons' positions
@@ -43,7 +43,7 @@ def drawField(selectionManager, gameField) #Assigns styles to buttons, creates c
 		grid('row' => 0, 'column' => 0)
 	end
 	
-	field = Field.new
+	field = Field.new(selectionManager)
 	
 	r = 15
 	y = 0

@@ -16,11 +16,11 @@ selectionManager = SelectionManager.instance
 				grid('row' => 1, 'column' => 0) 
 			end
 
-# drawUI(selectionManager)
+drawUI(selectionManager)
 field = drawField(selectionManager, gameField)
-Tk.mainloop
-# while selectionManager.rootExists #While main window exists
-# 	field = updateField(field, selectionManager) #Checks if styles of 2 tiles need to be switched
-# 	Tk.update_idletasks
-# 	Tk.update
-# end
+
+while selectionManager.rootExists #While main window exists
+	field = updateField(field, selectionManager) #Checks if styles of 2 tiles need to be switched
+	Tk.update_idletasks
+	Tk.update
+end

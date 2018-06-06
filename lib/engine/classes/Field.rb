@@ -2,7 +2,8 @@ class Field
     @soldiers = [ ]
     @OWSoldiers = [ ]
 
-    def initialize
+    def initialize(selectionManager)
+        @selectManager = selectionManager
         @fieldArray = Array.new(29){ Array.new(28) }
         @redTraits = CSV.read(Constants::RED_CHAR_PATH, :col_sep => "	")
         @blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
@@ -12,6 +13,10 @@ class Field
 
     def addTile(pos, tile)
         @fieldArray[ pos[1] ][ pos[0] ] = tile
+    end
+
+    def getTile(pos)
+        return @fieldArray[ pos[1] ][ pos[0] ]
     end
 
     def getBlueName
@@ -72,6 +77,18 @@ class Field
         return @soldiers
     end
 
+    def getAllWalls
+        wallTiles = [ ]
+        @fieldArray.each do |row|
+        	row.each do |tile|
+        		if tile.description === "A sturdy, unmovable barrier"
+        			wallTiles << [tile.xPos, tile.yPos]
+        		end
+        	end
+        end
+        return wallTiles
+    end
+
     def updateSoldier(soldier)
         i = 0
         @soldiers.each do |s|
@@ -82,9 +99,43 @@ class Field
         end
     end
 
-    def setPosition(startPos, targetPos)
-        targetPx = @fieldArray[targetPos][targetPos].getPxCoords
-		@fieldArray[startPos[1]][startPos[0]].setPosition(targetPos, targetPx)
+    def swapPosition(startPos, targetPos)
+        targetPx = @fieldArray[ targetPos[1] ][ targetPos[0] ].getPxCoords
+        startPx = @fieldArray[ startPos[1] ][ startPos[0] ].getPxCoords
+
+        @fieldArray[ startPos[1] ][ startPos[0] ].setPosition(targetPos, targetPx)
+        @fieldArray[ targetPos[1] ][ targetPos[0] ].setPosition(startPos, startPx)
+        temp = @fieldArray[ startPos[1] ][ startPos[0] ]
+        @fieldArray[ startPos[1] ][ startPos[0] ] = @fieldArray[ targetPos[1] ][ targetPos[0] ]
+        @fieldArray[ targetPos[1] ][ targetPos[0] ] = temp
+    end
+
+    def setCoverMod(pos, coverMod)
+        @fieldArray[pos[1]][pos[0]].coverMod = coverMod
+    end
+
+    def clearCoverMods
+        y = 0
+        @fieldArray.each do |row|
+            x = 0
+            row.each do
+                if @fieldArray[y][x].canShoot
+                    if @fieldArray[y][x].isBlueTeam === @selectManager.isBlueTurn
+                        @fieldArray[y][x].coverMod = 1
+                    end
+                end
+                x += 1
+            end
+            y += 1
+        end
+    end
+
+    def setAmmo(pos, amt)
+        @fieldArray[pos[1]][pos[0]].ammo += amt
+    end
+
+    def setHealth(pos, amt)
+        @fieldArray[pos[1]][pos[0]].health += amt
     end
 
     def getPxCoords(pos)
@@ -93,5 +144,9 @@ class Field
     
     def flashImage(pos, pic)
 		@fieldArray[pos[1]][pos[0]].flashImage(pic)
-	end
+    end
+    
+    def checkIfOccup(pos)
+        return @fieldArray[pos[1]][pos[0]].isOccupiable
+    end
 end

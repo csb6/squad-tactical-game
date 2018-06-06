@@ -10,28 +10,11 @@ module PathFind
         return @@walls
     end
 
-    def PathFind.checkIfOccup(point, fieldArray)
-        isOccupiable = false
-        if fieldArray[ point[1] ][ point[0] ].isOccupiable
-            isOccupiable = true
-        end
-
-        return isOccupiable
-    end
-
-    def PathFind.findAllWallsOnField(fieldArray) #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
-        wallTiles = [ ]
-        fieldArray.each do |row|
-        	row.each do |tile|
-        		if tile.description === "A sturdy, unmovable barrier"
-        			wallTiles << [tile.xPos, tile.yPos]
-        		end
-        	end
-        end
-        return wallTiles
+    def PathFind.findAllWallsOnField(field) #Consider using this to precalculate where all walls are on a level, store it on 1st line of each map
+        return field.getAllWalls
     end
     
-    def PathFind.findNeighbors(current, fieldArray)
+    def PathFind.findNeighbors(current, field)
         neighbors = [ ]
         values = [ [1,1], [1,0], [1,-1], [0,-1], [-1,-1], [-1,0], [-1,1], [0,1] ]
 
@@ -39,8 +22,7 @@ module PathFind
             point = [ current[0]+x, current[1]+y ]
             if point[0] >= 0 && point[1] >= 0
                 if point[0] < 28 && point[1] < 29
-                    isOccupiable = PathFind.checkIfOccup(point, fieldArray)
-                    if isOccupiable
+                    if field.checkIfOccup(point)
                         neighbors << point
                     end
                 end
@@ -74,7 +56,7 @@ module PathFind
         return path.reverse
     end
 
-    def PathFind.findBestPath(start, target, fieldArray)
+    def PathFind.findBestPath(start, target, field)
         openSet = [ start ]
         closedSet = [ ]
 
@@ -91,7 +73,7 @@ module PathFind
             end
             openSet.delete(current)
             closedSet << current
-            neighbors = PathFind.findNeighbors(current, fieldArray)
+            neighbors = PathFind.findNeighbors(current, field)
 
             neighbors.each do |neighbor|
                 if closedSet.include?(neighbor)
