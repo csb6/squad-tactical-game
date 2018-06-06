@@ -1,6 +1,7 @@
 require 'tk'
 require 'csv'
 require_relative 'lib/engine/classes/SelectionManager'
+require_relative 'lib/engine/classes/Field'
 require_relative 'lib/ui/menus'
 require_relative 'lib/engine/GameboardManager'
 
@@ -15,11 +16,11 @@ selectionManager = SelectionManager.instance
 				grid('row' => 1, 'column' => 0) 
 			end
 
-drawUI(selectionManager)
-fieldArray = drawField(selectionManager, gameField)
-
-while selectionManager.rootExists #While main window exists
-	fieldArray = updateField(fieldArray, selectionManager) #Checks if styles of 2 tiles need to be switched
-	Tk.update_idletasks
-	Tk.update
-end
+# drawUI(selectionManager)
+field = drawField(selectionManager, gameField)
+Tk.mainloop
+# while selectionManager.rootExists #While main window exists
+# 	field = updateField(field, selectionManager) #Checks if styles of 2 tiles need to be switched
+# 	Tk.update_idletasks
+# 	Tk.update
+# end

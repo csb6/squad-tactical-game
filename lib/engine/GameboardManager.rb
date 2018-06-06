@@ -43,40 +43,35 @@ def drawField(selectionManager, gameField) #Assigns styles to buttons, creates c
 		grid('row' => 0, 'column' => 0)
 	end
 	
-	fieldArray = [ ]
-	redTraits = CSV.read(Constants::RED_CHAR_PATH, :col_sep => "	")
-	blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
+	field = Field.new
 	
 	r = 15
 	y = 0
-	rt = 0
-	bt = 0
 	CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
 		if row[0][0] != "#"
 			c = 14
 			x = 0
-			fieldArray[y] = [ ]
+
 			row.each do |letter|
+				pos = [x,y]
 				case letter
 					when 's' #Sand tile
-						fieldArray[y][x] = Sand.new("Sand", x, y, c, r, selectionManager, canvas)
+						field.addTile(pos, Sand.new("Sand", x, y, c, r, selectionManager, canvas) )
 						
 					when 'w' #Wall tile
-						fieldArray[y][x] = Wall.new("Wall", x, y, c, r, selectionManager, canvas)
+						field.addTile(pos, Wall.new("Wall", x, y, c, r, selectionManager, canvas) )
 						
 					when 'c'
-						fieldArray[y][x] = Cannon.new("Cannon", x, y, c, r, selectionManager, canvas)
+						field.addTile(pos, Cannon.new("Cannon", x, y, c, r, selectionManager, canvas) )
 						
 					when 't'
-						fieldArray[y][x] = Terminal.new("Terminal", x, y, c, r, selectionManager, canvas)
+						field.addTile(pos, Terminal.new("Terminal", x, y, c, r, selectionManager, canvas) )
 						
 					when 'rh' #Soldier tile
-						fieldArray[y][x] = RedSoldier.new(redTraits[rt][0], redTraits[rt][1], x, y, c, r, selectionManager, canvas)
-						rt += 1
+						field.addTile(pos, RedSoldier.new(field.getRedName, field.getRedGun, x, y, c, r, selectionManager, canvas) )
 						
 					when 'bh'
-						fieldArray[y][x] = BlueSoldier.new(blueTraits[bt][0], blueTraits[bt][1], x, y, c, r, selectionManager, canvas)
-						bt += 1
+						field.addTile(pos, BlueSoldier.new(field.getBlueName, field.getBlueGun, x, y, c, r, selectionManager, canvas) )
 				end
 				c += 25
 				x += 1
@@ -95,5 +90,5 @@ def drawField(selectionManager, gameField) #Assigns styles to buttons, creates c
 			PathFind.setWalls(processedRow)
 		end
 	end
-	return fieldArray
+	return field
 end
