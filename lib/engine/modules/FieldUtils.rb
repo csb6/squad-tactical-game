@@ -43,7 +43,7 @@ module FieldUtils
     end
 
     def FieldUtils.autoMove(start, target, field)
-        path = PathFind.findBestPath( start, target, field )
+        path = PathFind.findBestPath( start, target, field.getFieldArray )
 			
         currentPos = nil
         path.each do |point|

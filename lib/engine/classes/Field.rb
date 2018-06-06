@@ -19,6 +19,10 @@ class Field
         return @fieldArray[ pos[1] ][ pos[0] ]
     end
 
+    def getFieldArray
+        return @fieldArray
+    end
+
     def getBlueName
         return @blueTraits[@bi][0]
     end

@@ -22,7 +22,7 @@ module PathFind
             point = [ current[0]+x, current[1]+y ]
             if point[0] >= 0 && point[1] >= 0
                 if point[0] < 28 && point[1] < 29
-                    if field.checkIfOccup(point)
+                    if field[ point[1] ][ point[0] ].isOccupiable
                         neighbors << point
                     end
                 end
@@ -56,7 +56,7 @@ module PathFind
         return path.reverse
     end
 
-    def PathFind.findBestPath(start, target, field)
+    def PathFind.findBestPath(start, target, fieldArray)
         openSet = [ start ]
         closedSet = [ ]
 
@@ -73,7 +73,7 @@ module PathFind
             end
             openSet.delete(current)
             closedSet << current
-            neighbors = PathFind.findNeighbors(current, field)
+            neighbors = PathFind.findNeighbors(current, fieldArray)
 
             neighbors.each do |neighbor|
                 if closedSet.include?(neighbor)
