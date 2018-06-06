@@ -32,9 +32,11 @@ module PathFind
     end
     
     def PathFind.getSmallestFScore(fScore, openSet)
+        # start = Time.now
         lowPoint = nil
-        fScore.each do |point, score|
-            if openSet.include?(point)
+        openSet.each do |point|
+            if fScore[point] != nil
+                score = fScore[point]
                 if lowPoint === nil
                     lowPoint = [point, score]
                 elsif score < lowPoint[1]
@@ -42,21 +44,22 @@ module PathFind
                 end
             end
         end
+        # puts "Smallest score in #{Time.now-start}"
         return lowPoint[0]
     end
 
     def PathFind.reconstructPath(cameFrom, start, target)
-        point = target
-        path = [ point ]
-        while point != start
-            prevPoint = cameFrom[point]
+        path = [ target ]
+        while target != start
+            prevPoint = cameFrom[target]
             path << prevPoint
-            point = prevPoint
+            target = prevPoint
         end
         return path.reverse
     end
 
     def PathFind.findBestPath(start, target, fieldArray)
+        # start1 = Time.now
         openSet = [ start ]
         closedSet = [ ]
 
@@ -69,6 +72,7 @@ module PathFind
         while !openSet.empty?
             current = PathFind.getSmallestFScore(fScore, openSet)
             if current === target
+                # puts "Found BP in: #{Time.now-start1}"
                 return PathFind.reconstructPath(cameFrom, start, target)
             end
             openSet.delete(current)
