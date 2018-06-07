@@ -33,7 +33,7 @@ module FieldUtils
         targetPos = selectionManager.targetTile.getCoords
         currentPos = selectionManager.currentTile.getCoords
         
-        field = FieldUtils.autoMove(currentPos, targetPos, field)
+        field = FieldUtils.autoMove(currentPos, targetPos, field, selectionManager)
         
         selectionManager.isCurrentSet = false
         selectionManager.isTargetSet = false
@@ -42,7 +42,7 @@ module FieldUtils
         return field
     end
 
-    def FieldUtils.autoMove(start, target, field)
+    def FieldUtils.autoMove(start, target, field, selectionManager)
         path = PathFind.findBestPath( start, target, field.getFieldArray )
 			
         currentPos = nil
@@ -52,6 +52,11 @@ module FieldUtils
             else
                 targetPos = point
                 
+                nearbyShooter = FieldUtils.findNearbyOW(currentPos, field.getAllInOW)
+                if nearbyShooter != nil
+                    field.removeOW(nearbyShooter)
+                    FieldUtils.shootTarget(nearbyShooter, currentPos, 1, field, selectionManager)
+                end
                 field.swapPosition(currentPos, targetPos)
 
                 currentPos = targetPos
@@ -62,52 +67,28 @@ module FieldUtils
         return field
     end
 
-    def FieldUtils.shootTarget(field, selectionManager)
-        targetRow = selectionManager.targetTile.yPos
-        targetCol = selectionManager.targetTile.xPos
-        currentRow = selectionManager.currentTile.yPos
-        currentCol = selectionManager.currentTile.xPos
-        coverModifier = selectionManager.targetTile.coverMod
-        
-        field.setAmmo([currentCol, currentRow], -1)
-        chanceToHit = GraphMath.calcHitChance(currentCol, currentRow, targetCol, targetRow, coverModifier)
+    def FieldUtils.shootTarget(shooterPos, targetPos, targetMod, field, selectionManager)
+        field.setAmmo(shooterPos, -1)
+        chanceToHit = GraphMath.calcHitChance(shooterPos[0], shooterPos[1], targetPos[0], targetPos[1], targetMod)
         selectionManager.hitText.value = "#{chanceToHit}% chance"
         
         if GraphMath.hitDeterminer(chanceToHit)
-            field.setHealth([targetCol, targetRow], -15)
-            field.flashImage([targetCol, targetRow], Constants::EXPLO_IMAGE)
+            field.setHealth(targetPos, -15)
+            field.flashImage(targetPos, Constants::EXPLO_IMAGE)
         end
         
         selectionManager.isCurrentSet = false
         selectionManager.isTargetSet = false
         selectionManager.inShootingMode = false
-        selectionManager.currentTile.coverMod = 1
+        field.setCoverMod(targetPos, 1)
         return field
     end
 
-    # def FieldUtils.findOWSoldiers(isBlueTeam, field) #find soldiers in overwatch mode
-    #     owSoldiers = [ ]
-    #     y = 0
-    #     field.each do |row|
-    #         x = 0
-    #         row.each do |tile|
-    #             if tile.canShoot
-    #                 if tile.inOverwatch && tile.isBlueTeam != isBlueTeam
-    #                     owSoldiers << field[y][x]
-    #                 end
-    #             end
-    #             x += 1
-    #         end
-    #         y += 1
-    #     end
-    #     return owSoldiers
-    # end
-
-    def FieldUtils.findNearbyOW(tile, owArray)
+    def FieldUtils.findNearbyOW(pos, owArray)
         owArray.each do |owTile|
-            distance = GraphMath.distanceFormula(tile.xPos, tile.yPos, owTile.xPos, owTile.yPos)
-            if distance <= 10
-                return owTile
+            distance = GraphMath.distanceFormula(pos[0], pos[1], owTile.xPos, owTile.yPos)
+            if distance <= 5
+                return owTile.getCoords
             end
         end
         return nil

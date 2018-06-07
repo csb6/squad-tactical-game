@@ -1,6 +1,4 @@
 class Field
-    @soldiers = [ ]
-    @OWSoldiers = [ ]
 
     def initialize(selectionManager)
         @selectManager = selectionManager
@@ -9,6 +7,8 @@ class Field
         @blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
         @bi = 0
         @ri = 0
+        @OWSoldiers = [ ]
+        @soldiers = [ ]
     end
 
     def addTile(pos, tile)
@@ -44,13 +44,16 @@ class Field
     end
 
     def findAllInOW(lookingForBlue)
+        @OWSoldiers = [ ]
         y = 0
         @fieldArray.each do |row|
             x = 0
             row.each do |tile|
                 if tile.canShoot
                     if tile.isBlueTeam === lookingForBlue
-                        @OWSoldiers << @fieldArray[y][x]
+                        if tile.inOverwatch
+                            @OWSoldiers << @fieldArray[y][x]
+                        end
                     end
                 end
                 x += 1
@@ -61,6 +64,17 @@ class Field
 
     def getAllInOW
         return @OWSoldiers
+    end
+
+    def removeOW(pos)
+        i = 0
+        @OWSoldiers.each do |s|
+            if s.getCoords === pos
+                @OWSoldiers.delete_at(i)
+                break
+            end
+            i += 1
+        end
     end
 
     def findAllSoldiers
