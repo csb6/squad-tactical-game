@@ -9,18 +9,6 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		@isInteractive = true
 		@panelFile = ""
 		@isBlueTeam = true
-		@image.bind("2", proc {
-			if selectManager.isBlueTurn
-				updateLabels
-				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-					openContextMenu
-				end
-			end
-		})
-	end
-	
-	def openContextMenu
-		
 	end
 
 	def openPanel

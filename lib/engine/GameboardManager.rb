@@ -6,6 +6,7 @@ require_relative 'GameObject/InteractiveObject'
 require_relative 'GameObject/Soldier'
 require_relative 'GameObject/StaticObject'
 require_relative 'GameObject/OccupiableObject'
+require_relative 'Components/ContextComponent'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
