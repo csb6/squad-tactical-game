@@ -1,22 +1,13 @@
 class InteractiveObject < GameObject #Object on playing field that can be moved/has a control panel
 		
-	attr_reader :panelFile
 	attr_accessor :isBlueTeam
 	
 	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
 		super
 		
 		@isInteractive = true
-		@panelFile = ""
+		@panelComponent = PanelComponent.new(self, rootWin)
 		@isBlueTeam = true
-	end
-
-	def openPanel
-		@panel = TkToplevel.new(@rootWin) do
-			title "Inventory"
-			background "grey"
-			geometry '500x200-350+250'
-		end
 	end
 	
 end
@@ -29,7 +20,6 @@ end
 			@description = "A well-fortified, land-based weapon with powerful range"
 			@weight = 300
 			@size = 1
-			@panelFile = "cannonControlPanel"
 			@image[:image] = Constants::CANNON_IMAGE
 		end
 		
@@ -44,7 +34,6 @@ end
 			@description = "A computer used for operation of devices or communication with outsiders"
 			@weight = 100
 			@size = 1
-			@panelFile = ""
 			@image[:image] = Constants::TERM_IMAGE
 		end
 		
@@ -56,7 +45,6 @@ end
 				super
 				
 				@description = "A blue-colored computer used for operation of devices or communication with outsiders"
-				@panelFile = "blueTerminalControlPanel"
 			end
 		end
 		
@@ -66,7 +54,6 @@ end
 				super
 				
 				@description = "A red-colored computer used for operation of devices or communication with outsiders"
-				@panelFile = "redTerminalControlPanel"
 				@isBlueTeam = false
 			end
 		end
