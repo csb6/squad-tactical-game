@@ -21,7 +21,7 @@ drawUI(selectionManager)
 field = drawField(selectionManager, gameField)
 
 while selectionManager.rootExists #While main window exists
-	field = updateField(field, selectionManager) #Checks if styles of 2 tiles need to be switched
+	updateField(field, selectionManager) #Checks if styles of 2 tiles need to be switched
 	Tk.update_idletasks
 	Tk.update
 end

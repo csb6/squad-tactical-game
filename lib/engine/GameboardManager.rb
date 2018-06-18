@@ -12,29 +12,28 @@ require_relative 'Components/ContextComponent'
 
 def updateField(field, selectionManager)
 	if selectionManager.resetCover
-		field = FieldUtils.clearCoverMods(selectionManager, field)
+		FieldUtils.clearCoverMods(selectionManager, field)
 
 	elsif selectionManager.isBlueTurn
 		if selectionManager.inMovingMode
 			field.findAllInOW(false)
-			field = FieldUtils.manualMove(field, selectionManager)
+			FieldUtils.manualMove(field, selectionManager)
 			
 		elsif selectionManager.inTakeCoverMode
-			field = FieldUtils.applyCoverMod(selectionManager, field)
+			FieldUtils.applyCoverMod(selectionManager, field)
 			
 		elsif selectionManager.inShootingMode && selectionManager.isTargetSet
 			shooterPos = selectionManager.currentTile.getCoords
 			targetPos = selectionManager.targetTile.getCoords
 			targetMod = selectionManager.targetTile.coverMod
-			field = FieldUtils.shootTarget(shooterPos, targetPos, targetMod, field, selectionManager)
+			FieldUtils.shootTarget(shooterPos, targetPos, targetMod, field, selectionManager)
 		end
 
 	elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
 		field.findAllInOW(true)
-		field = FieldUtils.autoMove([10,2], [25,27], field, selectionManager)
+		FieldUtils.autoMove([10,2], [25,27], field, selectionManager)
 		selectionManager.resetCover = true
 	end
-	return field
 end
 
 def drawField(selectionManager, gameField) #Assigns styles to buttons, creates class instances w/ buttons' positions

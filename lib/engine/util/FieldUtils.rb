@@ -11,7 +11,6 @@ module FieldUtils
         selectionManager.isCurrentSet = false
         selectionManager.inTakeCoverMode = false
         currentRow, currentCol = nil
-        return field
     end
 
     def FieldUtils.clearCoverMods(selectionManager, field)
@@ -26,20 +25,18 @@ module FieldUtils
         end
         
         field.clearCoverMods
-        return field
     end
 
     def FieldUtils.manualMove(field, selectionManager)
         targetPos = selectionManager.targetTile.getCoords
         currentPos = selectionManager.currentTile.getCoords
         
-        field = FieldUtils.autoMove(currentPos, targetPos, field, selectionManager)
+        FieldUtils.autoMove(currentPos, targetPos, field, selectionManager)
         
         selectionManager.isCurrentSet = false
         selectionManager.isTargetSet = false
         selectionManager.inMovingMode = false
         selectionManager.hitText.value = ""
-        return field
     end
 
     def FieldUtils.autoMove(start, target, field, selectionManager)
@@ -64,7 +61,6 @@ module FieldUtils
                 Tk.update
             end
         end
-        return field
     end
 
     def FieldUtils.shootTarget(shooterPos, targetPos, targetMod, field, selectionManager)
@@ -81,7 +77,6 @@ module FieldUtils
         selectionManager.isTargetSet = false
         selectionManager.inShootingMode = false
         field.setCoverMod(targetPos, 1)
-        return field
     end
 
     def FieldUtils.findNearbyOW(pos, owArray)
