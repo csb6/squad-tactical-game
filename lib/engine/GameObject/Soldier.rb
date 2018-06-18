@@ -1,6 +1,6 @@
 class Soldier < InteractiveObject
 		
-    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch
+    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent
     
     def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
         super(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
@@ -17,6 +17,7 @@ class Soldier < InteractiveObject
         @coverMod = 1
         @inOverwatch = false
         @contextComponent = ContextComponent.new(self, rootWin, selectManager)
+        @panelComponent = SoldierPanelComponent.new(self, rootWin)
 
         @image.bind("1", proc {
             if selectManager.isBlueTurn
@@ -52,26 +53,6 @@ class Soldier < InteractiveObject
         end
     end
 
-    
-    
-    def openPanel
-        super
-        objectName = @objectName
-        description = @description
-        @panel["title"] = objectName
-        
-        @descriptionLabel = TkLabel.new(@panel) do
-            text "Description:\n#{description}"
-            wraplength 350
-            grid('row' => 0, 'column' => 0)
-        end
-        
-        weapon = @weapon
-        @weaponLabel = TkLabel.new(@panel) do
-            text "Weapon:\n#{weapon}"
-            grid('row' => 1, 'column' => 0)
-        end
-    end
 end
 
     class BlueSoldier < Soldier

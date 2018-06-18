@@ -102,7 +102,7 @@ def drawUI(selectionManager)
 												text "Unit Info"
 												command do
 													if selectionManager.isCurrentSet && selectionManager.currentTile.canShoot
-														selectionManager.currentTile.openPanel
+														selectionManager.currentTile.panelComponent.openPanel
 														selectionManager.resetAll
 													end
 												end

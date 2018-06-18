@@ -7,16 +7,8 @@ class InteractiveObject < GameObject #Object on playing field that can be moved/
 		super
 		
 		@isInteractive = true
-		@panelFile = ""
+		@panelComponent = PanelComponent.new(self, rootWin)
 		@isBlueTeam = true
-	end
-
-	def openPanel
-		@panel = TkToplevel.new(@rootWin) do
-			title "Inventory"
-			background "grey"
-			geometry '500x200-350+250'
-		end
 	end
 	
 end
