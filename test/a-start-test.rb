@@ -1,4 +1,4 @@
-require_relative "lib/GraphMath"
+require_relative "../lib/util/GraphMath"
 
 fieldArray = [ ]
 y = 0
