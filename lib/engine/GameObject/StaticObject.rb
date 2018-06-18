@@ -1,5 +1,3 @@
-require_relative '../../modules/Constants'
-
 class StaticObject < GameObject #Object on playing field that is not interactive, not movable
 	
 	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
