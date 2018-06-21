@@ -1,6 +1,6 @@
-class Soldier < InteractiveObject
+class Soldier < GameObject
 		
-    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent
+    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent, :isBlueTeam
     
     def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
         super(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
@@ -15,6 +15,7 @@ class Soldier < InteractiveObject
         @ammo = 50
         @coverMod = 1
         @inOverwatch = false
+        @isBlueTeam = true
         @contextComponent = ContextComponent.new(self, rootWin, selectManager)
         @panelComponent = SoldierPanelComponent.new(self, rootWin)
 

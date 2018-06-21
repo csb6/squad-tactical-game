@@ -4,7 +4,7 @@
 
 class GameObject
 	
-	attr_reader :objectName, :description, :weight, :size, :isInteractive, :canShoot, :selectManager
+	attr_reader :objectName, :description, :weight, :size, :canShoot, :selectManager
 	attr_accessor :xPos, :yPos, :isBroken, :isMovable, :isOccupiable, :isOccupied, :image, :x1, :y1
 	
 	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
@@ -23,7 +23,6 @@ class GameObject
 		@isMovable = false
 		@isOccupiable = false
 		@isOccupied = true
-		@isInteractive = false
 		@canShoot = false
 		
 		@image.bind("1", proc {
