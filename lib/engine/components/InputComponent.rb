@@ -18,7 +18,8 @@ end
 
         def initialize(tile, selectManager)
             super
-            @tile.image.bind("1", proc {
+
+            @tile.image.bind("1", proc { #Left click on soldier
                 if @selectManager.isBlueTurn
                     @tile.updateLabels
 
@@ -26,6 +27,16 @@ end
                         setCurrent
                     elsif !@selectManager.isTargetSet && @selectManager.inShootingMode #If looking for a shooting target, make it a target
                         setTarget
+                    end
+                end
+            })
+
+            @tile.image.bind("2", proc { #Right click on soldier
+                if @selectManager.isBlueTurn
+                    @tile.updateLabels
+
+                    if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
+                        @tile.contextComponent.openContextMenu
                     end
                 end
             })
@@ -46,7 +57,7 @@ end
     class BasicInputComponent < InputComponent
         def initialize(tile, selectManager)
             super
-            @tile.image.bind("1", proc {
+            @tile.image.bind("1", proc { #Left click on tile
                 if @selectManager.isBlueTurn
                     @tile.updateLabels
 

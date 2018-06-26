@@ -35,7 +35,7 @@ class ContextComponent
             @attackButton.bind("1", proc {
                 if @selectManager.isCurrentSet && @selectManager.currentTile.isBlueTeam === @selectManager.isBlueTurn
                     @selectManager.inShootingMode = true
-                    @tile.setTarget
+                    @tile.inputComponent.setTarget
                     closeContextMenu
                 end
             })

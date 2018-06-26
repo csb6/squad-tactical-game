@@ -1,6 +1,6 @@
 class Soldier < GameObject
 		
-    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent, :isBlueTeam
+    attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent, :contextComponent, :inputComponent, :isBlueTeam
     
     def initialize(objectName, weapon, xPos, yPos, x1, y1, selectManager, rootWin)
         super(objectName, xPos, yPos, x1, y1, selectManager, rootWin)
@@ -19,15 +19,6 @@ class Soldier < GameObject
         @contextComponent = ContextComponent.new(self, rootWin, selectManager)
         @panelComponent = SoldierPanelComponent.new(self, rootWin)
         @inputComponent = SoldierInputComponent.new(self, selectManager)
-
-        @image.bind("2", proc {
-			if selectManager.isBlueTurn
-				updateLabels
-				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-					@contextComponent.openContextMenu
-				end
-			end
-		})
     end
 
 end
