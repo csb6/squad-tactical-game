@@ -18,13 +18,7 @@ class Soldier < GameObject
         @isBlueTeam = true
         @contextComponent = ContextComponent.new(self, rootWin, selectManager)
         @panelComponent = SoldierPanelComponent.new(self, rootWin)
-
-        @image.bind("1", proc {
-            if selectManager.isBlueTurn
-                updateLabels
-                performAction
-            end
-        })
+        @inputComponent = SoldierInputComponent.new(self, selectManager)
 
         @image.bind("2", proc {
 			if selectManager.isBlueTurn
@@ -34,23 +28,6 @@ class Soldier < GameObject
 				end
 			end
 		})
-    end
-
-    def performAction #Makes the soldier move or shoot something, checking what is selected, if target/current positions are set
-        if !@selectManager.isCurrentSet && @isMovable #If no current yet and this tile = movable
-            setCurrent
-            
-        elsif !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-            setTarget
-        end
-    end
-    
-    
-    def setCurrent #tile to be this tile if it's the turn of the tile's team
-        if @isBlueTeam === @selectManager.isBlueTurn
-            @selectManager.currentTile = self
-            @selectManager.isCurrentSet = true
-        end
     end
 
 end

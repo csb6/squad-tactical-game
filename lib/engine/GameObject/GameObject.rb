@@ -24,15 +24,7 @@ class GameObject
 		@isOccupiable = false
 		@isOccupied = true
 		@canShoot = false
-		
-		@image.bind("1", proc {
-			if selectManager.isBlueTurn
-				updateLabels
-				if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
-					setTarget
-				end
-			end
-		})
+		@inputComponent = BasicInputComponent.new(self, selectManager)
 	end
 	
 	
@@ -47,23 +39,6 @@ class GameObject
 			@selectManager.healthLabel.value = "Health: "
 			@selectManager.ammoLabel.value = "Ammo: "
 			@selectManager.coverLabel.value = "Cover: "
-		end
-	end
-	
-	
-	def setTarget #tile to be this tile if it's the turn of the tile's team
-		if @selectManager.inShootingMode #If looking for a shooting target and this tile can shoot, make it a target
-			if @canShoot
-				@selectManager.targetTile = self
-				@selectManager.isTargetSet = true
-			end
-		else #If not looking for shooting target, see if this tile is within 5 tiles, set it as target if it is
-			distanceToCurrent = GraphMath.distanceFormula(@selectManager.currentTile.xPos, @selectManager.currentTile.yPos, @xPos, @yPos)
-			if @isOccupiable &&  distanceToCurrent <= 5
-				@selectManager.targetTile = self
-				@selectManager.isTargetSet = true
-				@selectManager.inMovingMode = true
-			end
 		end
 	end
 	
