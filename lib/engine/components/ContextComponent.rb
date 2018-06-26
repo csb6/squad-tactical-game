@@ -6,6 +6,12 @@ class ContextComponent
         @selectManager = selectManager
     end
 
+    def buildButton(xOffset, yOffset, txt, command)
+        button = TkcText.new(@rootWin, @tile.x1+xOffset, @tile.y1+yOffset, :text => txt)
+        button.bind("1", command)
+        return button
+    end
+
     def openContextMenu
 
         #Configured for 28x29 field
@@ -28,26 +34,49 @@ class ContextComponent
         hitChance = GraphMath.calcHitChance(currentCol, currentRow, @tile.xPos, @tile.yPos, @tile.coverMod) #Calc chance of current selected object to hit self
 
         @contextMenu = TkcRectangle.new(@rootWin, @tile.x1, @tile.y1, @tile.x1+a, @tile.y1+b, :fill => 'grey')
-            @hitText = TkcText.new(@rootWin, @tile.x1+c, @tile.y1+d, :text => "HC: #{hitChance}%")
-            @attackButton = TkcText.new(@rootWin, @tile.x1+c, @tile.y1+g, :text => "Attack")
-            @exitButton = TkcText.new(@rootWin, @tile.x1+e, @tile.y1+f, :text => "X")
+        @contextElements = [ @contextMenu ]
 
-            @attackButton.bind("1", proc {
-                if @selectManager.isCurrentSet && @selectManager.currentTile.isBlueTeam === @selectManager.isBlueTurn
-                    @selectManager.inShootingMode = true
-                    @tile.inputComponent.setTarget
+            if @selectManager.currentTile.objectName != @tile.objectName #Viewing another unit
+
+                @hitText = TkcText.new(@rootWin, @tile.x1+c, @tile.y1+d, :text => "HC: #{hitChance}%")
+                @contextElements << @hitText
+
+                @attackButton = buildButton(c, g, "Attack", proc {
+                    if @selectManager.isCurrentSet && @selectManager.currentTile.isBlueTeam === @selectManager.isBlueTurn
+                        @selectManager.inShootingMode = true
+                        @tile.inputComponent.setTarget
+                        closeContextMenu
+                    end
+                })
+                @contextElements << @attackButton
+
+            else #Viewing current selected unit
+
+                @infoButton = buildButton(c, d, "View Info", proc {
+                    @tile.panelComponent.openPanel
+                    @selectManager.resetAll
                     closeContextMenu
-                end
-            })
-            @exitButton.bind("1", proc {
+                })
+                @contextElements << @infoButton
+
+                @overwatchButton = buildButton(c, g, "Overwatch", proc {
+                    @tile.inOverwatch = true
+                    @selectManager.resetAll
+                    closeContextMenu
+                })
+                @contextElements << @overwatchButton
+
+            end
+
+            @exitButton = buildButton(e, f, "X", proc {
                 closeContextMenu
             })
+            @contextElements << @exitButton
     end
 
     def closeContextMenu
-        @contextMenu.delete
-        @attackButton.delete
-        @exitButton.delete
-        @hitText.delete
+        @contextElements.each do |element|
+            element.delete
+        end
     end
 end
