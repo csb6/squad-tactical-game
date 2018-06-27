@@ -1,12 +1,13 @@
+require_relative 'ColorComponent'
 class Field
+
+    attr_reader :soldiers, :blue, :red
 
     def initialize(selectionManager)
         @selectManager = selectionManager
         @fieldArray = Array.new(29){ Array.new(28) }
-        @redTraits = CSV.read(Constants::RED_CHAR_PATH, :col_sep => "	")
-        @blueTraits = CSV.read(Constants::BLUE_CHAR_PATH, :col_sep => "	")
-        @bi = 0
-        @ri = 0
+        @blue = Blue.new(self)
+        @red = Red.new(self)
         @OWSoldiers = [ ]
         @soldiers = [ ]
     end
@@ -21,26 +22,6 @@ class Field
 
     def getFieldArray
         return @fieldArray
-    end
-
-    def getBlueName
-        return @blueTraits[@bi][0]
-    end
-
-    def getBlueGun
-        gun = @blueTraits[@bi][1]
-        @bi += 1
-        return gun
-    end
-
-    def getRedName
-        return @redTraits[@ri][0]
-    end
-
-    def getRedGun
-        gun = @blueTraits[@ri][1]
-        @ri += 1
-        return gun
     end
 
     def findAllInOW(lookingForBlue)
@@ -100,10 +81,6 @@ class Field
             end
         end
         return someSoldiers
-    end
-
-    def getAllSoldiers
-        return @soldiers
     end
 
     def getAllWalls

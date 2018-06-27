@@ -68,10 +68,10 @@ def drawField(selectionManager, gameField) #Assigns styles to buttons, creates c
 						field.addTile(pos, Terminal.new("Terminal", x, y, c, r, selectionManager, canvas) )
 						
 					when 'rh' #Soldier tile
-						field.addTile(pos, RedSoldier.new(field.getRedName, field.getRedGun, x, y, c, r, selectionManager, canvas) )
+						field.addTile(pos, RedSoldier.new(field.red.getName, field.red.getGun, x, y, c, r, selectionManager, canvas) )
 						
 					when 'bh'
-						field.addTile(pos, BlueSoldier.new(field.getBlueName, field.getBlueGun, x, y, c, r, selectionManager, canvas) )
+						field.addTile(pos, BlueSoldier.new(field.blue.getName, field.blue.getGun, x, y, c, r, selectionManager, canvas) )
 				end
 				c += 25
 				x += 1
