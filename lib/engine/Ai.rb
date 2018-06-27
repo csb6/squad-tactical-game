@@ -17,11 +17,11 @@ class Ai
         @owSoldiers = @field.findAllInOW(true)
 
         startPos = @mainSoldier.getCoords
-        target = findNearestEnemy(@mainSoldier)
-        targetPos = target.getCoords
-
-        attackPos = findAttackPos(targetPos)
-        puts "Target: #{target.objectName}. Planned attack Pos: #{attackPos}"
+        # target = findNearestEnemy(@mainSoldier)
+        # targetPos = target.getCoords
+        # attackPos = findAttackPos(targetPos)
+        # puts "Target: #{target.objectName}. Planned attack Pos: #{attackPos}"
+        attackPos = findFlankPos(true)
         FieldUtils.autoMove(startPos, attackPos, @field, @selectManager)
     end
 
@@ -40,10 +40,41 @@ class Ai
         return nearest[0]
     end
 
-    def findAttackPos(targetPos)
+    def findOuterSoldier(onRight, isBlue) #Finds enemy most left or right compared to his comrades
+        if isBlue
+            soldiers = @blueSoldiers
+        else
+            soldiers = @redSoldiers
+        end
+
+        outerMost = nil
+        soldiers.each do |soldier|
+            soldierX = soldier.xPos
+            if outerMost === nil
+                outerMost = [ soldier, soldierX ]
+            else
+                if onRight
+                    if soldierX > outerMost[1]
+                        outerMost = [ soldier, soldierX ]
+                    end
+                else
+                    if soldierX < outerMost[1]
+                        outerMost = [ soldier, soldierX ]
+                    end
+                end
+            end
+        end
+        return outerMost[0]
+    end
+
+    def findFlankPos(onRight)
+        target = findOuterSoldier(onRight, true)
+        targetPos = target.getCoords
+        return findRelativePos(5, 0, targetPos)
+    end
+
+    def findRelativePos(x, y, targetPos) #Finds attack position close to a relative position from the target
         foundPos = false
-        x = 5
-        y = -5
         while !foundPos
             candidatePos = [ targetPos[0]+x, targetPos[1]+y ]
             if @field.checkIfOccup(candidatePos)
