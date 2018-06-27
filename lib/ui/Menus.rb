@@ -80,22 +80,12 @@ def drawUI(selectionManager)
 									grid('row' => 1, 'column' => 0)
 								end
 											
-											takeCoverButton = Tk::Tile::Button.new(actionPanel) do
-												text "Take Cover"
-												command do
-														if selectionManager.isCurrentSet && selectionManager.currentTile.canShoot
-															selectionManager.inTakeCoverMode = true
-														end
-												end
-												grid('row' => 0, 'column' => 0)
-											end
-											
 											deselectButton = Tk::Tile::Button.new(actionPanel) do
 												text "Deselect Unit"
 												command do
 													selectionManager.resetAll
 												end
-												grid('row' => 1, 'column' => 0)
+												grid('row' => 0, 'column' => 0)
 											end
 											
 								

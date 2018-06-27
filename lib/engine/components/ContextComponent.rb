@@ -16,17 +16,17 @@ class ContextComponent
 
         #Configured for 28x29 field
         if (@tile.xPos >= 24 && @tile.yPos >= 2) || (@tile.yPos >= 27 && @tile.xPos >= 4) #Upper left position /
-            a = -100; c = -63; e = -7; g = -25
-            b = -50; d = -40; f = -7
-        elsif @tile.xPos < 4 && @tile.yPos >= 27 #Upper right position /
-            a = 100; c = 38; e = 7; g = -25
-            b = -50; d = -40; f = -7
+            a = -100; c = -53; e = -7; g = -25
+            b = -50; d = -40; f = -7; h = -12
+        elsif @tile.xPos < 4 && @tile.yPos >= 27 #Upper right position
+            a = 100; c = 53; e = 7; g = -25
+            b = -50; d = -40; f = -7; h = -12
         elsif @tile.xPos >= 24 && @tile.yPos < 2 #Bottom left position /
-            a = -100; c = -63; e = -7; g = 35
-            b = 50; d = 20; f = 7
+            a = -100; c = -53; e = -7; g = 27
+            b = 50; d = 12; f = 7; h = 40
         else #Bottom right position /
-            a = 100; c = 38; e = 7; g = 35
-            b = 50; d = 20; f = 7
+            a = 100; c = 53; e = 7; g = 27
+            b = 50; d = 12; f = 7; h = 40
         end
 
         currentRow = @selectManager.currentTile.yPos
@@ -65,6 +65,12 @@ class ContextComponent
                     closeContextMenu
                 })
                 @contextElements << @overwatchButton
+
+                @coverButton = buildButton(c, h, "Take Cover", proc {
+                    @selectManager.inTakeCoverMode = true
+                    closeContextMenu
+                })
+                @contextElements << @coverButton
 
             end
 
