@@ -14,7 +14,7 @@ class Ai
     end
 
     def takeTurn
-        @owSoldiers = @field.findAllInOW(true)
+        @owSoldiers = @field.overwatch.findAll(true)
 
         startPos = @mainSoldier.getCoords
         nearestEnemy = @field.blue.findNearestTo(@mainSoldier)

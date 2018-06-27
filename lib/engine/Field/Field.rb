@@ -1,14 +1,16 @@
 require_relative 'ColorComponent'
+require_relative 'OWComponent'
+
 class Field
 
-    attr_reader :soldiers, :blue, :red
+    attr_reader :soldiers, :blue, :red, :overwatch
 
     def initialize(selectionManager)
         @selectManager = selectionManager
         @fieldArray = Array.new(29){ Array.new(28) }
         @blue = Blue.new(self)
         @red = Red.new(self)
-        @OWSoldiers = [ ]
+        @overwatch = OWComponent.new(self)
         @soldiers = [ ]
     end
 
@@ -93,16 +95,6 @@ class Field
         	end
         end
         return wallTiles
-    end
-
-    def updateSoldier(soldier)
-        i = 0
-        @soldiers.each do |s|
-            if s.objectName === soldier.objectName
-                @soldiers[i] = soldier
-            end
-            i += 1
-        end
     end
 
     def swapPosition(startPos, targetPos)

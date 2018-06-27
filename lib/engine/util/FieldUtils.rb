@@ -49,9 +49,9 @@ module FieldUtils
             else
                 targetPos = point
                 
-                nearbyShooter = FieldUtils.findNearbyOW(currentPos, field.getAllInOW)
+                nearbyShooter = FieldUtils.findNearbyOW(currentPos, field.overwatch.soldiers)
                 if nearbyShooter != nil
-                    field.removeOW(nearbyShooter)
+                    field.overwatch.remove(nearbyShooter)
                     FieldUtils.shootTarget(nearbyShooter, currentPos, 1, field, selectionManager)
                 end
                 field.swapPosition(currentPos, targetPos)
