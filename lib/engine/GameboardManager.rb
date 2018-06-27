@@ -11,7 +11,7 @@ require_relative 'Components/InputComponent'
 
 #Updates appearance of gameField as pieces are selected, move around, or perform actions on each other
 
-def updateField(field, selectionManager)
+def updateField(field, selectionManager, ai)
 	if selectionManager.resetCover
 		FieldUtils.clearCoverMods(selectionManager, field)
 
@@ -31,8 +31,7 @@ def updateField(field, selectionManager)
 		end
 
 	elsif !selectionManager.isBlueTurn #Red team is CPU controlled, follows path
-		field.findAllInOW(true)
-		FieldUtils.autoMove([10,2], [25,27], field, selectionManager)
+		ai.takeTurn
 		selectionManager.resetCover = true
 	end
 end

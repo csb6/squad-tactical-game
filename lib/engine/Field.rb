@@ -60,6 +60,7 @@ class Field
             end
             y += 1
         end
+        return @OWSoldiers
     end
 
     def getAllInOW
@@ -89,6 +90,16 @@ class Field
             end
             y += 1
         end
+    end
+
+    def findSoldiers(lookingForBlue)
+        someSoldiers = [ ]
+        @soldiers.each do |soldier|
+            if soldier.isBlueTeam === lookingForBlue
+                someSoldiers << soldier
+            end
+        end
+        return someSoldiers
     end
 
     def getAllSoldiers
