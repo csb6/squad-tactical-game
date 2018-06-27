@@ -37,6 +37,7 @@ class SelectionManager
 		@currentTile, @targetTile = nil
 		@healthLabel.value = "Health: "
 		@ammoLabel.value = "Ammo: "
+		@coverLabel.value = "Cover: "
 	end
 	
 end

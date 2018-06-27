@@ -20,7 +20,7 @@ end
             super
 
             @tile.image.bind("1", proc { #Left click on soldier
-                if @selectManager.isBlueTurn
+                if @selectManager.isBlueTurn && @tile.isBlueTeam
                     @tile.updateLabels
 
                     if !@selectManager.isCurrentSet
@@ -32,7 +32,7 @@ end
             })
 
             @tile.image.bind("2", proc { #Right click on soldier
-                if @selectManager.isBlueTurn
+                if @selectManager.isBlueTurn && @tile.isBlueTeam
                     @tile.updateLabels
 
                     if !@selectManager.isTargetSet && @selectManager.isCurrentSet #If no tile target yet, but current is
