@@ -8,20 +8,13 @@ class OWComponent #Overwatch Component
 
     def findAll(lookingForBlue) #Needs to be called once per turn
         @soldiers = [ ]
-        y = 0
-        @field.getFieldArray.each do |row|
-            x = 0
-            row.each do |tile|
-                if tile.canShoot
-                    if tile.isBlueTeam === lookingForBlue
-                        if tile.inOverwatch
-                            @soldiers << @fieldArray[y][x]
-                        end
-                    end
+
+        @field.soldiers.each do |soldier|
+            if soldier.isBlueTeam === lookingForBlue
+                if soldier.inOverwatch
+                    @soldiers << soldier
                 end
-                x += 1
             end
-            y += 1
         end
         return @soldiers
     end

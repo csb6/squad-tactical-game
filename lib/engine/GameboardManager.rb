@@ -17,7 +17,7 @@ def updateField(field, selectionManager, ai)
 
 	elsif selectionManager.isBlueTurn
 		if selectionManager.inMovingMode
-			field.findAllInOW(false)
+			field.overwatch.findAll(false)
 			FieldUtils.manualMove(field, selectionManager)
 			
 		elsif selectionManager.inTakeCoverMode

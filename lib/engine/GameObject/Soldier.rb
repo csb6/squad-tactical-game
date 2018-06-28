@@ -11,7 +11,7 @@ class Soldier < GameObject
         @isMovable = true
         @canShoot = true
         @weapon = weapon
-        @health = 100
+        @health = 60
         @ammo = 50
         @coverMod = 1
         @inOverwatch = false

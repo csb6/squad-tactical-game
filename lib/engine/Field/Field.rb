@@ -26,41 +26,6 @@ class Field
         return @fieldArray
     end
 
-    def findAllInOW(lookingForBlue)
-        @OWSoldiers = [ ]
-        y = 0
-        @fieldArray.each do |row|
-            x = 0
-            row.each do |tile|
-                if tile.canShoot
-                    if tile.isBlueTeam === lookingForBlue
-                        if tile.inOverwatch
-                            @OWSoldiers << @fieldArray[y][x]
-                        end
-                    end
-                end
-                x += 1
-            end
-            y += 1
-        end
-        return @OWSoldiers
-    end
-
-    def getAllInOW
-        return @OWSoldiers
-    end
-
-    def removeOW(pos)
-        i = 0
-        @OWSoldiers.each do |s|
-            if s.getCoords === pos
-                @OWSoldiers.delete_at(i)
-                break
-            end
-            i += 1
-        end
-    end
-
     def findAllSoldiers
         y = 0
         @fieldArray.each do |row|
@@ -134,6 +99,14 @@ class Field
 
     def setHealth(pos, amt)
         @fieldArray[pos[1]][pos[0]].health += amt
+    end
+
+    def deathCheck(pos) #Deactivates object at given position if health drops below 0
+        soldier = @fieldArray[pos[1]][pos[0]]
+        if soldier.health <= 0
+            puts "#{soldier.objectName} died."
+            #TODO: Some deactivation code
+        end
     end
 
     def getPxCoords(pos)

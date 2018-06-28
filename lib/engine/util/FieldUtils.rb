@@ -71,6 +71,7 @@ module FieldUtils
         if GraphMath.hitDeterminer(chanceToHit)
             field.setHealth(targetPos, -15)
             field.flashImage(targetPos, Constants::EXPLO_IMAGE)
+            field.deathCheck(targetPos)
         end
         
         selectionManager.isCurrentSet = false
