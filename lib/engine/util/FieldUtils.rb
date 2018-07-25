@@ -1,31 +1,7 @@
 require_relative 'PathFind'
 
+#Deprecated, only kept for compatability with AI needing automove/dependent methods
 module FieldUtils
-
-    def FieldUtils.applyCoverMod(selectionManager, field)
-        currentPos = selectionManager.currentTile.getCoords
-        
-        field.setCoverMod(currentPos, 0.8)
-        
-        selectionManager.coverLabel.value = "Cover: #{field.getTile(currentPos).coverMod}"
-        selectionManager.isCurrentSet = false
-        selectionManager.inTakeCoverMode = false
-        currentRow, currentCol = nil
-    end
-
-    def FieldUtils.clearCoverMods(selectionManager, field)
-        selectionManager.isBlueTurn = !selectionManager.isBlueTurn
-        selectionManager.resetAll
-        selectionManager.resetCover = false
-        
-        if selectionManager.isBlueTurn
-            selectionManager.turnLabel.value = "Blue Turn"
-        else
-            selectionManager.turnLabel.value = "Red Turn "
-        end
-        
-        field.clearCoverMods
-    end
 
     def FieldUtils.manualMove(field, selectionManager)
         targetPos = selectionManager.targetTile.getCoords

@@ -1,10 +1,12 @@
+require_relative 'util/FieldUtils'
+
 class Ai
     def initialize(field, selectionManager)
         print "Prepare to lose, human. I am initializing..."
         @field = field
         @selectManager = selectionManager
 
-        field.findAllSoldiers
+        @field.findAllSoldiers
         @walls = PathFind.getWalls
         @blueSoldiers = field.blue.findSoldiers
         @redSoldiers = field.red.findSoldiers
@@ -20,7 +22,7 @@ class Ai
         nearestEnemy = @field.blue.findNearestTo(@mainSoldier)
         puts "Nearest enemy is #{nearestEnemy.objectName}."
         attackPos = findFlankPos(true)
-        FieldUtils.autoMove(startPos, attackPos, @field, @selectManager)
+        FieldUtils.autoMove(startPos, attackPos, @field, @selectManager) #TODO: Fix this mess. AI decisions should be spread into multiple ticks, using util methods in Game object, not FieldUtils
     end
 
     def findFlankPos(onRight)
