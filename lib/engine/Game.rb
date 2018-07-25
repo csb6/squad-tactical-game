@@ -5,9 +5,6 @@ require_relative 'GameObject/GameObject'
 require_relative 'GameObject/Soldier'
 require_relative 'GameObject/StaticObject'
 require_relative 'GameObject/OccupiableObject'
-require_relative 'Components/ContextComponent'
-require_relative 'Components/PanelComponent'
-require_relative 'Components/InputComponent'
 
 #Updates appearance of @window as pieces are selected, move around, or perform actions on each other
 
@@ -16,12 +13,19 @@ class Game
 	def initialize(selectionManager, window)
 		@selectionManager = selectionManager
 		@window = window
+		@canvas = TkCanvas.new(@window) do
+			width 800 - 102
+			height 724
+			grid('row' => 0, 'column' => 0)
+		end
 		@field = Field.new(@selectionManager)
+		drawField
+		@ai = Ai.new(@field, @selectionManager)
 	end
 
 	def updateField
 		if @selectionManager.resetCover
-			clearCoverMods
+			clearAllCoverMods
 
 		elsif @selectionManager.isBlueTurn
 			if @selectionManager.inMovingMode
@@ -29,7 +33,7 @@ class Game
 				manualMove
 				
 			elsif @selectionManager.inTakeCoverMode
-				applyCoverMod
+				setCurrentCoverMod
 				
 			elsif @selectionManager.inShootingMode && @selectionManager.isTargetSet
 				shooterPos = @selectionManager.currentTile.getCoords
@@ -45,12 +49,6 @@ class Game
 	end
 
 	def drawField #Assigns styles to buttons, creates class instances w/ buttons' positions
-		canvas = TkCanvas.new(@window) do
-			width 800 - 102
-			height 724
-			grid('row' => 0, 'column' => 0)
-		end
-		
 		r = 15
 		y = 0
 		CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
@@ -62,22 +60,22 @@ class Game
 					pos = [x,y]
 					case letter
 						when 's' #Sand tile
-							@field.addTile(pos, Sand.new("Sand", x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, Sand.new("Sand", x, y, c, r, @selectionManager, @canvas) )
 							
 						when 'w' #Wall tile
-							@field.addTile(pos, Wall.new("Wall", x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, Wall.new("Wall", x, y, c, r, @selectionManager, @canvas) )
 							
 						when 'c'
-							@field.addTile(pos, Cannon.new("Cannon", x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, Cannon.new("Cannon", x, y, c, r, @selectionManager, @canvas) )
 							
 						when 't'
-							@field.addTile(pos, Terminal.new("Terminal", x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, Terminal.new("Terminal", x, y, c, r, @selectionManager, @canvas) )
 							
 						when 'rh' #Soldier tile
-							@field.addTile(pos, RedSoldier.new(@field.red.getName, @field.red.getGun, x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, RedSoldier.new(@field.red.getName, @field.red.getGun, x, y, c, r, @selectionManager, @canvas) )
 							
 						when 'bh'
-							@field.addTile(pos, BlueSoldier.new(@field.blue.getName, @field.blue.getGun, x, y, c, r, @selectionManager, canvas) )
+							@field.addTile(pos, BlueSoldier.new(@field.blue.getName, @field.blue.getGun, x, y, c, r, @selectionManager, @canvas) )
 					end
 					c += 25
 					x += 1
@@ -96,10 +94,9 @@ class Game
 				PathFind.setWalls(processedRow)
 			end
 		end
-		@ai = Ai.new(@field, @selectionManager)
 	end
 	
-	def applyCoverMod
+	def setCurrentCoverMod
         currentPos = @selectionManager.currentTile.getCoords
         
         @field.setCoverMod(currentPos, 0.8)
@@ -110,7 +107,7 @@ class Game
         currentRow, currentCol = nil
     end
 
-    def clearCoverMods
+    def clearAllCoverMods
         @selectionManager.isBlueTurn = !@selectionManager.isBlueTurn
         @selectionManager.resetAll
         @selectionManager.resetCover = false

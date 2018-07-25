@@ -20,7 +20,6 @@ selectionManager = SelectionManager.instance
 
 drawUI(selectionManager)
 game = Game.new(selectionManager, gameWindow)
-game.drawField
 
 while selectionManager.rootExists #While main window exists
 	game.updateField #Checks if styles of 2 tiles need to be switched

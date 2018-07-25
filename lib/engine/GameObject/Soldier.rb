@@ -1,3 +1,6 @@
+require_relative '../Components/ContextComponent'
+require_relative '../Components/PanelComponent'
+
 class Soldier < GameObject
 		
     attr_accessor :weapon, :health, :ammo, :coverMod, :inOverwatch, :panelComponent, :contextComponent, :inputComponent, :isBlueTeam
