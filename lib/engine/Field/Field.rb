@@ -105,7 +105,7 @@ class Field
         soldier = @fieldArray[pos[1]][pos[0]]
         if soldier.health <= 0
             puts "#{soldier.objectName} died."
-            #TODO: Some deactivation code
+            soldier.die
         end
     end
 

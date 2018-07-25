@@ -12,6 +12,11 @@ class InputComponent
     def setTarget
         
     end
+
+    def removeBindings
+        @tile.image.bind("1", proc{})
+        @tile.image.bind("2", proc{})
+    end
 end
 
     class SoldierInputComponent < InputComponent

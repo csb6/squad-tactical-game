@@ -58,6 +58,9 @@ module Constants
 			
 			R_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "red-soldier2.png"
 			R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
+
+			DEAD_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "dead-soldier.png"
+			DEAD_SOLDIER_IMAGE = TkPhotoImage.new(:file => DEAD_SOLDIER_IMAGE_PATH)
 			
 			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall2.png"
 			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)

@@ -24,6 +24,14 @@ class Soldier < GameObject
         @inputComponent = SoldierInputComponent.new(self, selectManager)
     end
 
+    def die
+        @canShoot = false
+        @inOverwatch = false
+        @isMovable = false
+        @inputComponent.removeBindings
+        @image[:image] = Constants::DEAD_SOLDIER_IMAGE
+    end
+
 end
 
     class BlueSoldier < Soldier

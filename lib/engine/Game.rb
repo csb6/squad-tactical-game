@@ -104,7 +104,6 @@ class Game
         @selectionManager.coverLabel.value = "Cover: #{@field.getTile(currentPos).coverMod}"
         @selectionManager.isCurrentSet = false
         @selectionManager.inTakeCoverMode = false
-        currentRow, currentCol = nil
     end
 
     def clearAllCoverMods
@@ -162,7 +161,7 @@ class Game
         chanceToHit = GraphMath.calcHitChance(shooterPos[0], shooterPos[1], targetPos[0], targetPos[1], targetMod)
         @selectionManager.hitText.value = "#{chanceToHit}% chance"
         
-        if GraphMath.hitDeterminer(chanceToHit)
+        if GraphMath.hitDeterminer(chanceToHit) && @field.getTile(targetPos).health-15 >= 0
             @field.setHealth(targetPos, -15)
             @field.flashImage(targetPos, Constants::EXPLO_IMAGE)
             @field.deathCheck(targetPos)
