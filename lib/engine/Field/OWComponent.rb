@@ -19,6 +19,16 @@ class OWComponent #Overwatch Component
         return @soldiers
     end
 
+    def findNearby(pos)
+        @soldiers.each do |soldier|
+            distance = GraphMath.distanceFormula(pos[0], pos[1], soldier.xPos, soldier.yPos)
+            if distance <= 5
+                return soldier.getCoords
+            end
+        end
+        return nil
+    end
+
     def remove(pos)
         i = 0
         @soldiers.each do |s|

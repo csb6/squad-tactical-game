@@ -65,12 +65,6 @@ class Game
 						when 'w' #Wall tile
 							@field.addTile(pos, Wall.new("Wall", x, y, c, r, @selectionManager, @canvas) )
 							
-						when 'c'
-							@field.addTile(pos, Cannon.new("Cannon", x, y, c, r, @selectionManager, @canvas) )
-							
-						when 't'
-							@field.addTile(pos, Terminal.new("Terminal", x, y, c, r, @selectionManager, @canvas) )
-							
 						when 'rh' #Soldier tile
 							@field.addTile(pos, RedSoldier.new(@field.red.getName, @field.red.getGun, x, y, c, r, @selectionManager, @canvas) )
 							
@@ -142,7 +136,7 @@ class Game
             else
                 targetPos = point
                 
-                nearbyShooter = findNearbyOW(currentPos)
+                nearbyShooter = @field.overwatch.findNearby(currentPos)
                 if nearbyShooter != nil
                     @field.overwatch.remove(nearbyShooter)
                     shootTarget(nearbyShooter, currentPos, 1)
@@ -173,14 +167,4 @@ class Game
         @field.setCoverMod(targetPos, 1)
     end
 
-	def findNearbyOW(pos)
-		owArray = @field.overwatch.soldiers
-        owArray.each do |owTile|
-            distance = GraphMath.distanceFormula(pos[0], pos[1], owTile.xPos, owTile.yPos)
-            if distance <= 5
-                return owTile.getCoords
-            end
-        end
-        return nil
-    end
 end
