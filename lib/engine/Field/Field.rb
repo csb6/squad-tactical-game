@@ -120,4 +120,14 @@ class Field
     def checkIfOccup(pos)
         return @fieldArray[pos[1]][pos[0]].isOccupiable
     end
+
+    def checkIfExists(pos)
+        if pos[0] < 28 && pos[1] < 29
+            if pos[0] > 0 && pos[1] > 0
+                return true
+            end
+        end
+
+        return false
+    end
 end

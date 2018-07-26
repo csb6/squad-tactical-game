@@ -1,4 +1,6 @@
 require_relative 'util/FieldUtils'
+require_relative 'util/PathFind'
+require_relative 'util/GraphMath'
 
 class Ai
     def initialize(field, selectionManager)
@@ -32,16 +34,32 @@ class Ai
     end
 
     def findRelativePos(x, y, targetPos) #Finds attack position close to a relative position from the target
-        foundPos = false
-        while !foundPos
-            candidatePos = [ targetPos[0]+x, targetPos[1]+y ]
-            if @field.checkIfOccup(candidatePos)
-                foundPos = true
+        candidatePos = [ targetPos[0]+x, targetPos[1]+y ]
+
+        if !@field.checkIfExists(candidatePos) || !@field.checkIfOccup(candidatePos)
+            neighbors = PathFind.findNeighbors(candidatePos, @field.getFieldArray)
+            puts "#{neighbors}"
+
+            if neighbors != [ ]
+                currentBest = nil
+                neighbors.each do |neighbor|
+                    distance = GraphMath.distanceFormula( neighbor[0], neighbor[1], targetPos[0], targetPos[1] )
+                    if currentBest === nil
+                        currentBest = [ neighbor, distance ]
+                    else
+                        if distance > currentBest[1]
+                            currentBest = [ neighbor, distance ]
+                        end
+                    end
+                end
+                puts "#{currentBest}"
+                return currentBest[0]
             else
-                x += 1
-                y -= 1
+                return [3,3]
             end
+        else
+            puts "Candidate: #{candidatePos}"
+            return candidatePos
         end
-        return candidatePos
     end
 end
