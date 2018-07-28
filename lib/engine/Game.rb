@@ -24,8 +24,8 @@ class Game
 	end
 
 	def updateField
-		if @selectionManager.resetCover
-			clearAllCoverMods
+		if @selectionManager.endTurn
+			endTurn
 
 		elsif @selectionManager.isBlueTurn
 			if @selectionManager.inMovingMode
@@ -44,7 +44,7 @@ class Game
 
 		elsif !@selectionManager.isBlueTurn #Red team is CPU controlled, follows path
 			@ai.takeTurn
-			@selectionManager.resetCover = true
+			@selectionManager.endTurn = true
 		end
 	end
 
@@ -100,10 +100,10 @@ class Game
         @selectionManager.inTakeCoverMode = false
     end
 
-    def clearAllCoverMods
+    def endTurn
         @selectionManager.isBlueTurn = !@selectionManager.isBlueTurn
         @selectionManager.resetAll
-        @selectionManager.resetCover = false
+        @selectionManager.endTurn = false
         
         if @selectionManager.isBlueTurn
             @selectionManager.turnLabel.value = "Blue Turn"

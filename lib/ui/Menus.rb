@@ -92,7 +92,7 @@ def drawUI(selectionManager)
 						endTurnButton = Tk::Tile::Button.new(sideMenu) do
 							text "End Turn"
 							command do
-								selectionManager.resetCover = true
+								selectionManager.endTurn = true
 							end
 							grid('row' => 3, 'column' => 0)
 						end
