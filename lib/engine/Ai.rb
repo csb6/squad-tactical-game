@@ -38,7 +38,6 @@ class Ai
 
         if !@field.checkIfExists(candidatePos) || !@field.checkIfOccup(candidatePos)
             neighbors = PathFind.findNeighbors(candidatePos, @field.getFieldArray)
-            puts "#{neighbors}"
 
             if neighbors != [ ]
                 currentBest = nil
@@ -52,13 +51,11 @@ class Ai
                         end
                     end
                 end
-                puts "#{currentBest}"
                 return currentBest[0]
             else
                 return [3,3]
             end
         else
-            puts "Candidate: #{candidatePos}"
             return candidatePos
         end
     end
