@@ -27,7 +27,7 @@ module Constants
 	FIELD_HEIGHT = 32
 	
 	#Files
-	MAC_PATH = "/users/kevinblakley/eclipse-workspace/project-1/lib/"
+	MAC_PATH = "/users/coleblakley/eclipse-workspace/project-1/lib/"
 	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\"
 	LEVEL_PATH_MAC = "levels/"
 	LEVEL_PATH_WIN = "levels\\"
