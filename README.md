@@ -8,7 +8,7 @@ While I did not complete the enemy decision-making AI, I implemented the A* path
 select a soldier, click on a destination and have a soldier find the best path there. This was fascinating to learn about 
 and implement.
 
-To play, make sure that you have recent versions of Ruby and Tk installed navigate to the squad-tactical-game folder, 
+To play, make sure that you have recent versions of Ruby and Tk installed, navigate to the squad-tactical-game folder, 
 and run `ruby project-1.rb`
 
 ## Controls
