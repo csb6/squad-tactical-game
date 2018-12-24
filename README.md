@@ -23,4 +23,4 @@ within a few squares during the opponent's turn, Take Cover makes the selected s
 that decreases as distance increases. Click the Attack button in this menu to attempt to attack that soldier.
 
 **End turn button in right side-menu** - When you're done with all of your moves, press this button to let the Red Team move.
-One Red Soldier, should move 5 squares to the right of the right-most blue soldier at the end of the prior turn.
+One Red Soldier should move 5 squares to the right of the right-most blue soldier at the end of the prior turn.
