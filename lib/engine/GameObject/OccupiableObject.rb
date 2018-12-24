@@ -1,4 +1,3 @@
-require 'tk'
 class OccupiableObject < GameObject #Tile that someone can stand on, basically just the ground
 	
 	def initialize(objectName, xPos, yPos, x1, y1, selectManager, rootWin)

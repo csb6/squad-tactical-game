@@ -1,5 +1,5 @@
-require_relative 'ColorComponent'
-require_relative 'OWComponent'
+require 'engine/field/ColorComponent'
+require 'engine/field/OWComponent'
 
 class Field
 

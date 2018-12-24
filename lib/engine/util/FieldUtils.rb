@@ -1,4 +1,4 @@
-require_relative 'PathFind'
+require 'engine/util/PathFind'
 
 #Deprecated, only kept for compatability with AI needing automove/dependent methods
 module FieldUtils

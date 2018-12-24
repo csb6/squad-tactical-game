@@ -1,5 +1,5 @@
-require_relative '../Components/ContextComponent'
-require_relative '../Components/PanelComponent'
+require 'engine/Components/ContextComponent'
+require 'engine/Components/PanelComponent'
 
 class Soldier < GameObject
 		

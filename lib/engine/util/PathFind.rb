@@ -1,4 +1,4 @@
-require_relative "GraphMath"
+require "engine/util/GraphMath"
 module PathFind
 
     @@walls = [ ]

@@ -1,10 +1,10 @@
-require_relative 'util/Constants'
-require_relative 'util/GraphMath'
-require_relative 'Ai'
-require_relative 'GameObject/GameObject'
-require_relative 'GameObject/Soldier'
-require_relative 'GameObject/StaticObject'
-require_relative 'GameObject/OccupiableObject'
+require 'engine/util/Constants'
+require 'engine/util/GraphMath'
+require 'engine/Ai'
+require 'engine/GameObject/GameObject'
+require 'engine/GameObject/Soldier'
+require 'engine/GameObject/StaticObject'
+require 'engine/GameObject/OccupiableObject'
 
 #Updates appearance of @window as pieces are selected, move around, or perform actions on each other
 
@@ -51,7 +51,7 @@ class Game
 	def drawField #Assigns styles to buttons, creates class instances w/ buttons' positions
 		r = 15
 		y = 0
-		CSV.foreach(Constants::LEVEL_PATH, :col_sep => "	") do |row|
+		CSV.foreach(Constants::START_LEVEL_PATH, :col_sep => "	") do |row|
 			if row[0][0] != "#"
 				c = 14
 				x = 0

@@ -1,5 +1,3 @@
-require_relative '../SelectionManager'
-
 module Constants
 	
 	#Root Window
@@ -20,51 +18,37 @@ module Constants
 	SIDEBAR_PADX = 30
 	SIDEBAR_PADY = 20
 	
-  #Game Field
+    #Game Field
 	FIELD_PADX = 40
 	FIELD_PADY = 40
 	FIELD_WIDTH = 27
 	FIELD_HEIGHT = 32
 	
 	#Files
-	MAC_PATH = "/users/coleblakley/eclipse-workspace/project-1/lib/"
-	WIN_PATH = "\\users\\moose\\git\\project-1\\lib\\"
-	LEVEL_PATH_MAC = "levels/"
-	LEVEL_PATH_WIN = "levels\\"
-	CHARS_PATH_MAC = "characters/"
-	CHARS_PATH_WIN = "characters\\"
-	SPRITE_PATH_MAC = "ui/sprites/"
-	SPRITE_PATH_WIN = "ui\\sprites\\"
-	if RUBY_PLATFORM =~ /darwin/ #Determine platform, change paths based on it
-		PATH = MAC_PATH
-		LEVELS_PATH = LEVEL_PATH_MAC
-		SPRITE_PATH = SPRITE_PATH_MAC
-		CHARS_PATH = CHARS_PATH_MAC
-	else
-		PATH = WIN_PATH
-		LEVELS_PATH = LEVEL_PATH_WIN
-		SPRITE_PATH = SPRITE_PATH_WIN
-		CHARS_PATH = CHARS_PATH_WIN
-	end
-			LEVEL_PATH = PATH + LEVELS_PATH + "island0.csv"
-			RED_CHAR_PATH = PATH + CHARS_PATH + "red-soldiers.csv"
-			BLUE_CHAR_PATH = PATH + CHARS_PATH + "blue-soldiers.csv"
-			
-			SAND_IMAGE_PATH = PATH + SPRITE_PATH + "sand2.gif"
-			SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
-			
-			B_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "blue-soldier2.gif"
-			B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)
-			
-			R_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "red-soldier2.gif"
-			R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
+	WD_PATH = File.join(Dir.getwd, "lib")
+	LEVEL_PATH = File.join(WD_PATH, "levels")
+	CHARS_PATH = File.join(WD_PATH, "characters")
+	SPRITE_PATH = File.join(WD_PATH, "ui", "sprites")
 
-			DEAD_SOLDIER_IMAGE_PATH = PATH + SPRITE_PATH + "dead-soldier.gif"
-			DEAD_SOLDIER_IMAGE = TkPhotoImage.new(:file => DEAD_SOLDIER_IMAGE_PATH)
-			
-			WALL_IMAGE_PATH = PATH + SPRITE_PATH + "wall2.gif"
-			WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
-			
-			EXPLO_IMAGE_PATH = PATH + SPRITE_PATH + "explosion.gif"
-			EXPLO_IMAGE = TkPhotoImage.new(:file => EXPLO_IMAGE_PATH)
+	START_LEVEL_PATH = File.join(LEVEL_PATH, "island0.csv")
+	RED_CHAR_PATH = File.join(CHARS_PATH, "red-soldiers.csv")
+	BLUE_CHAR_PATH = File.join(CHARS_PATH, "blue-soldiers.csv")
+	
+	SAND_IMAGE_PATH = File.join(SPRITE_PATH, "sand2.gif")
+	SAND_IMAGE = TkPhotoImage.new(:file => SAND_IMAGE_PATH)
+	
+	B_SOLDIER_IMAGE_PATH = File.join(SPRITE_PATH, "blue-soldier2.gif")
+	B_SOLDIER_IMAGE = TkPhotoImage.new(:file => B_SOLDIER_IMAGE_PATH)
+	
+	R_SOLDIER_IMAGE_PATH = File.join(SPRITE_PATH, "red-soldier2.gif")
+	R_SOLDIER_IMAGE = TkPhotoImage.new(:file => R_SOLDIER_IMAGE_PATH)
+
+	DEAD_SOLDIER_IMAGE_PATH = File.join(SPRITE_PATH, "dead-soldier.gif")
+	DEAD_SOLDIER_IMAGE = TkPhotoImage.new(:file => DEAD_SOLDIER_IMAGE_PATH)
+	
+	WALL_IMAGE_PATH = File.join(SPRITE_PATH, "wall2.gif")
+	WALL_IMAGE = TkPhotoImage.new(:file => WALL_IMAGE_PATH)
+	
+	EXPLO_IMAGE_PATH = File.join(SPRITE_PATH, "explosion.gif")
+	EXPLO_IMAGE = TkPhotoImage.new(:file => EXPLO_IMAGE_PATH)
 end

@@ -1,4 +1,4 @@
-require_relative '../Components/InputComponent'
+require 'engine/Components/InputComponent'
 #Parent class to all trait classes. Trait classes contain attritubes such as weight and a TkImage. When a player moves
 #he selects a Trait class as currentTile and one for targetTile; they switch places, simulating movement
 

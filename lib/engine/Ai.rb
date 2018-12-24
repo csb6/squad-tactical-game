@@ -1,6 +1,6 @@
-require_relative 'util/FieldUtils'
-require_relative 'util/PathFind'
-require_relative 'util/GraphMath'
+require 'engine/util/FieldUtils'
+require 'engine/util/PathFind'
+require 'engine/util/GraphMath'
 
 class Ai
     def initialize(field, selectionManager)

@@ -1,11 +1,12 @@
 require 'tk'
 require 'csv'
+$LOAD_PATH << "./lib"
 # require 'time'
-require_relative 'lib/engine/SelectionManager'
-require_relative 'lib/engine/Field/Field'
-require_relative 'lib/ui/menus'
-require_relative 'lib/engine/Game'
-require_relative 'lib/engine/Ai'
+require 'engine/SelectionManager'
+require 'engine/Field/Field'
+require 'ui/menus'
+require 'engine/Game'
+require 'engine/Ai'
 
 #Main file, containing ui loop, as well as the selection singleton and gameField frame
 

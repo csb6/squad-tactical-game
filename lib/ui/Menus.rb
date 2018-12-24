@@ -1,5 +1,5 @@
-require 'tk'
-require_relative '../engine/util/Constants'
+require 'engine/util/Constants'
+
 #File defining the various side panels/menus
 def drawUI(selectionManager)
 			topMenu = TkFrame.new(Constants::ROOT) { grid('row' => 0, 'column' => 0) }
