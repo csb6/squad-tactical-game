@@ -4,9 +4,9 @@ An XCOM-like, turn-based tactical game made in Ruby/Tk from a 2D, top-down persp
 The player controls a team of five blue soldiers, with the goal being to eliminate the enemy red soldiers by attacking them 
 several times.
 
-While I did not complete the enemy decision-making AI, I implemented the A* pathfinding algorithm, allowing players to 
-select a soldier, click on a destination and have a soldier find the best path there. This was fascinating to learn about 
-and implement.
+While I did not complete the enemy AI code, I implemented the A* pathfinding algorithm, allowing players to 
+select a soldier, click on a destination and have a soldier find the shortest path there around obstacles. This was 
+fascinating to learn about and I hope to make use of it in further projects.
 
 To play, make sure that you have recent versions of Ruby and Tk installed, navigate to the squad-tactical-game folder, 
 and run `ruby project-1.rb`
