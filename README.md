@@ -1,4 +1,9 @@
 # squad-tactical-game
+
+Demonstration Video:
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/vRx1T4qwkBg/0.jpg)](http://youtu.be/vRx1T4qwkBg "Video Title")
+
 An XCOM-like, turn-based tactical game made in Ruby/Tk from a 2D, top-down perspective.
 
 The player controls a team of five blue soldiers, with the goal being to eliminate the enemy red soldiers by attacking them 
